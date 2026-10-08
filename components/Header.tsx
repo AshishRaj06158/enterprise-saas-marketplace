@@ -12,7 +12,8 @@ import {
   Menu, 
   X, 
   ChevronRight,
-  ExternalLink
+  ExternalLink,
+  BarChart3
 } from "lucide-react";
 import NavCurrencyToggle from "./NavCurrencyToggle";
 import NavCommandPaletteTrigger from "./NavCommandPaletteTrigger";
@@ -32,6 +33,7 @@ export default function Header() {
 
   const navLinks = [
     { name: "Systems", href: "/systems", icon: Layers },
+    { name: "Compare", href: "/compare", icon: BarChart3 },
     { name: "Telemetry", href: "/#telemetry", icon: Terminal },
     { name: "Pipeline", href: "/#pipeline", icon: Zap },
     { name: "ERP", href: "/#erp", icon: Cpu },

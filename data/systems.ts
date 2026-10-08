@@ -19,6 +19,16 @@ export interface SystemProduct {
   imageAlt: string;
   specs: SystemSpec[];
   features: string[];
+
+  // Benchmark Metrics
+  runtime: string;
+  latency: string;
+  concurrency: string;
+  database: string;
+  owaspStatus: string;
+  throughputReqSec: number;
+  memoryFootprintMb: number;
+  reflectionCycleMs: number;
 }
 
 export const systemsData: SystemProduct[] = [
@@ -36,6 +46,14 @@ export const systemsData: SystemProduct[] = [
     priceUsd: "$349",
     imageSrc: "/slide-2-telemetry-matrix.png",
     imageAlt: "Nexus Telemetry Matrix - ₹114.2 Cr GMV & 12ms Latency Dashboard",
+    runtime: "Vercel Edge / Node.js 20+",
+    latency: "< 12ms P99",
+    concurrency: "150,000 Ops/sec",
+    database: "Supabase Postgres RLS + Connection Pooler",
+    owaspStatus: "100% OWASP Top 10 Hardened (SOC2 Type II)",
+    throughputReqSec: 28500,
+    memoryFootprintMb: 36,
+    reflectionCycleMs: 12,
     specs: [
       { label: "Database", value: "Supabase Postgres (Sub-12ms P99 Indexing)" },
       { label: "Auth & Security", value: "Postgres Row Level Security (RLS) + JWT" },
@@ -65,6 +83,14 @@ export const systemsData: SystemProduct[] = [
     priceUsd: "$599",
     imageSrc: "/slide-4-erp-operations.png",
     imageAlt: "Quantum Logistics & Fleet ERP - Thermal Warehouse & GST Compliance",
+    runtime: "AWS ECS Cluster / Docker Swarm",
+    latency: "< 35ms P99",
+    concurrency: "85,000 Ops/sec",
+    database: "Postgres Spatial Index + Thermal Telemetry Store",
+    owaspStatus: "RBAC + ISO-27001 Certified Audit",
+    throughputReqSec: 16200,
+    memoryFootprintMb: 64,
+    reflectionCycleMs: 35,
     specs: [
       { label: "Database", value: "Postgres Multi-Tenant Schema + Spatial Index" },
       { label: "Auth & Security", value: "RBAC (Admin, Depot Manager, Driver Role)" },
@@ -94,6 +120,14 @@ export const systemsData: SystemProduct[] = [
     priceUsd: "$449",
     imageSrc: "/slide-3-deal-pipeline.png",
     imageAlt: "Autonomous CRM & Revenue Engine - 4.8x Deal Velocity Pipeline",
+    runtime: "Serverless Edge Functions (Node.js/Bun)",
+    latency: "< 18ms P99",
+    concurrency: "110,000 Ops/sec",
+    database: "Supabase Realtime Event Log + Secret Vault",
+    owaspStatus: "AES-256 Secret Vault & CSRF Honeypot",
+    throughputReqSec: 22400,
+    memoryFootprintMb: 42,
+    reflectionCycleMs: 18,
     specs: [
       { label: "Database", value: "Supabase Postgres Realtime Event Log" },
       { label: "Auth & Security", value: "AES-256 Secret Vault & CSRF Honeypot" },
@@ -123,6 +157,14 @@ export const systemsData: SystemProduct[] = [
     priceUsd: "$199",
     imageSrc: "/slide-1-hero-tablet.png",
     imageAlt: "Project Omega Enterprise Platform - Zero-Config Fullstack SaaS",
+    runtime: "Zero-Config Vercel / Docker Container",
+    latency: "< 22ms P99",
+    concurrency: "95,000 Ops/sec",
+    database: "Supabase Postgres RLS + Native Payment Webhooks",
+    owaspStatus: "OAuth 2.0 / Magic Link & RLS Policies",
+    throughputReqSec: 19800,
+    memoryFootprintMb: 38,
+    reflectionCycleMs: 22,
     specs: [
       { label: "Database", value: "Supabase Postgres with RLS Security Policies" },
       { label: "Auth & Security", value: "OAuth 2.0, Magic Link & Passwordless MFA" },
@@ -152,6 +194,14 @@ export const systemsData: SystemProduct[] = [
     priceUsd: "$299",
     imageSrc: "/slide-5-deployment-cubes.png",
     imageAlt: "Sentinel Unified Auth & Identity Hub - Zero-Trust Identity Provider",
+    runtime: "Multi-Region Edge Nodes / Kubernetes Cluster",
+    latency: "< 8ms P99",
+    concurrency: "320,000 Ops/sec",
+    database: "Encrypted Supabase Vault & Redis Leaky-Bucket",
+    owaspStatus: "FIDO2 WebAuthn & OWASP Top 10 Vault",
+    throughputReqSec: 34000,
+    memoryFootprintMb: 28,
+    reflectionCycleMs: 8,
     specs: [
       { label: "Database", value: "Encrypted Supabase Vault & Redis Cache" },
       { label: "Auth & Security", value: "OAuth2 / OIDC, SAML 2.0 SSO & FIDO2 WebAuthn" },
@@ -181,6 +231,14 @@ export const systemsData: SystemProduct[] = [
     priceUsd: "$249",
     imageSrc: "/slide-5-deployment-cubes.png",
     imageAlt: "Nexus Autonomous Agent Orchestrator - Self-healing multi-agent pipelines",
+    runtime: "Vercel Edge / Node.js 20+ Runtime",
+    latency: "< 24ms Tool Latency",
+    concurrency: "140,000 Ops/sec",
+    database: "Upstash Redis Vector & Session Store",
+    owaspStatus: "Prompt-Injection Firewall & Scoped Token Rotator",
+    throughputReqSec: 24100,
+    memoryFootprintMb: 52,
+    reflectionCycleMs: 24,
     specs: [
       { label: "Database", value: "Upstash Redis Vector & Session Store" },
       { label: "Auth & Security", value: "Scoped API Token & Key Rotation Guard" },

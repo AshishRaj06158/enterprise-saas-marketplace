@@ -15,7 +15,8 @@ import {
   Zap,
   X,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  BarChart3
 } from "lucide-react";
 import { useCurrency } from "@/context/CurrencyContext";
 import { getAllSystems } from "@/data/systems";
@@ -83,6 +84,17 @@ export default function CommandPalette() {
       icon: Layers,
       onSelect: () => {
         router.push("/systems");
+        setIsOpen(false);
+      },
+    },
+    {
+      id: "nav-compare",
+      title: "Compare Systems & Benchmark Matrix",
+      subtitle: "Side-by-side spec evaluation & empirical benchmarks",
+      category: "Navigation",
+      icon: BarChart3,
+      onSelect: () => {
+        router.push("/compare");
         setIsOpen(false);
       },
     },
