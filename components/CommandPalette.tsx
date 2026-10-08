@@ -17,7 +17,8 @@ import {
   Sparkles,
   ArrowRight,
   BarChart3,
-  Sliders
+  Sliders,
+  Activity
 } from "lucide-react";
 import { useCurrency } from "@/context/CurrencyContext";
 import { getAllSystems } from "@/data/systems";
@@ -107,6 +108,17 @@ export default function CommandPalette() {
       icon: Sliders,
       onSelect: () => {
         router.push("/deploy-config");
+        setIsOpen(false);
+      },
+    },
+    {
+      id: "nav-operations",
+      title: "Check Operational Health & System Status",
+      subtitle: "Real-time edge node telemetry & incident audit logs",
+      category: "Navigation",
+      icon: Activity,
+      onSelect: () => {
+        router.push("/operations");
         setIsOpen(false);
       },
     },

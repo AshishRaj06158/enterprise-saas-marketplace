@@ -87,7 +87,7 @@ export default function RootLayout({
                 <Link href="/deploy-config" className="hover:text-slate-100 transition-colors">Deploy Config</Link>
                 <Link href="/systems/telemetry-matrix" className="hover:text-slate-100 transition-colors">Telemetry</Link>
                 <Link href="/systems/autonomous-crm-pipeline" className="hover:text-slate-100 transition-colors">Pipelines</Link>
-                <Link href="/systems/quantum-logistics-erp" className="hover:text-slate-100 transition-colors">Operations</Link>
+                <Link href="/operations" className="hover:text-slate-100 transition-colors">Operations</Link>
                 <Link href="/pricing" className="hover:text-slate-100 transition-colors">Licensing</Link>
               </nav>
 

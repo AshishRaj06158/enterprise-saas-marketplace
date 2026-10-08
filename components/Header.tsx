@@ -14,7 +14,8 @@ import {
   ChevronRight,
   ExternalLink,
   BarChart3,
-  Sliders
+  Sliders,
+  Activity
 } from "lucide-react";
 import NavCurrencyToggle from "./NavCurrencyToggle";
 import NavCommandPaletteTrigger from "./NavCommandPaletteTrigger";
@@ -36,9 +37,9 @@ export default function Header() {
     { name: "Systems", href: "/systems", icon: Layers },
     { name: "Compare", href: "/compare", icon: BarChart3 },
     { name: "Deploy Config", href: "/deploy-config", icon: Sliders },
+    { name: "Operations", href: "/operations", icon: Activity },
     { name: "Telemetry", href: "/#telemetry", icon: Terminal },
     { name: "Pipeline", href: "/#pipeline", icon: Zap },
-    { name: "ERP", href: "/#erp", icon: Cpu },
     { name: "Pricing", href: "/pricing", icon: ShieldCheck },
     { name: "Verify SLA", href: "/verify", icon: ShieldCheck },
     { name: "Demos", href: "/demos" },
