@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Layers, CheckCircle2, ArrowRight, ExternalLink, Cpu } from "lucide-react";
 import DynamicSystemPreview from "@/components/DynamicSystemPreview";
+import SystemDetailActions from "@/components/SystemDetailActions";
 import { getAllSystems, getSystemBySlug } from "@/data/systems";
 
 export function generateStaticParams() {
@@ -132,22 +133,7 @@ export default async function SystemDetailPage({ params }: { params: Promise<{ s
               <div className="text-2xl font-bold text-white font-mono-tabular">{sys.priceInr} <span className="text-sm font-normal text-slate-400">({sys.priceUsd})</span></div>
             </div>
 
-            <div className="flex items-center space-x-4">
-              <Link
-                href="/demos"
-                className="px-5 py-3 rounded-xl text-xs font-semibold text-[#00F0FF] bg-[#07090E] border border-[#00F0FF]/30 hover:bg-[#00F0FF]/10 transition-colors flex items-center space-x-2"
-              >
-                <span>Live Staging Sandbox</span>
-                <ExternalLink className="w-4 h-4" />
-              </Link>
-              <Link
-                href={`/#contact?system=${sys.id}`}
-                className="px-6 py-3 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)] flex items-center space-x-2"
-              >
-                <span>Acquire License</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+            <SystemDetailActions sys={sys} />
           </div>
         </div>
 

@@ -27,7 +27,24 @@ export default function DynamicSystemPreview({ category, slug }: { category: str
 
       {/* Category / Slug Specific Visual Content */}
       <div className="relative z-10 my-auto py-2">
-        {slug.includes('sentinel') ? (
+        {slug.includes('agent') || category === 'AI Agents' ? (
+          <div className="space-y-1.5 font-mono text-[10px]">
+            <div className="flex justify-between bg-[#0D111A] px-2.5 py-1 rounded border border-[#00F0FF]/40 text-slate-300">
+              <span className="text-[#00F0FF]">AGENTIC_WORKFLOW_PIPELINE</span>
+              <span className="text-emerald-400 flex items-center space-x-1">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+                </span>
+                <span>MCP DISPATCH &lt; 24ms</span>
+              </span>
+            </div>
+            <div className="flex justify-between bg-[#0D111A] px-2.5 py-1 rounded border border-[#1A2234] text-slate-400">
+              <span>SELF_HEAL_REFLECTION_LOOP</span>
+              <span className="text-[#8B5CF6]">99.9% GUARDRAIL DEFENSE</span>
+            </div>
+          </div>
+        ) : slug.includes('sentinel') ? (
           <div className="space-y-1.5 font-mono text-[10px]">
             <div className="flex justify-between bg-[#0D111A] px-2.5 py-1 rounded border border-[#8B5CF6]/40 text-slate-300">
               <span className="text-[#8B5CF6]">ZERO_TRUST_IDENTITY_VAULT</span>

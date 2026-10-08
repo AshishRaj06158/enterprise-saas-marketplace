@@ -1,0 +1,56 @@
+# Agentic System Rules & Engineering Conventions
+
+You are an autonomous AI coding assistant working on the **Sutra / Nexus Enterprise Marketplace** codebase. Follow these production rules strictly.
+
+---
+
+## 1. Stack & Architecture Rules
+
+### Framework & Type Safety
+- **Framework**: Next.js 15 (App Router only).
+- **TypeScript**: Strict mode enabled. No `any` types permitted under any circumstances.
+- **Routing**: Utilize App Router file conventions (`app/page.tsx`, `app/[slug]/page.tsx`, `app/layout.tsx`, `app/api/...`).
+
+### Component Architecture
+- **React Server Components (RSC)**: Default to RSC for all pages and layout components for maximum performance and SEO.
+- **Client Components**: Add `'use client';` directive ONLY when handling interactive browser state/hooks (`useState`, `useEffect`, `useSearchParams`, `usePathname`, event listeners, or animation libraries like `framer-motion`).
+
+### Styling & Theme Rules
+- **Color Palette**: Strictly adhere to the cybernetic dark mode theme:
+  - Dark Canvas: `#07090E`
+  - Card & Container BG: `#0D111A` (with `backdrop-blur-md` glassmorphism)
+  - Neon Cyan Accent: `#00F0FF`
+  - Purple Accent: `#8B5CF6`
+  - Border Highlights: `border-[#00F0FF]/30`, `border-[#1A2234]`
+- **Design Tokens**: Glassmorphism cards (`backdrop-blur-md`), ambient radial glow orbs, subtle scanlines, and glow drop-shadows (`shadow-[0_0_20px_rgba(0,240,255,0.3)]`).
+
+---
+
+## 2. Autonomous Self-Healing & Verification Workflow
+
+### Automated Build & Lint Verification
+- **Post-Edit Check**: After modifying any component, data schema, or page route, immediately execute `npm run build` in the terminal to verify zero static generation or type checking errors.
+- **Self-Healing**: If a build error occurs, read the log traceback immediately, identify the root cause, and apply a surgical fix without swallowing exceptions or deleting tests.
+
+### Repository Hygiene
+- **Ignored Artifacts**: NEVER track `node_modules`, `.next`, `.env*.local`, or temporary build outputs in Git. Always confirm `.gitignore` integrity.
+
+---
+
+## 3. Code Hygiene & Standards
+
+### Type Safety & Validation
+- **Explicit Interfaces**: Declare named TypeScript interfaces or types for all data structures, component props, and API payloads.
+- **Zod Validation**: Use `zod` for validating user form inputs, query parameters, API request bodies, and external payloads.
+
+### Accessibility & Iconography
+- **Icons**: Use `lucide-react` icons exclusively.
+- **Accessibility**: Provide explicit `aria-label` or semantic text descriptions for interactive icon buttons and custom UI elements.
+
+---
+
+## 4. Enterprise Product Data Model
+
+When extending `data/systems.ts`:
+- Ensure any new category is declared in `SystemProduct['category']` union type (e.g. `'Dashboards' | 'ERP' | 'CRM' | 'Websites' | 'AI Agents'`).
+- Populate all required fields: `id`, `slug`, `name`, `tagline`, `badge`, `category`, `description`, `stack`, `metrics`, `priceInr`, `priceUsd`, `imageSrc`, `imageAlt`, `specs`, and `features`.

@@ -9,7 +9,7 @@ export interface SystemProduct {
   name: string;
   tagline: string;
   badge: string;
-  category: 'Dashboards' | 'ERP' | 'CRM' | 'Websites';
+  category: 'Dashboards' | 'ERP' | 'CRM' | 'Websites' | 'AI Agents';
   description: string;
   stack: string[];
   metrics: string;
@@ -165,6 +165,35 @@ export const systemsData: SystemProduct[] = [
       "Hardware security key support (FIDO2 / WebAuthn)",
       "Honeypot anti-bot defense & Redis rate-limiting",
       "Granular session revocation & audit trail logging"
+    ]
+  },
+  {
+    id: "nexus-agent-orchestrator",
+    slug: "nexus-agent-orchestrator",
+    name: "Nexus Autonomous Agent Orchestrator",
+    tagline: "Self-healing multi-agent pipelines, deterministic tool execution, and prompt-injection firewalls.",
+    badge: "AGENTIC WORKFLOW CORE",
+    category: "AI Agents",
+    description: "Enterprise-grade autonomous workflow engine providing structured agent definitions, stateful memory persistence, and Model Context Protocol (MCP) integrations without recurring SaaS markup.",
+    stack: ["Next.js 15", "TypeScript", "LangChain / Vercel AI SDK", "Redis Vector", "Zod"],
+    metrics: "< 24ms Tool Latency • 4.2x Context Comp • 99.9% Guardrail Defense",
+    priceInr: "₹19,999",
+    priceUsd: "$249",
+    imageSrc: "/slide-5-deployment-cubes.png",
+    imageAlt: "Nexus Autonomous Agent Orchestrator - Self-healing multi-agent pipelines",
+    specs: [
+      { label: "Database", value: "Upstash Redis Vector & Session Store" },
+      { label: "Auth & Security", value: "Scoped API Token & Key Rotation Guard" },
+      { label: "Hosting & Infra", value: "Vercel Edge / Node.js 20+ Runtime" },
+      { label: "Compliance & Audits", value: "OWASP Top 10 for LLM Applications verified" },
+      { label: "Tool Dispatch Latency", value: "< 24ms" },
+      { label: "Context Compression", value: "4.2x" }
+    ],
+    features: [
+      "Autonomous multi-turn tool calling and reflection loops",
+      "Self-healing fallback routes on LLM schema mismatch",
+      "Real-time streaming agent trace visualizer with telemetry logs",
+      "Built-in sandbox container isolation for executable code"
     ]
   }
 ];

@@ -1,0 +1,364 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  X,
+  Terminal,
+  Activity,
+  Code2,
+  Copy,
+  Check,
+  Cpu,
+  Zap,
+  ShieldCheck,
+  RefreshCw,
+  HardDrive,
+  Server
+} from "lucide-react";
+
+interface TelemetryModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  systemName: string;
+  systemSlug: string;
+  stack?: string[];
+  specs?: { label: string; value: string }[];
+}
+
+export default function TelemetryModal({
+  isOpen,
+  onClose,
+  systemName,
+  systemSlug,
+  stack = [],
+  specs = []
+}: TelemetryModalProps) {
+  const [activeTab, setActiveTab] = useState<"logs" | "metrics" | "payload">("logs");
+  const [copied, setCopied] = useState(false);
+
+  // Simulated live typewriter log entries
+  const [logLines, setLogLines] = useState<string[]>([]);
+  const [isStreaming, setIsStreaming] = useState(true);
+
+  const initialLogs = [
+    `[SYS_INIT] Loading docker sandbox container for ${systemSlug}.internal...`,
+    `[NET_BOUND] Edge router node attached (us-east-1, P99 < 14ms)...`,
+    `[AUTH_GUARD] Validated JWT Scoped Bearer Token & AES-256 vault secret...`,
+    `[DISPATCH] Executing tool call: SQL Sandbox (<18ms response)...`,
+    `[SEC] OWASP Top 10 LLM Guardrail check: PASSED (99.9% Defense)...`,
+    `[MCP_SYNC] Model Context Protocol schema validated via Zod...`,
+    `[STREAM_CHUNK] Streaming event payload chunk #0041 to client socket...`,
+    `[OK] Pipeline reflection loop cycle completed cleanly.`
+  ];
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    setLogLines([initialLogs[0], initialLogs[1]]);
+    let currentIdx = 2;
+    setIsStreaming(true);
+
+    const interval = setInterval(() => {
+      if (currentIdx < initialLogs.length) {
+        const nextLog = initialLogs[currentIdx];
+        setLogLines((prev) => [...prev, nextLog]);
+        currentIdx++;
+      } else {
+        setIsStreaming(false);
+        clearInterval(interval);
+      }
+    }, 450);
+
+    return () => clearInterval(interval);
+  }, [isOpen, systemSlug]);
+
+  const handleCopyJson = () => {
+    const payload = JSON.stringify(
+      {
+        system: systemName,
+        slug: systemSlug,
+        environment: "production-docker-sandbox-v4.2",
+        status: "ONLINE",
+        telemetry: {
+          latencyP99Ms: 18,
+          cpuUsagePercent: 14.2,
+          memoryMb: 210,
+          uptimePercent: 99.99,
+          activeNodes: 1420
+        },
+        stack: stack,
+        specifications: specs
+      },
+      null,
+      2
+    );
+
+    navigator.clipboard.writeText(payload);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const rawPayload = JSON.stringify(
+    {
+      request: {
+        action: "EXECUTE_AGENT_PIPELINE",
+        systemSlug: systemSlug,
+        traceId: `tr-${Math.random().toString(36).substring(2, 10)}`,
+        timestamp: new Date().toISOString(),
+        guardrails: {
+          promptFirewall: "ACTIVE",
+          maxContextTokens: 128000
+        }
+      },
+      response: {
+        status: 200,
+        statusText: "OK",
+        latency: "18ms",
+        agentReflection: {
+          stepsEvaluated: 3,
+          toolDispatches: ["sql_vector_query", "redis_session_store"],
+          guardrailResult: "CLEAR"
+        }
+      }
+    },
+    null,
+    2
+  );
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+          {/* Backdrop Blur */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/80 backdrop-blur-md"
+          />
+
+          {/* Modal Container */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="relative w-full max-w-3xl rounded-2xl bg-[#07090E]/95 border border-[#00F0FF]/40 p-6 sm:p-8 shadow-[0_0_50px_rgba(0,240,255,0.25)] text-slate-100 z-10 overflow-hidden"
+          >
+            {/* Cyber Scanline Micro-Animation */}
+            <div className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none opacity-60 z-20" />
+
+            {/* Modal Header */}
+            <div className="flex items-center justify-between border-b border-[#1A2234] pb-4 mb-6 relative z-10">
+              <div className="space-y-1">
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs font-mono-tabular uppercase text-[#00F0FF] px-2.5 py-0.5 rounded bg-[#00F0FF]/10 border border-[#00F0FF]/30 flex items-center space-x-1.5">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00F0FF] opacity-75" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#00F0FF]" />
+                    </span>
+                    <span>ONLINE // DOCKER SANDBOX 4.2</span>
+                  </span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+                  <span>{systemName}</span>
+                </h2>
+              </div>
+
+              {/* Close Button */}
+              <button
+                onClick={onClose}
+                className="p-2 rounded-xl bg-[#0D111A] border border-[#1A2234] text-slate-400 hover:text-white hover:border-[#00F0FF]/50 transition-colors"
+                aria-label="Close Telemetry Modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Telemetry Tabs */}
+            <div className="flex items-center space-x-2 border-b border-[#1A2234] mb-6 overflow-x-auto pb-2">
+              <button
+                onClick={() => setActiveTab("logs")}
+                className={`px-4 py-2 rounded-xl text-xs font-mono-tabular transition-all flex items-center space-x-2 ${
+                  activeTab === "logs"
+                    ? "bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/40 shadow-sm"
+                    : "text-slate-400 hover:text-white hover:bg-[#0D111A]"
+                }`}
+              >
+                <Terminal className="w-3.5 h-3.5" />
+                <span>Live Agent Logs</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab("metrics")}
+                className={`px-4 py-2 rounded-xl text-xs font-mono-tabular transition-all flex items-center space-x-2 ${
+                  activeTab === "metrics"
+                    ? "bg-[#8B5CF6]/10 text-[#8B5CF6] border border-[#8B5CF6]/40 shadow-sm"
+                    : "text-slate-400 hover:text-white hover:bg-[#0D111A]"
+                }`}
+              >
+                <Activity className="w-3.5 h-3.5" />
+                <span>System Metrics</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab("payload")}
+                className={`px-4 py-2 rounded-xl text-xs font-mono-tabular transition-all flex items-center space-x-2 ${
+                  activeTab === "payload"
+                    ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/40 shadow-sm"
+                    : "text-slate-400 hover:text-white hover:bg-[#0D111A]"
+                }`}
+              >
+                <Code2 className="w-3.5 h-3.5" />
+                <span>Raw API Payload</span>
+              </button>
+            </div>
+
+            {/* TAB CONTENT */}
+
+            {/* TAB 1: Live Agent Logs */}
+            {activeTab === "logs" && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-xs font-mono-tabular text-slate-400">
+                  <span className="flex items-center space-x-1.5">
+                    <Server className="w-3.5 h-3.5 text-[#00F0FF]" />
+                    <span>CONTAINER STREAM STREAMING TERMINAL</span>
+                  </span>
+                  {isStreaming ? (
+                    <span className="text-[#00F0FF] animate-pulse flex items-center space-x-1">
+                      <RefreshCw className="w-3 h-3 animate-spin" />
+                      <span>Streaming Logs...</span>
+                    </span>
+                  ) : (
+                    <span className="text-emerald-400">● STREAM READY</span>
+                  )}
+                </div>
+
+                <div className="h-64 bg-[#05070B] border border-[#1A2234] rounded-xl p-4 font-mono text-xs text-slate-300 overflow-y-auto space-y-2 shadow-inner">
+                  {logLines.map((line, idx) => (
+                    <div key={idx} className="flex items-start space-x-2">
+                      <span className="text-slate-600 select-none">&gt;</span>
+                      <span
+                        className={
+                          line.includes("[SEC]")
+                            ? "text-emerald-400 font-semibold"
+                            : line.includes("[DISPATCH]")
+                            ? "text-[#00F0FF]"
+                            : line.includes("[MCP_SYNC]")
+                            ? "text-[#8B5CF6]"
+                            : "text-slate-300"
+                        }
+                      >
+                        {line}
+                      </span>
+                    </div>
+                  ))}
+                  {isStreaming && (
+                    <div className="flex items-center space-x-1 text-[#00F0FF]">
+                      <span className="inline-block w-2 h-4 bg-[#00F0FF] animate-pulse" />
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* TAB 2: System Metrics */}
+            {activeTab === "metrics" && (
+              <div className="space-y-6">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div className="p-3.5 rounded-xl bg-[#0D111A] border border-[#1A2234] space-y-1">
+                    <div className="text-[10px] text-slate-400 font-mono-tabular">P99 LATENCY</div>
+                    <div className="text-xl font-bold text-[#00F0FF] font-mono-tabular">&lt; 18ms</div>
+                    <div className="text-[9px] text-emerald-400 font-mono-tabular">Edge Verified</div>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-[#0D111A] border border-[#1A2234] space-y-1">
+                    <div className="text-[10px] text-slate-400 font-mono-tabular">CPU USAGE</div>
+                    <div className="text-xl font-bold text-white font-mono-tabular">14.2%</div>
+                    <div className="text-[9px] text-slate-400 font-mono-tabular">Container Pool</div>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-[#0D111A] border border-[#1A2234] space-y-1">
+                    <div className="text-[10px] text-slate-400 font-mono-tabular">MEMORY ALLOC</div>
+                    <div className="text-xl font-bold text-[#8B5CF6] font-mono-tabular">210 MB</div>
+                    <div className="text-[9px] text-slate-400 font-mono-tabular">V8 Heap Stable</div>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-[#0D111A] border border-[#1A2234] space-y-1">
+                    <div className="text-[10px] text-slate-400 font-mono-tabular">CLUSTER UPTIME</div>
+                    <div className="text-xl font-bold text-emerald-400 font-mono-tabular">99.99%</div>
+                    <div className="text-[9px] text-emerald-400 font-mono-tabular">SLA Active</div>
+                  </div>
+                </div>
+
+                {/* Visual Performance Gauges */}
+                <div className="space-y-3 p-4 rounded-xl bg-[#0D111A] border border-[#1A2234] font-mono-tabular text-xs">
+                  <div className="flex justify-between text-slate-300">
+                    <span>Tool Dispatch Queue Efficiency</span>
+                    <span className="text-[#00F0FF] font-bold">98.4%</span>
+                  </div>
+                  <div className="w-full bg-[#07090E] h-2 rounded-full overflow-hidden border border-[#1A2234]">
+                    <div className="bg-[#00F0FF] h-full w-[98.4%]" />
+                  </div>
+
+                  <div className="flex justify-between text-slate-300 pt-2">
+                    <span>LLM Schema Self-Healing Coverage</span>
+                    <span className="text-[#8B5CF6] font-bold">100%</span>
+                  </div>
+                  <div className="w-full bg-[#07090E] h-2 rounded-full overflow-hidden border border-[#1A2234]">
+                    <div className="bg-[#8B5CF6] h-full w-[100%]" />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 3: Raw API Payload */}
+            {activeTab === "payload" && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-xs font-mono-tabular">
+                  <span className="text-slate-400">JSON REQUEST / RESPONSE FORMAT</span>
+                  <button
+                    onClick={handleCopyJson}
+                    className="px-3 py-1 rounded bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/30 hover:bg-[#00F0FF]/20 transition-colors flex items-center space-x-1.5"
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <span className="text-emerald-400">Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span>Copy JSON</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                <div className="h-64 bg-[#05070B] border border-[#1A2234] rounded-xl p-4 font-mono text-xs text-[#00F0FF] overflow-y-auto">
+                  <pre>{rawPayload}</pre>
+                </div>
+              </div>
+            )}
+
+            {/* Modal Footer */}
+            <div className="mt-6 pt-4 border-t border-[#1A2234] flex items-center justify-between text-xs font-mono-tabular text-slate-500">
+              <span className="flex items-center space-x-1 text-slate-400">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                <span>Audited Sandbox Telemetry</span>
+              </span>
+              <button
+                onClick={onClose}
+                className="px-4 py-2 rounded-xl bg-[#1A2234] text-white hover:bg-[#00F0FF] hover:text-black transition-colors"
+              >
+                Close Window
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+}
