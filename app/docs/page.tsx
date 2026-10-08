@@ -92,6 +92,15 @@ export default function DocsPage() {
                 <div className="text-emerald-400">POST /api/webhooks/razorpay</div>
                 <div className="text-slate-400">Headers: x-razorpay-signature</div>
               </div>
+              <div className="pt-2">
+                <Link
+                  href="/developer"
+                  className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-[#00F0FF]/10 border border-[#00F0FF]/40 text-[#00F0FF] hover:bg-[#00F0FF]/20 transition-colors font-mono-tabular text-xs font-bold"
+                >
+                  <span>Test your keys in Developer Console ➔</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
             </section>
 
             {/* Section 4: Security */}

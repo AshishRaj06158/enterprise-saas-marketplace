@@ -20,7 +20,8 @@ import {
   Sliders,
   Activity,
   Key,
-  GitCommit
+  GitCommit,
+  Code2
 } from "lucide-react";
 import { useCurrency } from "@/context/CurrencyContext";
 import { getAllSystems } from "@/data/systems";
@@ -80,6 +81,17 @@ export default function CommandPalette() {
   // Define available command palette actions
   const allActions: ActionItem[] = [
     // Navigation
+    {
+      id: "nav-developer",
+      title: "Open Developer Console & Webhooks",
+      subtitle: "Manage API access tokens, configure webhooks & test HTTP payloads",
+      category: "Navigation",
+      icon: Code2,
+      onSelect: () => {
+        router.push("/developer");
+        setIsOpen(false);
+      },
+    },
     {
       id: "nav-changelog",
       title: "View Platform Changelog & Release Notes",
