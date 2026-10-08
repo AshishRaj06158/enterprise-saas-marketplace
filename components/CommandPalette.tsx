@@ -16,7 +16,8 @@ import {
   X,
   Sparkles,
   ArrowRight,
-  BarChart3
+  BarChart3,
+  Sliders
 } from "lucide-react";
 import { useCurrency } from "@/context/CurrencyContext";
 import { getAllSystems } from "@/data/systems";
@@ -95,6 +96,17 @@ export default function CommandPalette() {
       icon: BarChart3,
       onSelect: () => {
         router.push("/compare");
+        setIsOpen(false);
+      },
+    },
+    {
+      id: "nav-deploy-config",
+      title: "Generate Deploy Config & Environment Blueprint",
+      subtitle: "Build docker-compose, .env.production & GitHub Actions",
+      category: "Navigation",
+      icon: Sliders,
+      onSelect: () => {
+        router.push("/deploy-config");
         setIsOpen(false);
       },
     },

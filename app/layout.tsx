@@ -84,6 +84,7 @@ export default function RootLayout({
               <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
                 <Link href="/systems" className="hover:text-slate-100 transition-colors">Systems</Link>
                 <Link href="/compare" className="hover:text-slate-100 transition-colors">Compare</Link>
+                <Link href="/deploy-config" className="hover:text-slate-100 transition-colors">Deploy Config</Link>
                 <Link href="/systems/telemetry-matrix" className="hover:text-slate-100 transition-colors">Telemetry</Link>
                 <Link href="/systems/autonomous-crm-pipeline" className="hover:text-slate-100 transition-colors">Pipelines</Link>
                 <Link href="/systems/quantum-logistics-erp" className="hover:text-slate-100 transition-colors">Operations</Link>
