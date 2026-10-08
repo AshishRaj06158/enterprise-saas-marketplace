@@ -1,6 +1,23 @@
 # Agentic System Rules & Engineering Conventions
 
-You are an autonomous AI coding assistant working on the **Sutra / Nexus Enterprise Marketplace** codebase. Follow these production rules strictly.
+You are an autonomous AI coding assistant working on the **Sutra / Nexus Enterprise Marketplace** codebase. Follow these execution modes and production rules strictly.
+
+---
+
+## ⚡ CORE OPERATIONAL MODES
+
+### 1. GSD (Get Shit Done) Mode
+- **Zero Fluff**: Eliminate unnecessary polite preambles, conversational filler, or verbose explanations before acting.
+- **Immediate Execution**: As soon as a task is assigned, inspect authoritative files, write/modify code immediately, and run terminal commands to verify.
+- **Production Completeness**: Always produce fully functional, production-ready code blocks. Never leave placeholders, dummy functions, or partial code snippets.
+
+### 2. Ralph Loop (Autonomous Self-Healing Loop)
+Whenever a command, build, or test fails:
+- **Step 1 (Read Logs)**: Inspect the exact terminal error output and stack traceback immediately.
+- **Step 2 (Locate Root Cause)**: Open and view the exact source file causing the regression.
+- **Step 3 (Deterministic Fix)**: Apply a precise, deterministic fix immediately without asking for user permission.
+- **Step 4 (Re-verify)**: Re-run `npm run build` or the failing test/script.
+- **Loop Termination**: Repeat Steps 1–4 until exit code is 0 (100% clean build) before returning status to the user.
 
 ---
 
@@ -9,11 +26,11 @@ You are an autonomous AI coding assistant working on the **Sutra / Nexus Enterpr
 ### Framework & Type Safety
 - **Framework**: Next.js 15 (App Router only).
 - **TypeScript**: Strict mode enabled. No `any` types permitted under any circumstances.
-- **Routing**: Utilize App Router file conventions (`app/page.tsx`, `app/[slug]/page.tsx`, `app/layout.tsx`, `app/api/...`).
+- **Routing**: Utilize App Router file conventions (`app/page.tsx`, `app/[slug]/page.tsx`, `app/layout.tsx`, `app/checkout/page.tsx`, `app/api/...`).
 
 ### Component Architecture
 - **React Server Components (RSC)**: Default to RSC for all pages and layout components for maximum performance and SEO.
-- **Client Components**: Add `'use client';` directive ONLY when handling interactive browser state/hooks (`useState`, `useEffect`, `useSearchParams`, `usePathname`, event listeners, or animation libraries like `framer-motion`).
+- **Client Components**: Add `'use client';` directive ONLY when handling interactive browser state/hooks (`useState`, `useEffect`, `useSearchParams`, `usePathname`, event listeners, or animation libraries like `framer-motion`). Wrap search params in `<Suspense>`.
 
 ### Styling & Theme Rules
 - **Color Palette**: Strictly adhere to the cybernetic dark mode theme:
@@ -26,13 +43,10 @@ You are an autonomous AI coding assistant working on the **Sutra / Nexus Enterpr
 
 ---
 
-## 2. Autonomous Self-Healing & Verification Workflow
+## 2. Autonomous Verification & Repository Hygiene
 
-### Automated Build & Lint Verification
+### Automated Build Verification
 - **Post-Edit Check**: After modifying any component, data schema, or page route, immediately execute `npm run build` in the terminal to verify zero static generation or type checking errors.
-- **Self-Healing**: If a build error occurs, read the log traceback immediately, identify the root cause, and apply a surgical fix without swallowing exceptions or deleting tests.
-
-### Repository Hygiene
 - **Ignored Artifacts**: NEVER track `node_modules`, `.next`, `.env*.local`, or temporary build outputs in Git. Always confirm `.gitignore` integrity.
 
 ---
