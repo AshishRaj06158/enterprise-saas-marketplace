@@ -22,7 +22,8 @@ import {
   RefreshCw,
   ExternalLink,
   ChevronLeft,
-  FileText
+  FileText,
+  Printer
 } from "lucide-react";
 import { getSystemBySlug, getAllSystems, SystemProduct } from "@/data/systems";
 import { useCurrency } from "@/context/CurrencyContext";
@@ -284,6 +285,15 @@ Repository Access Granted:
                 <Download className="w-4 h-4" />
                 <span>Download Source Package (.zip)</span>
               </button>
+
+              {/* GST Tax Invoice Link Button */}
+              <Link
+                href="/invoice/INV-2026-NEXUS-8841"
+                className="p-4 rounded-xl bg-[#07090E] border border-[#00F0FF]/40 text-[#00F0FF] hover:bg-[#00F0FF]/10 font-bold text-xs flex items-center justify-center space-x-2 transition-all sm:col-span-2 min-h-[44px]"
+              >
+                <Printer className="w-4 h-4" />
+                <span>View &amp; Print Statutory GST B2B Tax Invoice ➔</span>
+              </Link>
             </div>
 
             {/* License Details Summary */}

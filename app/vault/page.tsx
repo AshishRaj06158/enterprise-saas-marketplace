@@ -422,13 +422,13 @@ Tax Status: PAID (18% GST Credit Eligible)
                       </span>
                     </button>
 
-                    <button
-                      onClick={() => handleDownloadInvoice(lic)}
-                      className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-[#94A3B8] bg-[#07090E] border border-[#1A2234] hover:text-white hover:border-[#1A2234] transition-all flex items-center justify-center space-x-2 cursor-pointer min-h-[44px]"
+                    <Link
+                      href={`/invoice/${lic.invoiceId}`}
+                      className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-[#00F0FF] bg-[#07090E] border border-[#00F0FF]/30 hover:bg-[#00F0FF]/10 transition-all flex items-center justify-center space-x-2 cursor-pointer min-h-[44px]"
                     >
                       <FileText className="w-4 h-4 text-[#00F0FF]" />
-                      <span>Download GST Tax Invoice</span>
-                    </button>
+                      <span>View &amp; Print GST Tax Invoice</span>
+                    </Link>
                   </div>
                 </div>
               </div>
