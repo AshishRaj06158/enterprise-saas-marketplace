@@ -18,7 +18,8 @@ import {
   Activity,
   Key,
   GitCommit,
-  Code2
+  Code2,
+  Calculator
 } from "lucide-react";
 import NavCurrencyToggle from "./NavCurrencyToggle";
 import NavCommandPaletteTrigger from "./NavCommandPaletteTrigger";
@@ -39,6 +40,7 @@ export default function Header() {
   const navLinks = [
     { name: "Systems", href: "/systems", icon: Layers },
     { name: "Vault", href: "/vault", icon: Key },
+    { name: "ROI Calc", href: "/calculator", icon: Calculator },
     { name: "Developer", href: "/developer", icon: Code2 },
     { name: "Changelog", href: "/changelog", icon: GitCommit },
     { name: "Compare", href: "/compare", icon: BarChart3 },

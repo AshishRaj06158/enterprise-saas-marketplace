@@ -21,7 +21,8 @@ import {
   Activity,
   Key,
   GitCommit,
-  Code2
+  Code2,
+  Calculator
 } from "lucide-react";
 import { useCurrency } from "@/context/CurrencyContext";
 import { getAllSystems } from "@/data/systems";
@@ -81,6 +82,17 @@ export default function CommandPalette() {
   // Define available command palette actions
   const allActions: ActionItem[] = [
     // Navigation
+    {
+      id: "nav-calculator",
+      title: "Calculate Engineering ROI & Savings",
+      subtitle: "Simulate team burn rate vs instant perpetual deployment savings",
+      category: "Navigation",
+      icon: Calculator,
+      onSelect: () => {
+        router.push("/calculator");
+        setIsOpen(false);
+      },
+    },
     {
       id: "nav-developer",
       title: "Open Developer Console & Webhooks",
