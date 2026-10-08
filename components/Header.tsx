@@ -15,6 +15,7 @@ import {
   ExternalLink
 } from "lucide-react";
 import NavCurrencyToggle from "./NavCurrencyToggle";
+import NavCommandPaletteTrigger from "./NavCommandPaletteTrigger";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -93,6 +94,7 @@ export default function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-3">
+            <NavCommandPaletteTrigger />
             <NavCurrencyToggle />
             <Link
               href="/demos"

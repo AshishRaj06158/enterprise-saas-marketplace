@@ -7,6 +7,8 @@ import Footer from '@/components/Footer';
 import MatrixBackground from '@/components/MatrixBackground';
 import { CurrencyProvider } from '@/context/CurrencyContext';
 import NavCurrencyToggle from '@/components/NavCurrencyToggle';
+import CommandPalette from '@/components/CommandPalette';
+import NavCommandPaletteTrigger from '@/components/NavCommandPaletteTrigger';
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -88,6 +90,7 @@ export default function RootLayout({
               </nav>
 
               <div className="flex items-center gap-3">
+                <NavCommandPaletteTrigger />
                 <NavCurrencyToggle />
 
                 <Link
@@ -110,6 +113,7 @@ export default function RootLayout({
           <main className="flex-grow">{children}</main>
 
           <Footer />
+          <CommandPalette />
         </CurrencyProvider>
       </body>
     </html>
