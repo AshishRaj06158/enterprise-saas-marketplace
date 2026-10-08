@@ -39,7 +39,7 @@ export default function Header() {
     { name: "Deploy Config", href: "/deploy-config", icon: Sliders },
     { name: "Operations", href: "/operations", icon: Activity },
     { name: "Telemetry", href: "/#telemetry", icon: Terminal },
-    { name: "Pipeline", href: "/#pipeline", icon: Zap },
+    { name: "Pipelines", href: "/pipelines", icon: Zap },
     { name: "Pricing", href: "/pricing", icon: ShieldCheck },
     { name: "Verify SLA", href: "/verify", icon: ShieldCheck },
     { name: "Demos", href: "/demos" },

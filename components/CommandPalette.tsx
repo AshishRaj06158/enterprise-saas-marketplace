@@ -112,6 +112,17 @@ export default function CommandPalette() {
       },
     },
     {
+      id: "nav-pipelines",
+      title: "View Pipeline Topology & Agent Flow",
+      subtitle: "Interactive step-through visualizer & execution log stream",
+      category: "Navigation",
+      icon: Zap,
+      onSelect: () => {
+        router.push("/pipelines");
+        setIsOpen(false);
+      },
+    },
+    {
       id: "nav-operations",
       title: "Check Operational Health & System Status",
       subtitle: "Real-time edge node telemetry & incident audit logs",
