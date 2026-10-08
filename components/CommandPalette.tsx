@@ -80,6 +80,17 @@ export default function CommandPalette() {
   const allActions: ActionItem[] = [
     // Navigation
     {
+      id: "nav-playground",
+      title: "Launch Live Component Playground",
+      subtitle: "Interactive in-browser canvas, server code & payload inspector",
+      category: "Navigation",
+      icon: Terminal,
+      onSelect: () => {
+        router.push("/playground");
+        setIsOpen(false);
+      },
+    },
+    {
       id: "nav-vault",
       title: "Open Customer License Vault & Asset Hub",
       subtitle: "Manage entitled production keys, source bundles & GitHub access",

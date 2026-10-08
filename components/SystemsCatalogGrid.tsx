@@ -188,18 +188,18 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
                   </div>
 
                   <div className="flex items-center space-x-2.5 w-full sm:w-auto">
-                    <button
-                      onClick={() => setSelectedSystem(sys)}
-                      className="px-3 py-2 rounded-xl text-xs font-mono-tabular text-[#00F0FF] bg-[#07090E] border border-[#00F0FF]/40 hover:bg-[#00F0FF]/10 transition-colors flex items-center space-x-1.5 cursor-pointer"
-                      title="Test Sandbox & Live Telemetry"
+                    <Link
+                      href={"/playground?system=" + sys.slug}
+                      className="px-3 py-2 rounded-xl text-xs font-mono-tabular text-[#00F0FF] bg-[#07090E] border border-[#00F0FF]/40 hover:bg-[#00F0FF]/10 transition-colors flex items-center space-x-1.5 cursor-pointer min-h-[44px]"
+                      title="Test Live Sandbox Playground"
                     >
                       <Terminal className="w-3.5 h-3.5" />
-                      <span>Sandbox</span>
-                    </button>
+                      <span>Sandbox ⚡</span>
+                    </Link>
 
                     <Link
                       href={"/checkout?system=" + sys.slug}
-                      className="px-4 py-2 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)] flex items-center space-x-1.5"
+                      className="px-4 py-2 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)] flex items-center space-x-1.5 min-h-[44px]"
                     >
                       <span>Acquire</span>
                       <ArrowRight className="w-3.5 h-3.5" />

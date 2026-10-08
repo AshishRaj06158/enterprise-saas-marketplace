@@ -53,6 +53,7 @@ export default function Footer() {
           <div className="space-y-3">
             <h3 className="text-xs font-mono-tabular text-white uppercase tracking-wider">Platform & Architecture</h3>
             <ul className="space-y-2 text-xs">
+              <li><Link href="/playground" className="hover:text-[#00F0FF] transition-colors text-[#00F0FF] font-semibold">Live Sandbox Playground ⚡</Link></li>
               <li><Link href="/systems" className="hover:text-[#00F0FF] transition-colors">Full Systems Catalog</Link></li>
               <li><Link href="/compare" className="hover:text-[#00F0FF] transition-colors">Compare & Benchmark Matrix</Link></li>
               <li><Link href="/deploy-config" className="hover:text-[#00F0FF] transition-colors">Deploy Config Generator</Link></li>

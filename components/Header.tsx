@@ -103,11 +103,14 @@ export default function Header() {
             <NavCommandPaletteTrigger />
             <NavCurrencyToggle />
             <Link
-              href="/demos"
-              className="px-3.5 py-2 text-xs font-semibold text-[#94A3B8] hover:text-[#00F0FF] transition-colors flex items-center space-x-1 min-h-[44px]"
+              href="/playground"
+              className="px-3 py-1.5 rounded-full text-xs font-bold text-[#00F0FF] bg-[#00F0FF]/10 border border-[#00F0FF]/40 hover:bg-[#00F0FF]/20 transition-all flex items-center space-x-1.5 shadow-[0_0_15px_rgba(0,240,255,0.25)] min-h-[36px]"
             >
-              <span>Sandbox</span>
-              <ExternalLink className="w-3 h-3" />
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00F0FF] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00F0FF]" />
+              </span>
+              <span>⚡ Sandbox</span>
             </Link>
             <Link
               href="/systems"

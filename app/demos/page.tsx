@@ -82,6 +82,16 @@ export default function DemosPage() {
           <p className="text-base text-[#94A3B8] leading-relaxed">
             Test real-time UPI QR payment flows, observe live P99 telemetry latency bursts, and trigger autonomous CRM lead routing pipelines before acquiring source code.
           </p>
+
+          <div className="pt-2 flex justify-center">
+            <a
+              href="/playground"
+              className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] text-black font-bold text-xs sm:text-sm hover:opacity-95 transition-all shadow-[0_0_25px_rgba(0,240,255,0.3)] inline-flex items-center space-x-2 min-h-[44px]"
+            >
+              <Cpu className="w-4 h-4 text-black" />
+              <span>Launch Full In-Browser Live Playground ⚡</span>
+            </a>
+          </div>
         </div>
 
         {/* 3 Interactive Sandbox Modules */}
