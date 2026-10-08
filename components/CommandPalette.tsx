@@ -79,6 +79,17 @@ export default function CommandPalette() {
   const allActions: ActionItem[] = [
     // Navigation
     {
+      id: "nav-home",
+      title: "Home / Enterprise Platform Overview",
+      subtitle: "Return to Sutra Nexus home landing page",
+      category: "Navigation",
+      icon: Cpu,
+      onSelect: () => {
+        router.push("/");
+        setIsOpen(false);
+      },
+    },
+    {
       id: "nav-systems",
       title: "View Full Systems Catalog",
       subtitle: "Browse all 6 production-ready software codebases",
@@ -86,6 +97,50 @@ export default function CommandPalette() {
       icon: Layers,
       onSelect: () => {
         router.push("/systems");
+        setIsOpen(false);
+      },
+    },
+    {
+      id: "nav-telemetry",
+      title: "Telemetry / Nexus Telemetry Matrix",
+      subtitle: "Executive observability matrix with sub-12ms query latency",
+      category: "Navigation",
+      icon: Terminal,
+      onSelect: () => {
+        router.push("/systems/telemetry-matrix");
+        setIsOpen(false);
+      },
+    },
+    {
+      id: "nav-crm",
+      title: "CRM / Autonomous CRM & Revenue Engine",
+      subtitle: "4.8x deal velocity pipeline & contract automation",
+      category: "Navigation",
+      icon: Zap,
+      onSelect: () => {
+        router.push("/systems/autonomous-crm-pipeline");
+        setIsOpen(false);
+      },
+    },
+    {
+      id: "nav-erp",
+      title: "ERP / Quantum Logistics & Operations",
+      subtitle: "Multi-depot thermal warehouse & live GPS fleet telemetry",
+      category: "Navigation",
+      icon: Activity,
+      onSelect: () => {
+        router.push("/systems/quantum-logistics-erp");
+        setIsOpen(false);
+      },
+    },
+    {
+      id: "nav-ai-agents",
+      title: "AI Agents / Nexus Agent Orchestrator",
+      subtitle: "Self-healing multi-agent pipelines & MCP tool execution",
+      category: "Navigation",
+      icon: Cpu,
+      onSelect: () => {
+        router.push("/systems/nexus-agent-orchestrator");
         setIsOpen(false);
       },
     },
@@ -141,6 +196,17 @@ export default function CommandPalette() {
       icon: ShieldCheck,
       onSelect: () => {
         router.push("/verify");
+        setIsOpen(false);
+      },
+    },
+    {
+      id: "nav-checkout",
+      title: "Checkout & Commercial Licensing Portal",
+      subtitle: "Acquire perpetual source code license & dispatch repository",
+      category: "Navigation",
+      icon: ShieldCheck,
+      onSelect: () => {
+        router.push("/checkout");
         setIsOpen(false);
       },
     },

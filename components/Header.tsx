@@ -38,7 +38,7 @@ export default function Header() {
     { name: "Compare", href: "/compare", icon: BarChart3 },
     { name: "Deploy Config", href: "/deploy-config", icon: Sliders },
     { name: "Operations", href: "/operations", icon: Activity },
-    { name: "Telemetry", href: "/#telemetry", icon: Terminal },
+    { name: "Telemetry", href: "/systems/telemetry-matrix", icon: Terminal },
     { name: "Pipelines", href: "/pipelines", icon: Zap },
     { name: "Pricing", href: "/pricing", icon: ShieldCheck },
     { name: "Verify SLA", href: "/verify", icon: ShieldCheck },
@@ -57,7 +57,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group">
+          <Link href="/" className="flex items-center space-x-3 group min-h-[44px]">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00F0FF] to-[#8B5CF6] p-[1px] transition-transform duration-300 group-hover:scale-105 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
               <div className="w-full h-full bg-[#0D111A] rounded-[11px] flex items-center justify-center">
                 <Cpu className="w-5 h-5 text-[#00F0FF] transition-colors group-hover:text-white" />
@@ -85,7 +85,7 @@ export default function Header() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 flex items-center space-x-1.5 ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 flex items-center space-x-1.5 min-h-[36px] ${
                     isActive
                       ? "text-white bg-[#1A2234] shadow-sm border border-[#00F0FF]/40 text-[#00F0FF]"
                       : "text-[#94A3B8] hover:text-white hover:bg-[#1A2234]/50"
@@ -103,14 +103,14 @@ export default function Header() {
             <NavCurrencyToggle />
             <Link
               href="/demos"
-              className="px-3.5 py-2 text-xs font-semibold text-[#94A3B8] hover:text-[#00F0FF] transition-colors flex items-center space-x-1"
+              className="px-3.5 py-2 text-xs font-semibold text-[#94A3B8] hover:text-[#00F0FF] transition-colors flex items-center space-x-1 min-h-[44px]"
             >
               <span>Sandbox</span>
               <ExternalLink className="w-3 h-3" />
             </Link>
             <Link
               href="/systems"
-              className="relative inline-flex items-center justify-center px-4.5 py-2 text-xs font-bold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] rounded-xl shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:shadow-[0_0_25px_rgba(0,240,255,0.5)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] group overflow-hidden"
+              className="relative inline-flex items-center justify-center px-4.5 py-2.5 text-xs font-bold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] rounded-xl shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:shadow-[0_0_25px_rgba(0,240,255,0.5)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] group overflow-hidden min-h-[44px]"
             >
               <span className="relative z-10 flex items-center space-x-1">
                 <span>Explore Catalog</span>
@@ -122,7 +122,7 @@ export default function Header() {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg bg-[#0D111A] border border-[#1A2234] text-[#94A3B8] hover:text-white"
+            className="md:hidden p-2.5 rounded-lg bg-[#0D111A] border border-[#1A2234] text-[#94A3B8] hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -137,30 +137,37 @@ export default function Header() {
             <span className="text-xs font-mono-tabular text-[#94A3B8]">Currency:</span>
             <NavCurrencyToggle />
           </div>
-          <div className="flex flex-col space-y-2">
+          <div className="flex flex-col space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-lg text-sm text-[#94A3B8] hover:text-white hover:bg-[#1A2234]"
+                className="px-3 py-3 rounded-lg text-sm text-[#94A3B8] hover:text-white hover:bg-[#1A2234] min-h-[44px] flex items-center"
               >
                 {link.name}
               </Link>
             ))}
+            <Link
+              href="/checkout"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-3 rounded-lg text-sm text-[#00F0FF] hover:bg-[#1A2234] min-h-[44px] flex items-center font-semibold"
+            >
+              Checkout & Licensing
+            </Link>
           </div>
           <div className="pt-3 border-t border-[#1A2234] flex flex-col space-y-2">
             <Link
               href="/demos"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2 text-sm text-[#00F0FF] border border-[#00F0FF]/30 rounded-lg"
+              className="w-full text-center py-3 text-sm text-[#00F0FF] border border-[#00F0FF]/30 rounded-lg min-h-[44px] flex items-center justify-center"
             >
               Live Sandbox Demos
             </Link>
             <Link
               href="/systems"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2 text-sm font-semibold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] rounded-lg"
+              className="w-full text-center py-3 text-sm font-semibold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] rounded-lg min-h-[44px] flex items-center justify-center"
             >
               Explore Systems Catalog
             </Link>

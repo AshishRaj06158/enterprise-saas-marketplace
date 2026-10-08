@@ -55,7 +55,7 @@ export default function DocsPage() {
               <p className="text-sm text-[#94A3B8] leading-relaxed">
                 All software stacks are built on Next.js 15 with React Server Components (RSC), TypeScript strict mode, and Tailwind CSS.
               </p>
-              <div className="p-4 rounded-xl bg-[#07090E] border border-[#1A2234] font-mono-tabular text-xs text-slate-300 space-y-1">
+              <div className="p-4 rounded-xl bg-[#07090E] border border-[#1A2234] font-mono-tabular text-xs text-slate-300 space-y-1 overflow-x-auto">
                 <div className="text-[#94A3B8]"># Install dependencies and start local dev server</div>
                 <div className="text-[#00F0FF]">npm install</div>
                 <div className="text-[#00F0FF]">npm run dev</div>
@@ -71,7 +71,7 @@ export default function DocsPage() {
               <p className="text-sm text-[#94A3B8] leading-relaxed">
                 Database migrations are located in <code className="text-[#00F0FF]">/supabase/migrations</code>. Every table includes strict RLS policies to prevent data leakage.
               </p>
-              <div className="p-4 rounded-xl bg-[#07090E] border border-[#1A2234] font-mono-tabular text-xs text-slate-300 space-y-1">
+              <div className="p-4 rounded-xl bg-[#07090E] border border-[#1A2234] font-mono-tabular text-xs text-slate-300 space-y-1 overflow-x-auto">
                 <div className="text-[#94A3B8]">-- Example RLS Policy for Customer Orders</div>
                 <div className="text-[#8B5CF6]">ALTER TABLE orders ENABLE ROW LEVEL SECURITY;</div>
                 <div className="text-slate-200">CREATE POLICY &quot;Users can view own orders&quot; ON orders FOR SELECT USING (auth.uid() = user_id);</div>
@@ -87,7 +87,7 @@ export default function DocsPage() {
               <p className="text-sm text-[#94A3B8] leading-relaxed">
                 Native UPI QR intent strings are rendered dynamically on the client while Razorpay webhook signatures are verified on serverless routes.
               </p>
-              <div className="p-4 rounded-xl bg-[#07090E] border border-[#1A2234] font-mono-tabular text-xs text-slate-300 space-y-1">
+              <div className="p-4 rounded-xl bg-[#07090E] border border-[#1A2234] font-mono-tabular text-xs text-slate-300 space-y-1 overflow-x-auto">
                 <div className="text-[#94A3B8]"># Webhook secret verification endpoint</div>
                 <div className="text-emerald-400">POST /api/webhooks/razorpay</div>
                 <div className="text-slate-400">Headers: x-razorpay-signature</div>
@@ -114,7 +114,7 @@ export default function DocsPage() {
               <p className="text-sm text-[#94A3B8] leading-relaxed">
                 Deploy with zero configuration to Vercel or build standalone OCI Docker containers for on-premise Kubernetes clusters.
               </p>
-              <div className="p-4 rounded-xl bg-[#07090E] border border-[#1A2234] font-mono-tabular text-xs text-slate-300 space-y-1">
+              <div className="p-4 rounded-xl bg-[#07090E] border border-[#1A2234] font-mono-tabular text-xs text-slate-300 space-y-1 overflow-x-auto">
                 <div className="text-[#94A3B8]"># Docker build & launch</div>
                 <div className="text-[#00F0FF]">docker build -t sutra-nexus-app .</div>
                 <div className="text-[#00F0FF]">docker run -p 3000:3000 sutra-nexus-app</div>

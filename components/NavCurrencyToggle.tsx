@@ -11,7 +11,7 @@ export default function NavCurrencyToggle() {
       <button
         type="button"
         onClick={() => setCurrency("INR")}
-        className={`px-2.5 py-1 rounded-lg transition-all font-bold cursor-pointer ${
+        className={`px-3 py-1.5 sm:py-2 rounded-lg transition-all font-bold cursor-pointer min-h-[44px] sm:min-h-[38px] flex items-center justify-center ${
           currency === "INR"
             ? "bg-[#00F0FF] text-black shadow-md"
             : "text-slate-400 hover:text-white"
@@ -23,7 +23,7 @@ export default function NavCurrencyToggle() {
       <button
         type="button"
         onClick={() => setCurrency("USD")}
-        className={`px-2.5 py-1 rounded-lg transition-all font-bold cursor-pointer ${
+        className={`px-3 py-1.5 sm:py-2 rounded-lg transition-all font-bold cursor-pointer min-h-[44px] sm:min-h-[38px] flex items-center justify-center ${
           currency === "USD"
             ? "bg-[#8B5CF6] text-white shadow-md"
             : "text-slate-400 hover:text-white"

@@ -378,7 +378,7 @@ export default function PipelineTopologyPage() {
             </span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#07090E] border border-[#1A2234] font-mono text-xs text-[#00F0FF] space-y-1.5 min-h-[140px] max-h-[220px] overflow-y-auto leading-relaxed">
+          <div className="p-4 rounded-2xl bg-[#07090E] border border-[#1A2234] font-mono text-xs text-[#00F0FF] space-y-1.5 min-h-[140px] max-h-[220px] overflow-y-auto overflow-x-auto leading-relaxed">
             {simulationLogs.length > 0 ? (
               simulationLogs.map((log, idx) => (
                 <div key={idx} className="flex items-start space-x-2">

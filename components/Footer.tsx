@@ -43,6 +43,7 @@ export default function Footer() {
               <li><Link href="/systems/telemetry-matrix" className="hover:text-[#00F0FF] transition-colors">Nexus Telemetry Matrix</Link></li>
               <li><Link href="/systems/quantum-logistics-erp" className="hover:text-[#00F0FF] transition-colors">Quantum Logistics ERP</Link></li>
               <li><Link href="/systems/autonomous-crm-pipeline" className="hover:text-[#00F0FF] transition-colors">Autonomous CRM Engine</Link></li>
+              <li><Link href="/systems/nexus-agent-orchestrator" className="hover:text-[#00F0FF] transition-colors">Nexus AI Agent Orchestrator</Link></li>
               <li><Link href="/systems/omega-core-starter" className="hover:text-[#00F0FF] transition-colors">Project Omega Platform</Link></li>
               <li><Link href="/systems/sentinel-auth-hub" className="hover:text-[#00F0FF] transition-colors">Sentinel Unified Auth</Link></li>
             </ul>
@@ -50,23 +51,25 @@ export default function Footer() {
 
           {/* Platform & Stack */}
           <div className="space-y-3">
-            <h3 className="text-xs font-mono-tabular text-white uppercase tracking-wider">Platform Stack</h3>
+            <h3 className="text-xs font-mono-tabular text-white uppercase tracking-wider">Platform & Architecture</h3>
             <ul className="space-y-2 text-xs">
-              <li><Link href="/docs#architecture" className="hover:text-[#00F0FF] transition-colors">Next.js 15 App Router</Link></li>
-              <li><Link href="/docs#security" className="hover:text-[#00F0FF] transition-colors">Supabase Postgres RLS</Link></li>
-              <li><Link href="/demos#payment" className="hover:text-[#00F0FF] transition-colors">Native UPI & Razorpay</Link></li>
-              <li><Link href="/docs#commercial" className="hover:text-[#00F0FF] transition-colors">Clean-Room IP Audit</Link></li>
+              <li><Link href="/systems" className="hover:text-[#00F0FF] transition-colors">Full Systems Catalog</Link></li>
+              <li><Link href="/compare" className="hover:text-[#00F0FF] transition-colors">Compare & Benchmark Matrix</Link></li>
+              <li><Link href="/deploy-config" className="hover:text-[#00F0FF] transition-colors">Deploy Config Generator</Link></li>
+              <li><Link href="/pipelines" className="hover:text-[#00F0FF] transition-colors">Architecture Pipelines</Link></li>
+              <li><Link href="/docs" className="hover:text-[#00F0FF] transition-colors">API & System Docs</Link></li>
             </ul>
           </div>
 
           {/* Legal & SLA */}
           <div className="space-y-3">
-            <h3 className="text-xs font-mono-tabular text-white uppercase tracking-wider">Legal & SLA</h3>
+            <h3 className="text-xs font-mono-tabular text-white uppercase tracking-wider">Licensing & Status</h3>
             <ul className="space-y-2 text-xs">
+              <li><Link href="/verify" className="hover:text-[#00F0FF] transition-colors">License Verification Portal</Link></li>
+              <li><Link href="/checkout" className="hover:text-[#00F0FF] transition-colors">Checkout & IP Acquisition</Link></li>
+              <li><Link href="/operations" className="hover:text-[#00F0FF] transition-colors">System Operational Status</Link></li>
               <li><Link href="/terms" className="hover:text-[#00F0FF] transition-colors">Commercial License Terms</Link></li>
-              <li><Link href="/terms#gst" className="hover:text-[#00F0FF] transition-colors">B2B GST Tax Invoicing</Link></li>
-              <li><Link href="/not-found" className="hover:text-[#00F0FF] transition-colors">Status Dashboard (404)</Link></li>
-              <li><Link href="/#contact" className="hover:text-[#00F0FF] transition-colors">Direct Architect SLA</Link></li>
+              <li><Link href="/privacy" className="hover:text-[#00F0FF] transition-colors">Privacy & Data Governance</Link></li>
             </ul>
           </div>
 
@@ -78,11 +81,13 @@ export default function Footer() {
             © {new Date().getFullYear()} SUTRA / NEXUS ENTERPRISE MARKETPLACE. All rights reserved.
           </div>
           <div className="flex items-center space-x-6 text-[#94A3B8]">
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <span>•</span>
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <span>•</span>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
             <span>•</span>
-            <Link href="/sitemap.xml" className="hover:text-white transition-colors">Sitemap</Link>
+            <Link href="/sitemap.ts" className="hover:text-white transition-colors">Sitemap</Link>
           </div>
         </div>
       </div>
