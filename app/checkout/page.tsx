@@ -312,20 +312,30 @@ Repository Access Granted:
             {/* Bottom Actions */}
             <div className="pt-4 border-t border-[#1A2234] flex flex-col sm:flex-row items-center justify-between gap-4">
               <Link
-                href={"/systems/" + selectedSystem.slug}
-                className="px-4 py-2.5 rounded-xl text-xs font-semibold text-[#00F0FF] bg-[#07090E] border border-[#00F0FF]/30 hover:bg-[#00F0FF]/10 transition-colors flex items-center space-x-1.5"
+                href="/vault"
+                className="w-full sm:w-auto px-5 py-3 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)] flex items-center justify-center space-x-2 min-h-[44px]"
               >
-                <span>View System Specifications</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <ShieldCheck className="w-4 h-4" />
+                <span>Access License in Customer Vault ➔</span>
               </Link>
 
-              <Link
-                href="/systems"
-                className="px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-[#1A2234] hover:bg-[#00F0FF] hover:text-black transition-all flex items-center space-x-2"
-              >
-                <span>Return to Catalog</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <div className="flex items-center space-x-3 w-full sm:w-auto justify-end">
+                <Link
+                  href={"/systems/" + selectedSystem.slug}
+                  className="px-4 py-2.5 rounded-xl text-xs font-semibold text-[#00F0FF] bg-[#07090E] border border-[#00F0FF]/30 hover:bg-[#00F0FF]/10 transition-colors flex items-center space-x-1.5 min-h-[44px]"
+                >
+                  <span>View Specifications</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </Link>
+
+                <Link
+                  href="/systems"
+                  className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#1A2234] hover:bg-[#00F0FF] hover:text-black transition-all flex items-center space-x-2 min-h-[44px]"
+                >
+                  <span>Catalog</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
           </div>
         ) : (

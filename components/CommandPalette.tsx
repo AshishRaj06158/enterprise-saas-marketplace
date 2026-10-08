@@ -18,7 +18,8 @@ import {
   ArrowRight,
   BarChart3,
   Sliders,
-  Activity
+  Activity,
+  Key
 } from "lucide-react";
 import { useCurrency } from "@/context/CurrencyContext";
 import { getAllSystems } from "@/data/systems";
@@ -78,6 +79,17 @@ export default function CommandPalette() {
   // Define available command palette actions
   const allActions: ActionItem[] = [
     // Navigation
+    {
+      id: "nav-vault",
+      title: "Open Customer License Vault & Asset Hub",
+      subtitle: "Manage entitled production keys, source bundles & GitHub access",
+      category: "Navigation",
+      icon: Key,
+      onSelect: () => {
+        router.push("/vault");
+        setIsOpen(false);
+      },
+    },
     {
       id: "nav-home",
       title: "Home / Enterprise Platform Overview",
