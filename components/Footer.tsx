@@ -67,6 +67,7 @@ export default function Footer() {
             <h3 className="text-xs font-mono-tabular text-white uppercase tracking-wider">Licensing & Status</h3>
             <ul className="space-y-2 text-xs">
               <li><Link href="/vault" className="hover:text-[#00F0FF] transition-colors text-[#00F0FF] font-semibold">Customer License Vault</Link></li>
+              <li><Link href="/changelog" className="hover:text-[#00F0FF] transition-colors text-[#00F0FF] font-semibold">Release Changelog v2.4</Link></li>
               <li><Link href="/verify" className="hover:text-[#00F0FF] transition-colors">License Verification Portal</Link></li>
               <li><Link href="/checkout" className="hover:text-[#00F0FF] transition-colors">Checkout & IP Acquisition</Link></li>
               <li><Link href="/operations" className="hover:text-[#00F0FF] transition-colors">System Operational Status</Link></li>

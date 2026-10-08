@@ -19,7 +19,8 @@ import {
   BarChart3,
   Sliders,
   Activity,
-  Key
+  Key,
+  GitCommit
 } from "lucide-react";
 import { useCurrency } from "@/context/CurrencyContext";
 import { getAllSystems } from "@/data/systems";
@@ -79,6 +80,17 @@ export default function CommandPalette() {
   // Define available command palette actions
   const allActions: ActionItem[] = [
     // Navigation
+    {
+      id: "nav-changelog",
+      title: "View Platform Changelog & Release Notes",
+      subtitle: "Version stream v2.4.0, zero-trust security patches & dependency matrix",
+      category: "Navigation",
+      icon: GitCommit,
+      onSelect: () => {
+        router.push("/changelog");
+        setIsOpen(false);
+      },
+    },
     {
       id: "nav-playground",
       title: "Launch Live Component Playground",
