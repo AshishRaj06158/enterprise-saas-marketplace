@@ -39,11 +39,7 @@ export default async function SystemDetailPage({ params }: { params: Promise<{ s
   }
 
   return (
-    <div className="pt-32 pb-24 bg-[#07090E] min-h-screen text-slate-100 relative overflow-hidden">
-      {/* Ambient Radial Glow Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#00F0FF]/12 blur-3xl pointer-events-none rounded-full animate-pulse-slow" />
-      <div className="absolute bottom-10 right-1/4 w-[500px] h-[300px] bg-[#8B5CF6]/12 blur-3xl pointer-events-none rounded-full animate-pulse-slow" style={{ animationDelay: "2.5s" }} />
-      <div className="absolute inset-0 bg-dot-matrix opacity-20 pointer-events-none" />
+    <div className="pt-32 pb-24 min-h-screen text-slate-100 relative overflow-hidden">
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
         

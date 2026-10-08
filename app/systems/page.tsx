@@ -18,11 +18,7 @@ export default function SystemsPage() {
   const catalogSystems = getAllSystems();
 
   return (
-    <div className="pt-32 pb-24 bg-[#07090E] min-h-screen relative overflow-hidden">
-      {/* Ambient Radial Glow Orbs */}
-      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 w-[600px] h-[350px] bg-[#00F0FF]/12 blur-3xl pointer-events-none rounded-full animate-pulse-slow" />
-      <div className="absolute bottom-1/3 right-1/4 translate-x-1/3 w-[550px] h-[350px] bg-[#8B5CF6]/12 blur-3xl pointer-events-none rounded-full animate-pulse-slow" style={{ animationDelay: "3s" }} />
-      <div className="absolute inset-0 bg-dot-matrix opacity-20 pointer-events-none" />
+    <div className="pt-32 pb-24 min-h-screen relative overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 relative z-10">
         

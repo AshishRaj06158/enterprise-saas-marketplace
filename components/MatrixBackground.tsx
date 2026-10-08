@@ -22,7 +22,7 @@ export default function MatrixBackground() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Matrix Telemetry Stream Characters
+    // Matrix Telemetry Stream Characters (Binary & Digital Stream)
     const chars = "010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101";
     const fontSize = 14;
     const columns = Math.floor(canvas.width / fontSize);
@@ -45,7 +45,11 @@ export default function MatrixBackground() {
 
         // Alternate head color (Electric Cyan) and body color (Neon Violet / Faded Slate)
         const isHead = Math.random() > 0.85;
-        ctx.fillStyle = isHead ? "#00F0FF" : Math.random() > 0.5 ? "#8B5CF6" : "rgba(148, 163, 184, 0.4)";
+        ctx.fillStyle = isHead
+          ? "#00F0FF"
+          : Math.random() > 0.5
+          ? "#8B5CF6"
+          : "rgba(148, 163, 184, 0.35)";
 
         // Render text
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
@@ -70,20 +74,29 @@ export default function MatrixBackground() {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-      {/* 1. Matrix Canvas Stream */}
+    <div
+      className="fixed inset-0 w-full h-full pointer-events-none -z-20 overflow-hidden"
+      aria-hidden="true"
+    >
+      {/* 1. Global Matrix Canvas Digital Stream Layer */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 opacity-25 transition-opacity duration-1000"
+        className="absolute inset-0 w-full h-full opacity-30 transition-opacity duration-1000"
       />
 
-      {/* 2. Cyber Dot Matrix Grid Overlay */}
-      <div className="absolute inset-0 bg-dot-matrix opacity-40" />
+      {/* 2. Global Cyber Dot Matrix Overlay */}
+      <div className="absolute inset-0 bg-dot-matrix opacity-30" />
 
-      {/* 3. Radial Glow Orbs */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#00F0FF]/15 rounded-full blur-3xl animate-pulse-slow" />
-      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-[#8B5CF6]/12 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: "2s" }} />
-      <div className="absolute bottom-10 left-1/4 w-[600px] h-[400px] bg-[#00F0FF]/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: "4s" }} />
+      {/* 3. Global Ambient Glow Orbs */}
+      <div className="absolute -top-32 -left-32 w-[600px] h-[600px] bg-[#00F0FF]/10 rounded-full blur-3xl animate-pulse-slow pointer-events-none" />
+      <div
+        className="absolute top-1/3 right-0 w-[650px] h-[650px] bg-[#8B5CF6]/10 rounded-full blur-3xl animate-pulse-slow pointer-events-none"
+        style={{ animationDelay: "2s" }}
+      />
+      <div
+        className="absolute bottom-10 left-1/4 w-[700px] h-[500px] bg-[#00F0FF]/08 rounded-full blur-3xl animate-pulse-slow pointer-events-none"
+        style={{ animationDelay: "4s" }}
+      />
     </div>
   );
 }
