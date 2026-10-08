@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Cpu, Terminal } from 'lucide-react';
 import Footer from '@/components/Footer';
 import MatrixBackground from '@/components/MatrixBackground';
+import { CurrencyProvider } from '@/context/CurrencyContext';
+import NavCurrencyToggle from '@/components/NavCurrencyToggle';
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -63,48 +65,52 @@ export default function RootLayout({
         suppressHydrationWarning
         className="bg-[#07090E] text-slate-200 antialiased font-sans selection:bg-[#00F0FF]/20 selection:text-[#00F0FF] min-h-screen flex flex-col justify-between relative"
       >
-        <MatrixBackground />
-        {/* Top Sticky Navigation */}
-        <header className="sticky top-0 z-50 w-full border-b border-[#1A2234] bg-[#07090E]/80 backdrop-blur-xl">
-          <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded border border-[#00F0FF]/40 bg-[#00F0FF]/10 flex items-center justify-center text-[#00F0FF] group-hover:border-[#00F0FF] transition-colors">
-                <Cpu className="w-4 h-4" />
+        <CurrencyProvider>
+          <MatrixBackground />
+          {/* Top Sticky Navigation */}
+          <header className="sticky top-0 z-50 w-full border-b border-[#1A2234] bg-[#07090E]/80 backdrop-blur-xl">
+            <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+              <Link href="/" className="flex items-center gap-2.5 group">
+                <div className="w-8 h-8 rounded border border-[#00F0FF]/40 bg-[#00F0FF]/10 flex items-center justify-center text-[#00F0FF] group-hover:border-[#00F0FF] transition-colors">
+                  <Cpu className="w-4 h-4" />
+                </div>
+                <span className="font-semibold tracking-wider text-sm font-mono text-slate-100">
+                  NEXUS<span className="text-[#00F0FF]">.OS</span>
+                </span>
+              </Link>
+
+              <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+                <Link href="/systems" className="hover:text-slate-100 transition-colors">Systems</Link>
+                <Link href="/systems/telemetry-matrix" className="hover:text-slate-100 transition-colors">Telemetry</Link>
+                <Link href="/systems/autonomous-crm-pipeline" className="hover:text-slate-100 transition-colors">Pipelines</Link>
+                <Link href="/systems/quantum-logistics-erp" className="hover:text-slate-100 transition-colors">Operations</Link>
+                <Link href="/pricing" className="hover:text-slate-100 transition-colors">Licensing</Link>
+              </nav>
+
+              <div className="flex items-center gap-3">
+                <NavCurrencyToggle />
+
+                <Link
+                  href="/docs"
+                  className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono text-slate-400 hover:text-slate-200"
+                >
+                  <Terminal className="w-3.5 h-3.5" />
+                  Docs
+                </Link>
+                <Link
+                  href="/systems"
+                  className="px-4 py-2 text-xs font-semibold rounded bg-slate-100 text-slate-950 hover:bg-white transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                >
+                  Explore Catalog
+                </Link>
               </div>
-              <span className="font-semibold tracking-wider text-sm font-mono text-slate-100">
-                NEXUS<span className="text-[#00F0FF]">.OS</span>
-              </span>
-            </Link>
-
-            <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
-              <Link href="/systems" className="hover:text-slate-100 transition-colors">Systems</Link>
-              <Link href="/systems/telemetry" className="hover:text-slate-100 transition-colors">Telemetry</Link>
-              <Link href="/systems/crm" className="hover:text-slate-100 transition-colors">Pipelines</Link>
-              <Link href="/systems/erp" className="hover:text-slate-100 transition-colors">Operations</Link>
-              <Link href="/pricing" className="hover:text-slate-100 transition-colors">Licensing</Link>
-            </nav>
-
-            <div className="flex items-center gap-4">
-              <Link
-                href="/docs"
-                className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono text-slate-400 hover:text-slate-200"
-              >
-                <Terminal className="w-3.5 h-3.5" />
-                Docs
-              </Link>
-              <Link
-                href="/systems"
-                className="px-4 py-2 text-xs font-semibold rounded bg-slate-100 text-slate-950 hover:bg-white transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)]"
-              >
-                Explore Catalog
-              </Link>
             </div>
-          </div>
-        </header>
+          </header>
 
-        <main className="flex-grow">{children}</main>
+          <main className="flex-grow">{children}</main>
 
-        <Footer />
+          <Footer />
+        </CurrencyProvider>
       </body>
     </html>
   );

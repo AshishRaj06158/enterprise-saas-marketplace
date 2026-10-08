@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Layers, CheckCircle2, ArrowRight, ExternalLink, Cpu } from "lucide-react";
 import DynamicSystemPreview from "@/components/DynamicSystemPreview";
 import SystemDetailActions from "@/components/SystemDetailActions";
+import SystemDetailPrice from "@/components/SystemDetailPrice";
 import { getAllSystems, getSystemBySlug } from "@/data/systems";
 
 export function generateStaticParams() {
@@ -124,10 +125,7 @@ export default async function SystemDetailPage({ params }: { params: Promise<{ s
 
           {/* Commercial Pricing & Checkout CTA */}
           <div className="pt-6 border-t border-[#1A2234] flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-              <div className="text-xs text-[#94A3B8] font-mono-tabular">COMMERCIAL TIER PRICE</div>
-              <div className="text-2xl font-bold text-white font-mono-tabular">{sys.priceInr} <span className="text-sm font-normal text-slate-400">({sys.priceUsd})</span></div>
-            </div>
+            <SystemDetailPrice priceInr={sys.priceInr} priceUsd={sys.priceUsd} />
 
             <SystemDetailActions sys={sys} />
           </div>

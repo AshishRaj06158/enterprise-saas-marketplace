@@ -11,6 +11,7 @@ import {
   ShieldCheck, 
   Lock
 } from "lucide-react";
+import { useCurrency } from "@/context/CurrencyContext";
 
 interface PricingTier {
   id: string;
@@ -80,7 +81,7 @@ const tiers: PricingTier[] = [
 ];
 
 export default function PricingSection() {
-  const [currency, setCurrency] = useState<"INR" | "USD">("INR");
+  const { currency, setCurrency } = useCurrency();
 
   return (
     <section id="pricing" className="py-24 bg-[#07090E] relative overflow-hidden">

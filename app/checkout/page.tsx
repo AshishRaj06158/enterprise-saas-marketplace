@@ -25,6 +25,7 @@ import {
   FileText
 } from "lucide-react";
 import { getSystemBySlug, getAllSystems, SystemProduct } from "@/data/systems";
+import { useCurrency } from "@/context/CurrencyContext";
 
 function CheckoutContent() {
   const searchParams = useSearchParams();
@@ -39,7 +40,7 @@ function CheckoutContent() {
     setSelectedSystem(sys);
   }, [systemSlug]);
 
-  const [currency, setCurrency] = useState<"INR" | "USD">("INR");
+  const { currency, setCurrency } = useCurrency();
   const [formData, setFormData] = useState({
     email: "",
     name: "",

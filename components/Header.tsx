@@ -14,6 +14,7 @@ import {
   ChevronRight,
   ExternalLink
 } from "lucide-react";
+import NavCurrencyToggle from "./NavCurrencyToggle";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -91,6 +92,7 @@ export default function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-3">
+            <NavCurrencyToggle />
             <Link
               href="/demos"
               className="px-3.5 py-2 text-xs font-semibold text-[#94A3B8] hover:text-[#00F0FF] transition-colors flex items-center space-x-1"
@@ -123,6 +125,10 @@ export default function Header() {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-[#0D111A] border-b border-[#1A2234] px-4 pt-3 pb-6 mt-3 space-y-3">
+          <div className="flex items-center justify-between pb-2 border-b border-[#1A2234]">
+            <span className="text-xs font-mono-tabular text-[#94A3B8]">Currency:</span>
+            <NavCurrencyToggle />
+          </div>
           <div className="flex flex-col space-y-2">
             {navLinks.map((link) => (
               <Link
