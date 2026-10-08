@@ -6,7 +6,7 @@ export async function POST(req: Request) {
     const { fullName, workEmail, company, systemRequested, requirements, budget } = body;
 
     // Log the inquiry explicitly for Vercel Runtime Logs
-    console.log('[ENTERPRISE LEAD SUBMITTED]:', JSON.stringify(body, null, 2));
+    console.log('[ENTERPRISE LEAD SUBMITTED]:', body);
 
     // Optional Resend Email Dispatch if RESEND_API_KEY is configured
     if (process.env.RESEND_API_KEY) {

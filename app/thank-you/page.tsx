@@ -70,7 +70,7 @@ function ThankYouContent() {
             className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-400 via-[#00F0FF] to-[#8B5CF6] text-black font-bold text-xs shadow-[0_0_30px_rgba(0,240,255,0.4)] hover:opacity-95 transition-all flex items-center justify-center space-x-2 group hover:-translate-y-0.5"
           >
             <MessageSquareText className="w-4 h-4 text-black" />
-            <span>Connect Directly via WhatsApp (Priority SLA) ➔</span>
+            <span>Chat on WhatsApp (+91 9771596801) ➔</span>
           </a>
           <p className="text-[10px] text-slate-500 font-mono-tabular mt-2">
             Target WhatsApp Channel: +91 9771596801 • Instant Response SLA
