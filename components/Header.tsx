@@ -35,6 +35,7 @@ export default function Header() {
     { name: "Pipeline", href: "/#pipeline", icon: Zap },
     { name: "ERP", href: "/#erp", icon: Cpu },
     { name: "Pricing", href: "/pricing", icon: ShieldCheck },
+    { name: "Verify SLA", href: "/verify", icon: ShieldCheck },
     { name: "Demos", href: "/demos" },
     { name: "Docs", href: "/docs" },
   ];
