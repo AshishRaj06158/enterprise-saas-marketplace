@@ -70,26 +70,26 @@ export default function DemosPage() {
         
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#00F0FF]/30 bg-[#00F0FF]/10 text-xs font-mono-tabular text-[#00F0FF]">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-none border-2 border-[#00F0FF] bg-[#00F0FF]/10 text-xs font-mono font-bold text-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]">
             <Zap className="w-3.5 h-3.5" />
-            <span>INTERACTIVE STAGING SANDBOX</span>
+            <span>[INTERACTIVE STAGING SANDBOX // SYSTEM_DEMOS]</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Live System Simulators & Staging Playgrounds
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight uppercase font-mono">
+            LIVE SYSTEM SIMULATORS &amp; STAGING PLAYGROUNDS
           </h1>
 
-          <p className="text-base text-[#94A3B8] leading-relaxed">
+          <p className="text-sm font-mono text-[#94A3B8] leading-relaxed">
             Test real-time UPI QR payment flows, observe live P99 telemetry latency bursts, and trigger autonomous CRM lead routing pipelines before acquiring source code.
           </p>
 
           <div className="pt-2 flex justify-center">
             <a
               href="/playground"
-              className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] text-black font-bold text-xs sm:text-sm hover:opacity-95 transition-all shadow-[0_0_25px_rgba(0,240,255,0.3)] inline-flex items-center space-x-2 min-h-[44px]"
+              className="px-6 py-3.5 rounded-none bg-[#00F0FF] hover:bg-white text-black font-mono font-black text-xs uppercase tracking-wider border-2 border-[#00F0FF] hover:border-white shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF] inline-flex items-center space-x-2 min-h-[44px] transition-all"
             >
               <Cpu className="w-4 h-4 text-black" />
-              <span>Launch Full In-Browser Live Playground ⚡</span>
+              <span>[LAUNCH FULL IN-BROWSER LIVE PLAYGROUND ⚡]</span>
             </a>
           </div>
         </div>
@@ -98,172 +98,172 @@ export default function DemosPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
           {/* Playground 1: Multi-Rail UPI & Razorpay Checkout Simulator */}
-          <div id="payment" className="lg:col-span-6 rounded-2xl bg-[#0D111A] border border-[#1A2234] p-6 shadow-2xl glow-border-cyan space-y-6">
-            <div className="flex items-center justify-between border-b border-[#1A2234] pb-4">
+          <div id="payment" className="lg:col-span-6 rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 shadow-[4px_4px_0px_0px_#1A2234] space-y-6">
+            <div className="flex items-center justify-between border-b-2 border-[#1A2234] pb-4">
               <div className="flex items-center space-x-2.5">
                 <CreditCard className="w-5 h-5 text-[#00F0FF]" />
-                <h3 className="font-bold text-white text-base">UPI Dynamic QR & GST Invoicing Sandbox</h3>
+                <h3 className="font-bold text-white text-sm uppercase font-mono">[UPI DYNAMIC QR &amp; GST INVOICING SANDBOX]</h3>
               </div>
-              <span className="text-[10px] font-mono-tabular px-2.5 py-1 rounded bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/30">
-                LIVE CHECKOUT
+              <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-none bg-[#00F0FF]/10 text-[#00F0FF] border-2 border-[#00F0FF]">
+                [LIVE CHECKOUT]
               </span>
             </div>
 
-            <div className="space-y-4 text-xs font-mono-tabular">
+            <div className="space-y-4 text-xs font-mono">
               <div>
-                <label className="text-[#94A3B8] block mb-1">TRANSACTION AMOUNT (INR):</label>
+                <label className="text-[#94A3B8] block mb-1 font-bold">[TRANSACTION AMOUNT (INR)]:</label>
                 <input
                   type="number"
                   value={upiAmount}
                   onChange={(e) => setUpiAmount(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#07090E] border border-[#1A2234] text-white text-sm focus:border-[#00F0FF] outline-none"
+                  className="w-full px-4 py-2.5 rounded-none bg-[#07090E] border-2 border-[#1A2234] text-white text-sm focus:border-[#00F0FF] outline-none font-mono"
                 />
               </div>
 
               {/* Dynamic QR Output Box */}
-              <div className="p-6 rounded-2xl bg-[#07090E] border border-[#1A2234] text-center space-y-4">
+              <div className="p-6 rounded-none bg-[#07090E] border-2 border-[#1A2234] text-center space-y-4">
                 {paymentStatus === "idle" && (
                   <div className="py-8 space-y-3">
                     <QrCode className="w-16 h-16 text-[#94A3B8] mx-auto opacity-50" />
-                    <p className="text-xs text-[#94A3B8]">Click generate to trigger simulated dynamic UPI QR & GST webhook</p>
+                    <p className="text-xs text-[#94A3B8]">Click generate to trigger simulated dynamic UPI QR &amp; GST webhook</p>
                   </div>
                 )}
 
                 {paymentStatus === "generating" && (
                   <div className="py-8 space-y-3">
                     <Loader2 className="w-10 h-10 text-[#00F0FF] animate-spin mx-auto" />
-                    <p className="text-xs text-[#00F0FF]">Generating Dynamic UPI QR String via Razorpay Webhook API...</p>
+                    <p className="text-xs text-[#00F0FF]">[Generating Dynamic UPI QR String via Razorpay API...]</p>
                   </div>
                 )}
 
                 {paymentStatus === "scanned" && (
                   <div className="py-8 space-y-3">
                     <RefreshCw className="w-10 h-10 text-[#8B5CF6] animate-spin mx-auto" />
-                    <p className="text-xs text-[#8B5CF6]">Payer Scanned UPI Intent • Waiting for NPCI Settlement Signal...</p>
+                    <p className="text-xs text-[#8B5CF6]">[Payer Scanned UPI Intent • Waiting for Settlement Signal...]</p>
                   </div>
                 )}
 
                 {paymentStatus === "success" && (
                   <div className="py-6 space-y-3">
-                    <div className="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500 text-emerald-400 flex items-center justify-center mx-auto">
+                    <div className="w-12 h-12 rounded-none bg-emerald-500/20 border-2 border-emerald-500 text-emerald-400 flex items-center justify-center mx-auto shadow-[2px_2px_0px_0px_#10B981]">
                       <Check className="w-6 h-6" />
                     </div>
-                    <div className="text-sm font-bold text-white">PAYMENT CONFIRMED: ₹{upiAmount}</div>
-                    <div className="text-xs text-emerald-400 font-mono-tabular">AUTOMATED GST INVOICE ISSUED: {gstInvoiceNumber}</div>
+                    <div className="text-sm font-bold text-white">[PAYMENT CONFIRMED: ₹{upiAmount}]</div>
+                    <div className="text-xs text-emerald-400 font-mono">[AUTOMATED GST INVOICE ISSUED: {gstInvoiceNumber}]</div>
                   </div>
                 )}
               </div>
 
               <button
                 onClick={handleSimulatePayment}
-                className="w-full py-3 rounded-xl font-bold text-xs text-black bg-[#00F0FF] hover:bg-[#00F0FF]/90 transition-all shadow-lg flex items-center justify-center space-x-2"
+                className="w-full py-3.5 rounded-none font-black text-xs uppercase tracking-wider font-mono text-black bg-[#00F0FF] hover:bg-white border-2 border-[#00F0FF] hover:border-white shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF] transition-all flex items-center justify-center space-x-2 min-h-[44px]"
               >
                 <Zap className="w-4 h-4" />
-                <span>Simulate UPI Payment Trigger</span>
+                <span>[SIMULATE UPI PAYMENT TRIGGER]</span>
               </button>
             </div>
           </div>
 
           {/* Playground 2: Telemetry Latency Stream */}
-          <div className="lg:col-span-6 rounded-2xl bg-[#0D111A] border border-[#1A2234] p-6 shadow-2xl glow-border-violet space-y-6">
-            <div className="flex items-center justify-between border-b border-[#1A2234] pb-4">
+          <div className="lg:col-span-6 rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 shadow-[4px_4px_0px_0px_#1A2234] space-y-6">
+            <div className="flex items-center justify-between border-b-2 border-[#1A2234] pb-4">
               <div className="flex items-center space-x-2.5">
                 <Terminal className="w-5 h-5 text-[#8B5CF6]" />
-                <h3 className="font-bold text-white text-base">P99 Postgres Latency Stream Sandbox</h3>
+                <h3 className="font-bold text-white text-sm uppercase font-mono">[P99 POSTGRES LATENCY STREAM SANDBOX]</h3>
               </div>
-              <span className="text-[10px] font-mono-tabular px-2.5 py-1 rounded bg-[#8B5CF6]/10 text-[#8B5CF6] border border-[#8B5CF6]/30">
-                REALTIME STREAM
+              <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-none bg-[#8B5CF6]/10 text-[#8B5CF6] border-2 border-[#8B5CF6]">
+                [REALTIME STREAM]
               </span>
             </div>
 
             <div className="space-y-4">
-              <div className="p-4 rounded-xl bg-[#07090E] border border-[#1A2234] space-y-3">
-                <div className="flex justify-between text-xs font-mono-tabular text-[#94A3B8]">
-                  <span>P99 QUERY EXECUTION SPECTRUM</span>
-                  <span className="text-emerald-400">9.4 ms AVG</span>
+              <div className="p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] space-y-3">
+                <div className="flex justify-between text-xs font-mono text-[#94A3B8]">
+                  <span className="font-bold">[P99 QUERY EXECUTION SPECTRUM]</span>
+                  <span className="text-emerald-400 font-bold">[9.4 ms AVG]</span>
                 </div>
 
                 <div className="h-28 flex items-end justify-between gap-2 pt-4">
                   {latencies.map((val, idx) => (
                     <div key={idx} className="w-full flex flex-col items-center gap-1">
-                      <span className="text-[9px] font-mono-tabular text-slate-400">{val}ms</span>
+                      <span className="text-[9px] font-mono text-slate-400">{val}ms</span>
                       <div
                         style={{ height: `${val * 6}%` }}
-                        className="w-full rounded-t bg-gradient-to-t from-[#8B5CF6] to-[#00F0FF] transition-all duration-300"
+                        className="w-full rounded-none bg-[#8B5CF6] border border-[#8B5CF6] transition-all duration-300"
                       />
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-[#07090E] border border-[#1A2234] text-xs font-mono-tabular text-slate-300 flex justify-between items-center">
+              <div className="p-3 rounded-none bg-[#07090E] border-2 border-[#1A2234] text-xs font-mono text-slate-300 flex justify-between items-center">
                 <span>Supabase Postgres Connection Pool:</span>
-                <span className="text-[#00F0FF] font-bold">120/120 Active (RLS Enforced)</span>
+                <span className="text-[#00F0FF] font-bold">[120/120 Active (RLS)]</span>
               </div>
 
               <button
                 onClick={handleInjectTelemetryPulse}
                 disabled={isInjecting}
-                className="w-full py-3 rounded-xl font-bold text-xs text-white bg-[#8B5CF6] hover:bg-[#8B5CF6]/90 transition-all shadow-lg flex items-center justify-center space-x-2 disabled:opacity-50"
+                className="w-full py-3.5 rounded-none font-black text-xs uppercase tracking-wider font-mono text-white bg-[#8B5CF6] hover:bg-white hover:text-black border-2 border-[#8B5CF6] hover:border-white shadow-[4px_4px_0px_0px_#8B5CF6] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#8B5CF6] transition-all flex items-center justify-center space-x-2 disabled:opacity-50 min-h-[44px]"
               >
                 <Activity className={`w-4 h-4 ${isInjecting ? "animate-spin" : ""}`} />
-                <span>Inject Query Load Pulse</span>
+                <span>[INJECT QUERY LOAD PULSE]</span>
               </button>
             </div>
           </div>
 
           {/* Playground 3: Autonomous CRM Lead Routing Pipeline */}
-          <div className="lg:col-span-12 rounded-2xl bg-[#0D111A] border border-[#1A2234] p-6 shadow-2xl glow-border-cyan space-y-6">
-            <div className="flex items-center justify-between border-b border-[#1A2234] pb-4">
+          <div className="lg:col-span-12 rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 shadow-[4px_4px_0px_0px_#1A2234] space-y-6">
+            <div className="flex items-center justify-between border-b-2 border-[#1A2234] pb-4">
               <div className="flex items-center space-x-2.5">
                 <Cpu className="w-5 h-5 text-[#00F0FF]" />
-                <h3 className="font-bold text-white text-base">DealFlow Autonomous Lead Routing Simulator</h3>
+                <h3 className="font-bold text-white text-sm uppercase font-mono">[DEALFLOW AUTONOMOUS LEAD ROUTING SIMULATOR]</h3>
               </div>
-              <span className="text-[10px] font-mono-tabular px-2.5 py-1 rounded bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/30">
-                1.2s AUTONOMOUS ROUTE
+              <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-none bg-[#00F0FF]/10 text-[#00F0FF] border-2 border-[#00F0FF]">
+                [1.2s AUTONOMOUS ROUTE]
               </span>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              <div className="lg:col-span-5 space-y-3 text-xs font-mono-tabular">
+              <div className="lg:col-span-5 space-y-3 text-xs font-mono">
                 <div>
-                  <label className="text-[#94A3B8] block mb-1">ENTERPRISE LEAD NAME:</label>
+                  <label className="text-[#94A3B8] block mb-1 font-bold">[ENTERPRISE LEAD NAME]:</label>
                   <input
                     type="text"
                     value={leadInput.name}
                     onChange={(e) => setLeadInput({ ...leadInput, name: e.target.value })}
-                    className="w-full px-3.5 py-2 rounded-xl bg-[#07090E] border border-[#1A2234] text-white text-xs outline-none focus:border-[#00F0FF]"
+                    className="w-full px-3.5 py-2 rounded-none bg-[#07090E] border-2 border-[#1A2234] text-white text-xs outline-none focus:border-[#00F0FF] font-mono"
                   />
                 </div>
                 <div>
-                  <label className="text-[#94A3B8] block mb-1">PROJECTED CONTRACT VALUE:</label>
+                  <label className="text-[#94A3B8] block mb-1 font-bold">[PROJECTED CONTRACT VALUE]:</label>
                   <input
                     type="text"
                     value={leadInput.value}
                     onChange={(e) => setLeadInput({ ...leadInput, value: e.target.value })}
-                    className="w-full px-3.5 py-2 rounded-xl bg-[#07090E] border border-[#1A2234] text-white text-xs outline-none focus:border-[#00F0FF]"
+                    className="w-full px-3.5 py-2 rounded-none bg-[#07090E] border-2 border-[#1A2234] text-white text-xs outline-none focus:border-[#00F0FF] font-mono"
                   />
                 </div>
 
                 <button
                   onClick={handleSimulateLeadRouting}
                   disabled={routingState === "routing"}
-                  className="w-full py-3 rounded-xl font-bold text-xs text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 transition-all shadow-md flex items-center justify-center space-x-2"
+                  className="w-full py-3.5 rounded-none font-black text-xs uppercase tracking-wider font-mono text-black bg-[#00F0FF] hover:bg-white border-2 border-[#00F0FF] hover:border-white shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF] transition-all flex items-center justify-center space-x-2 min-h-[44px]"
                 >
                   <Send className="w-4 h-4 text-black" />
-                  <span>Trigger Autonomous Lead Pipeline</span>
+                  <span>[TRIGGER AUTONOMOUS LEAD PIPELINE]</span>
                 </button>
               </div>
 
               {/* Terminal Log Window */}
-              <div className="lg:col-span-7 p-4 rounded-xl bg-[#07090E] border border-[#1A2234] font-mono-tabular text-xs space-y-2 text-slate-300 min-h-[180px]">
-                <div className="flex justify-between border-b border-[#1A2234] pb-2 text-[#94A3B8]">
-                  <span>AUTONOMOUS DEAL EXECUTION STREAM</span>
-                  <span className="text-[#00F0FF]">LATENCY: 1.2s</span>
+              <div className="lg:col-span-7 p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] font-mono text-xs space-y-2 text-slate-300 min-h-[180px]">
+                <div className="flex justify-between border-b-2 border-[#1A2234] pb-2 text-[#94A3B8]">
+                  <span className="font-bold">[AUTONOMOUS DEAL EXECUTION STREAM]</span>
+                  <span className="text-[#00F0FF] font-bold">[LATENCY: 1.2s]</span>
                 </div>
 
                 {routingLog.length === 0 ? (
-                  <div className="text-[#94A3B8] py-8 text-center">Click trigger to observe autonomous lead scoring & contract assembly...</div>
+                  <div className="text-[#94A3B8] py-8 text-center">[Click trigger to observe autonomous lead scoring &amp; contract assembly...]</div>
                 ) : (
                   routingLog.map((log, i) => (
                     <div key={i} className={i === routingLog.length - 1 ? "text-emerald-400 font-bold" : "text-slate-300"}>

@@ -145,24 +145,24 @@ export default function TelemetryModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="relative w-full max-w-3xl rounded-2xl bg-[#07090E]/95 border border-[#00F0FF]/40 p-6 sm:p-8 shadow-[0_0_50px_rgba(0,240,255,0.25)] text-slate-100 z-10 overflow-hidden"
+            className="relative w-full max-w-3xl rounded-none bg-[#07090E] border-2 border-[#00F0FF] p-6 sm:p-8 shadow-[8px_8px_0px_0px_#00F0FF] text-slate-100 z-10 overflow-hidden"
           >
             {/* Cyber Scanline Micro-Animation */}
             <div className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none opacity-60 z-20" />
 
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-[#1A2234] pb-4 mb-6 relative z-10">
+            <div className="flex items-center justify-between border-b-2 border-[#1A2234] pb-4 mb-6 relative z-10">
               <div className="space-y-1">
                 <div className="flex items-center space-x-2">
-                  <span className="text-xs font-mono-tabular uppercase text-[#00F0FF] px-2.5 py-0.5 rounded bg-[#00F0FF]/10 border border-[#00F0FF]/30 flex items-center space-x-1.5">
+                  <span className="text-xs font-mono uppercase text-[#00F0FF] px-2.5 py-0.5 rounded-none bg-[#00F0FF]/10 border-2 border-[#00F0FF] flex items-center space-x-1.5 font-bold shadow-[2px_2px_0px_0px_#00F0FF]">
                     <span className="relative flex h-1.5 w-1.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00F0FF] opacity-75" />
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#00F0FF]" />
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-none bg-[#00F0FF] opacity-75" />
+                      <span className="relative inline-flex rounded-none h-1.5 w-1.5 bg-[#00F0FF]" />
                     </span>
-                    <span>ONLINE // DOCKER SANDBOX 4.2</span>
+                    <span>[ONLINE // DOCKER SANDBOX 4.2]</span>
                   </span>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+                <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight uppercase flex items-center gap-2">
                   <span>{systemName}</span>
                 </h2>
               </div>
@@ -170,7 +170,7 @@ export default function TelemetryModal({
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="p-2 rounded-xl bg-[#0D111A] border border-[#1A2234] text-slate-400 hover:text-white hover:border-[#00F0FF]/50 transition-colors"
+                className="p-2 rounded-none bg-[#0D111A] border-2 border-[#1A2234] text-slate-400 hover:text-white hover:border-[#00F0FF] transition-all shadow-[2px_2px_0px_0px_#1A2234] active:translate-x-[1px] active:translate-y-[1px]"
                 aria-label="Close Telemetry Modal"
               >
                 <X className="w-5 h-5" />
@@ -178,41 +178,41 @@ export default function TelemetryModal({
             </div>
 
             {/* Telemetry Tabs */}
-            <div className="flex items-center space-x-2 border-b border-[#1A2234] mb-6 overflow-x-auto pb-2">
+            <div className="flex items-center space-x-2 border-b-2 border-[#1A2234] mb-6 overflow-x-auto pb-2">
               <button
                 onClick={() => setActiveTab("logs")}
-                className={`px-4 py-2 rounded-xl text-xs font-mono-tabular transition-all flex items-center space-x-2 ${
+                className={`px-4 py-2 rounded-none text-xs font-mono uppercase font-bold tracking-wider transition-all flex items-center space-x-2 border-2 ${
                   activeTab === "logs"
-                    ? "bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/40 shadow-sm"
-                    : "text-slate-400 hover:text-white hover:bg-[#0D111A]"
+                    ? "bg-[#00F0FF] text-black border-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]"
+                    : "text-slate-400 border-transparent hover:text-white hover:bg-[#0D111A] hover:border-[#1A2234]"
                 }`}
               >
                 <Terminal className="w-3.5 h-3.5" />
-                <span>Live Agent Logs</span>
+                <span>[LIVE LOGS]</span>
               </button>
 
               <button
                 onClick={() => setActiveTab("metrics")}
-                className={`px-4 py-2 rounded-xl text-xs font-mono-tabular transition-all flex items-center space-x-2 ${
+                className={`px-4 py-2 rounded-none text-xs font-mono uppercase font-bold tracking-wider transition-all flex items-center space-x-2 border-2 ${
                   activeTab === "metrics"
-                    ? "bg-[#8B5CF6]/10 text-[#8B5CF6] border border-[#8B5CF6]/40 shadow-sm"
-                    : "text-slate-400 hover:text-white hover:bg-[#0D111A]"
+                    ? "bg-[#8B5CF6] text-white border-[#8B5CF6] shadow-[2px_2px_0px_0px_#8B5CF6]"
+                    : "text-slate-400 border-transparent hover:text-white hover:bg-[#0D111A] hover:border-[#1A2234]"
                 }`}
               >
                 <Activity className="w-3.5 h-3.5" />
-                <span>System Metrics</span>
+                <span>[METRICS]</span>
               </button>
 
               <button
                 onClick={() => setActiveTab("payload")}
-                className={`px-4 py-2 rounded-xl text-xs font-mono-tabular transition-all flex items-center space-x-2 ${
+                className={`px-4 py-2 rounded-none text-xs font-mono uppercase font-bold tracking-wider transition-all flex items-center space-x-2 border-2 ${
                   activeTab === "payload"
-                    ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/40 shadow-sm"
-                    : "text-slate-400 hover:text-white hover:bg-[#0D111A]"
+                    ? "bg-emerald-400 text-black border-emerald-400 shadow-[2px_2px_0px_0px_#10B981]"
+                    : "text-slate-400 border-transparent hover:text-white hover:bg-[#0D111A] hover:border-[#1A2234]"
                 }`}
               >
                 <Code2 className="w-3.5 h-3.5" />
-                <span>Raw API Payload</span>
+                <span>[API PAYLOAD]</span>
               </button>
             </div>
 
@@ -221,22 +221,22 @@ export default function TelemetryModal({
             {/* TAB 1: Live Agent Logs */}
             {activeTab === "logs" && (
               <div className="space-y-3">
-                <div className="flex items-center justify-between text-xs font-mono-tabular text-slate-400">
-                  <span className="flex items-center space-x-1.5">
+                <div className="flex items-center justify-between text-xs font-mono text-slate-400">
+                  <span className="flex items-center space-x-1.5 font-bold uppercase text-slate-300">
                     <Server className="w-3.5 h-3.5 text-[#00F0FF]" />
-                    <span>CONTAINER STREAM STREAMING TERMINAL</span>
+                    <span>[CONTAINER STREAMING TERMINAL]</span>
                   </span>
                   {isStreaming ? (
-                    <span className="text-[#00F0FF] animate-pulse flex items-center space-x-1">
+                    <span className="text-[#00F0FF] animate-pulse flex items-center space-x-1 font-bold">
                       <RefreshCw className="w-3 h-3 animate-spin" />
-                      <span>Streaming Logs...</span>
+                      <span>STREAMING...</span>
                     </span>
                   ) : (
-                    <span className="text-emerald-400">● STREAM READY</span>
+                    <span className="text-emerald-400 font-bold">[STREAM READY]</span>
                   )}
                 </div>
 
-                <div className="h-64 bg-[#05070B] border border-[#1A2234] rounded-xl p-4 font-mono text-xs text-slate-300 overflow-y-auto space-y-2 shadow-inner">
+                <div className="h-64 bg-[#05070B] border-2 border-[#1A2234] rounded-none p-4 font-mono text-xs text-slate-300 overflow-y-auto space-y-2 shadow-[2px_2px_0px_0px_#1A2234]">
                   {logLines.map((line, idx) => (
                     <div key={idx} className="flex items-start space-x-2">
                       <span className="text-slate-600 select-none">&gt;</span>
@@ -268,46 +268,46 @@ export default function TelemetryModal({
             {activeTab === "metrics" && (
               <div className="space-y-6">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  <div className="p-3.5 rounded-xl bg-[#0D111A] border border-[#1A2234] space-y-1">
-                    <div className="text-[10px] text-slate-400 font-mono-tabular">P99 LATENCY</div>
-                    <div className="text-xl font-bold text-[#00F0FF] font-mono-tabular">&lt; 18ms</div>
-                    <div className="text-[9px] text-emerald-400 font-mono-tabular">Edge Verified</div>
+                  <div className="p-3.5 rounded-none bg-[#0D111A] border-2 border-[#1A2234] space-y-1 shadow-[2px_2px_0px_0px_#1A2234]">
+                    <div className="text-[10px] text-slate-400 font-mono uppercase font-bold">[P99 LATENCY]</div>
+                    <div className="text-xl font-black text-[#00F0FF] font-mono">&lt; 18ms</div>
+                    <div className="text-[9px] text-emerald-400 font-mono font-bold">Edge Verified</div>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-[#0D111A] border border-[#1A2234] space-y-1">
-                    <div className="text-[10px] text-slate-400 font-mono-tabular">CPU USAGE</div>
-                    <div className="text-xl font-bold text-white font-mono-tabular">14.2%</div>
-                    <div className="text-[9px] text-slate-400 font-mono-tabular">Container Pool</div>
+                  <div className="p-3.5 rounded-none bg-[#0D111A] border-2 border-[#1A2234] space-y-1 shadow-[2px_2px_0px_0px_#1A2234]">
+                    <div className="text-[10px] text-slate-400 font-mono uppercase font-bold">[CPU USAGE]</div>
+                    <div className="text-xl font-black text-white font-mono">14.2%</div>
+                    <div className="text-[9px] text-slate-400 font-mono">Container Pool</div>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-[#0D111A] border border-[#1A2234] space-y-1">
-                    <div className="text-[10px] text-slate-400 font-mono-tabular">MEMORY ALLOC</div>
-                    <div className="text-xl font-bold text-[#8B5CF6] font-mono-tabular">210 MB</div>
-                    <div className="text-[9px] text-slate-400 font-mono-tabular">V8 Heap Stable</div>
+                  <div className="p-3.5 rounded-none bg-[#0D111A] border-2 border-[#1A2234] space-y-1 shadow-[2px_2px_0px_0px_#1A2234]">
+                    <div className="text-[10px] text-slate-400 font-mono uppercase font-bold">[MEMORY ALLOC]</div>
+                    <div className="text-xl font-black text-[#8B5CF6] font-mono">210 MB</div>
+                    <div className="text-[9px] text-slate-400 font-mono">V8 Heap Stable</div>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-[#0D111A] border border-[#1A2234] space-y-1">
-                    <div className="text-[10px] text-slate-400 font-mono-tabular">CLUSTER UPTIME</div>
-                    <div className="text-xl font-bold text-emerald-400 font-mono-tabular">99.99%</div>
-                    <div className="text-[9px] text-emerald-400 font-mono-tabular">SLA Active</div>
+                  <div className="p-3.5 rounded-none bg-[#0D111A] border-2 border-[#1A2234] space-y-1 shadow-[2px_2px_0px_0px_#1A2234]">
+                    <div className="text-[10px] text-slate-400 font-mono uppercase font-bold">[CLUSTER UPTIME]</div>
+                    <div className="text-xl font-black text-emerald-400 font-mono">99.99%</div>
+                    <div className="text-[9px] text-emerald-400 font-mono font-bold">SLA Active</div>
                   </div>
                 </div>
 
                 {/* Visual Performance Gauges */}
-                <div className="space-y-3 p-4 rounded-xl bg-[#0D111A] border border-[#1A2234] font-mono-tabular text-xs">
-                  <div className="flex justify-between text-slate-300">
+                <div className="space-y-3 p-4 rounded-none bg-[#0D111A] border-2 border-[#1A2234] font-mono text-xs shadow-[4px_4px_0px_0px_#1A2234]">
+                  <div className="flex justify-between text-slate-300 font-bold uppercase">
                     <span>Tool Dispatch Queue Efficiency</span>
-                    <span className="text-[#00F0FF] font-bold">98.4%</span>
+                    <span className="text-[#00F0FF]">98.4%</span>
                   </div>
-                  <div className="w-full bg-[#07090E] h-2 rounded-full overflow-hidden border border-[#1A2234]">
+                  <div className="w-full bg-[#07090E] h-2.5 rounded-none overflow-hidden border-2 border-[#1A2234]">
                     <div className="bg-[#00F0FF] h-full w-[98.4%]" />
                   </div>
 
-                  <div className="flex justify-between text-slate-300 pt-2">
+                  <div className="flex justify-between text-slate-300 font-bold uppercase pt-2">
                     <span>LLM Schema Self-Healing Coverage</span>
-                    <span className="text-[#8B5CF6] font-bold">100%</span>
+                    <span className="text-[#8B5CF6]">100%</span>
                   </div>
-                  <div className="w-full bg-[#07090E] h-2 rounded-full overflow-hidden border border-[#1A2234]">
+                  <div className="w-full bg-[#07090E] h-2.5 rounded-none overflow-hidden border-2 border-[#1A2234]">
                     <div className="bg-[#8B5CF6] h-full w-[100%]" />
                   </div>
                 </div>
@@ -317,43 +317,43 @@ export default function TelemetryModal({
             {/* TAB 3: Raw API Payload */}
             {activeTab === "payload" && (
               <div className="space-y-3">
-                <div className="flex items-center justify-between text-xs font-mono-tabular">
-                  <span className="text-slate-400">JSON REQUEST / RESPONSE FORMAT</span>
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-slate-400 uppercase font-bold">[JSON REQUEST / RESPONSE FORMAT]</span>
                   <button
                     onClick={handleCopyJson}
-                    className="px-3 py-1 rounded bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/30 hover:bg-[#00F0FF]/20 transition-colors flex items-center space-x-1.5"
+                    className="px-3.5 py-1.5 rounded-none bg-[#00F0FF]/10 text-[#00F0FF] border-2 border-[#00F0FF] hover:bg-[#00F0FF] hover:text-black transition-all flex items-center space-x-1.5 font-bold uppercase text-xs shadow-[2px_2px_0px_0px_#00F0FF] active:translate-x-[1px] active:translate-y-[1px]"
                   >
                     {copied ? (
                       <>
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
-                        <span className="text-emerald-400">Copied!</span>
+                        <span className="text-emerald-400">[COPIED]</span>
                       </>
                     ) : (
                       <>
                         <Copy className="w-3.5 h-3.5" />
-                        <span>Copy JSON</span>
+                        <span>[COPY JSON]</span>
                       </>
                     )}
                   </button>
                 </div>
 
-                <div className="h-64 bg-[#05070B] border border-[#1A2234] rounded-xl p-4 font-mono text-xs text-[#00F0FF] overflow-y-auto">
+                <div className="h-64 bg-[#05070B] border-2 border-[#1A2234] rounded-none p-4 font-mono text-xs text-[#00F0FF] overflow-y-auto shadow-[2px_2px_0px_0px_#1A2234]">
                   <pre>{rawPayload}</pre>
                 </div>
               </div>
             )}
 
             {/* Modal Footer */}
-            <div className="mt-6 pt-4 border-t border-[#1A2234] flex items-center justify-between text-xs font-mono-tabular text-slate-500">
-              <span className="flex items-center space-x-1 text-slate-400">
+            <div className="mt-6 pt-4 border-t-2 border-[#1A2234] flex items-center justify-between text-xs font-mono text-slate-500">
+              <span className="flex items-center space-x-1.5 text-slate-400 font-bold uppercase">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Audited Sandbox Telemetry</span>
+                <span>[AUDITED SANDBOX TELEMETRY]</span>
               </span>
               <button
                 onClick={onClose}
-                className="px-4 py-2 rounded-xl bg-[#1A2234] text-white hover:bg-[#00F0FF] hover:text-black transition-colors"
+                className="px-5 py-2.5 rounded-none bg-[#1A2234] text-white border-2 border-[#1A2234] hover:bg-[#00F0FF] hover:text-black hover:border-[#00F0FF] font-black uppercase tracking-wider font-mono shadow-[2px_2px_0px_0px_#1A2234] active:translate-x-[1px] active:translate-y-[1px] transition-all"
               >
-                Close Window
+                [CLOSE]
               </button>
             </div>
           </motion.div>

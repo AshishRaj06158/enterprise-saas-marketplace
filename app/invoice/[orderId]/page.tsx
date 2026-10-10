@@ -268,10 +268,8 @@ function InvoiceContent() {
             
             <div className="space-y-1">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#00F0FF] to-[#8B5CF6] p-[1px] print:hidden">
-                  <div className="w-full h-full bg-[#0D111A] rounded-[7px] flex items-center justify-center">
-                    <Cpu className="w-4 h-4 text-[#00F0FF]" />
-                  </div>
+                <div className="w-8 h-8 rounded-none border-2 border-[#00F0FF] bg-[#0D111A] flex items-center justify-center print:hidden shadow-[2px_2px_0px_0px_#00F0FF]">
+                  <Cpu className="w-4 h-4 text-[#00F0FF]" />
                 </div>
                 <span className="font-extrabold text-xl tracking-wider text-white print:text-black">
                   SUTRA <span className="text-[#00F0FF] print:text-black">/</span> NEXUS

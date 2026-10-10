@@ -391,12 +391,12 @@ export default function CommandPalette() {
       <div className="fixed inset-0" onClick={() => setIsOpen(false)} />
 
       {/* Palette HUD Container */}
-      <div className="relative w-full max-w-2xl bg-[#0D111A] border border-[#00F0FF]/50 rounded-2xl shadow-[0_0_50px_rgba(0,240,255,0.25)] overflow-hidden z-10 space-y-0 text-slate-100 animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-2xl bg-[#0D111A] border-2 border-[#00F0FF] rounded-none shadow-[8px_8px_0px_0px_#00F0FF] overflow-hidden z-10 space-y-0 text-slate-100 animate-in fade-in zoom-in-95 duration-200">
         {/* Top Scanline effect */}
         <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none" />
 
         {/* Input Field */}
-        <div className="relative border-b border-[#1A2234] flex items-center px-4 py-3.5 bg-[#07090E]">
+        <div className="relative border-b-2 border-[#1A2234] flex items-center px-4 py-3.5 bg-[#07090E]">
           <Search className="w-5 h-5 text-[#00F0FF] shrink-0 mr-3 animate-pulse" />
           <input
             ref={inputRef}
@@ -412,14 +412,14 @@ export default function CommandPalette() {
           />
           <button
             onClick={() => setIsOpen(false)}
-            className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-[#1A2234] transition-colors ml-2"
+            className="p-1 rounded-none text-slate-400 hover:text-white hover:bg-[#1A2234] transition-colors ml-2 border border-transparent hover:border-[#00F0FF]"
           >
             <X className="w-5 h-5 text-[#00F0FF]" />
           </button>
         </div>
 
         {/* Action List */}
-        <div className="max-h-[380px] overflow-y-auto p-2 space-y-1 font-mono-tabular">
+        <div className="max-h-[380px] overflow-y-auto p-2 space-y-1 font-mono">
           {filteredActions.length > 0 ? (
             filteredActions.map((action, idx) => {
               const IconComp = action.icon;
@@ -429,27 +429,27 @@ export default function CommandPalette() {
                   key={action.id}
                   onClick={action.onSelect}
                   onMouseEnter={() => setSelectedIndex(idx)}
-                  className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between cursor-pointer ${
+                  className={`w-full text-left px-3.5 py-2.5 rounded-none transition-all flex items-center justify-between cursor-pointer border-2 ${
                     isSelected
-                      ? "bg-[#00F0FF]/10 border border-[#00F0FF]/40 text-white shadow-[0_0_15px_rgba(0,240,255,0.15)]"
-                      : "text-slate-300 hover:bg-[#1A2234]/60 border border-transparent"
+                      ? "bg-[#00F0FF]/15 border-[#00F0FF] text-white shadow-[2px_2px_0px_0px_#00F0FF]"
+                      : "text-slate-300 hover:bg-[#1A2234]/60 border-transparent"
                   }`}
                 >
                   <div className="flex items-center space-x-3 truncate mr-3">
-                    <div className={`p-2 rounded-lg ${isSelected ? "bg-[#00F0FF]/20 text-[#00F0FF]" : "bg-[#07090E] text-slate-400 border border-[#1A2234]"}`}>
+                    <div className={`p-2 rounded-none border-2 ${isSelected ? "bg-[#00F0FF] text-black border-[#00F0FF]" : "bg-[#07090E] text-slate-400 border-[#1A2234]"}`}>
                       <IconComp className="w-4 h-4" />
                     </div>
                     <div className="truncate">
                       <div className="text-xs font-bold text-white tracking-wide truncate flex items-center gap-2">
                         <span>{action.title}</span>
                         {action.category === "Systems" && (
-                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#07090E] text-[#8B5CF6] border border-[#8B5CF6]/30">
-                            SYSTEM
+                          <span className="text-[9px] px-1.5 py-0.5 rounded-none bg-[#07090E] text-[#8B5CF6] border-2 border-[#8B5CF6] font-bold">
+                            [SYSTEM]
                           </span>
                         )}
                       </div>
                       {action.subtitle && (
-                        <div className="text-[11px] text-slate-400 truncate mt-0.5">
+                        <div className="text-[11px] text-slate-400 truncate mt-0.5 font-mono">
                           {action.subtitle}
                         </div>
                       )}
@@ -458,7 +458,7 @@ export default function CommandPalette() {
 
                   <div className="flex items-center space-x-2 shrink-0 text-xs">
                     {action.shortcut && (
-                      <span className="px-2 py-0.5 rounded text-[10px] bg-[#07090E] text-[#00F0FF] border border-[#00F0FF]/30 font-mono">
+                      <span className="px-2 py-0.5 rounded-none text-[10px] bg-[#07090E] text-[#00F0FF] border-2 border-[#00F0FF] font-mono font-bold shadow-[1px_1px_0px_0px_#00F0FF]">
                         {action.shortcut}
                       </span>
                     )}
@@ -469,31 +469,31 @@ export default function CommandPalette() {
             })
           ) : (
             <div className="py-8 text-center text-xs text-slate-400 font-mono">
-              No matching commands found for &quot;{searchQuery}&quot;.
+              [NO MATCHING COMMANDS FOUND FOR &quot;{searchQuery}&quot;]
             </div>
           )}
         </div>
 
         {/* Footer Shortcut Legend */}
-        <div className="px-4 py-2.5 bg-[#07090E] border-t border-[#1A2234] flex items-center justify-between text-[11px] text-slate-400 font-mono">
+        <div className="px-4 py-2.5 bg-[#07090E] border-t-2 border-[#1A2234] flex items-center justify-between text-[11px] text-slate-400 font-mono">
           <div className="flex items-center space-x-4">
             <span className="flex items-center space-x-1">
-              <kbd className="px-1.5 py-0.5 rounded bg-[#0D111A] text-slate-200 border border-[#1A2234]">↑↓</kbd>
+              <kbd className="px-1.5 py-0.5 rounded-none bg-[#0D111A] text-slate-200 border-2 border-[#1A2234] font-bold">↑↓</kbd>
               <span>Navigate</span>
             </span>
             <span className="flex items-center space-x-1">
-              <kbd className="px-1.5 py-0.5 rounded bg-[#0D111A] text-slate-200 border border-[#1A2234]">↵</kbd>
+              <kbd className="px-1.5 py-0.5 rounded-none bg-[#0D111A] text-slate-200 border-2 border-[#1A2234] font-bold">↵</kbd>
               <span>Select</span>
             </span>
             <span className="flex items-center space-x-1">
-              <kbd className="px-1.5 py-0.5 rounded bg-[#0D111A] text-slate-200 border border-[#1A2234]">Esc</kbd>
+              <kbd className="px-1.5 py-0.5 rounded-none bg-[#0D111A] text-slate-200 border-2 border-[#1A2234] font-bold">Esc</kbd>
               <span>Close</span>
             </span>
           </div>
 
-          <div className="hidden sm:flex items-center space-x-1 text-[#00F0FF]">
+          <div className="hidden sm:flex items-center space-x-1 text-[#00F0FF] font-bold uppercase">
             <Command className="w-3.5 h-3.5" />
-            <span>NEXUS HUD COMMAND PALETTE</span>
+            <span>[NEXUS HUD COMMAND PALETTE]</span>
           </div>
         </div>
       </div>

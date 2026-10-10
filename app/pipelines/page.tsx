@@ -178,24 +178,22 @@ export default function PipelineTopologyPage() {
 
   return (
     <div className="pt-32 pb-24 bg-[#07090E] min-h-screen text-slate-100 relative overflow-hidden">
-      {/* Ambient Radial Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#00F0FF]/10 blur-3xl pointer-events-none rounded-full animate-pulse-slow" />
-      <div className="absolute bottom-10 right-1/4 w-[550px] h-[350px] bg-[#8B5CF6]/12 blur-3xl pointer-events-none rounded-full animate-pulse-slow" style={{ animationDelay: "3s" }} />
+      {/* Structural Neo-Brutalist Grid Lines */}
       <div className="absolute inset-0 bg-dot-matrix opacity-20 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#00F0FF]/40 bg-[#00F0FF]/10 text-xs font-mono-tabular text-[#00F0FF] backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-none border-2 border-[#00F0FF] bg-[#00F0FF]/10 text-xs font-mono font-bold text-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]">
             <Zap className="w-4 h-4 text-[#00F0FF]" />
-            <span>AGENTIC PIPELINE TOPOLOGY // REAL-TIME EXECUTION ORCHESTRATION</span>
+            <span>[AGENTIC PIPELINE TOPOLOGY // REAL-TIME EXECUTION ORCHESTRATION]</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Multi-Agent Execution Pipeline Topology
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight uppercase font-mono">
+            MULTI-AGENT EXECUTION PIPELINE TOPOLOGY
           </h1>
 
-          <p className="text-base text-[#94A3B8] leading-relaxed">
+          <p className="text-sm font-mono text-[#94A3B8] leading-relaxed">
             Interactive step-through visualizer illustrating zero-trust input validation, dynamic LLM dispatch, and deterministic tool feedback loops.
           </p>
 
@@ -204,17 +202,17 @@ export default function PipelineTopologyPage() {
             <button
               onClick={handleRunSimulation}
               disabled={isSimulating}
-              className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] text-black font-bold text-xs sm:text-sm hover:opacity-95 transition-all shadow-[0_0_30px_rgba(0,240,255,0.4)] flex items-center space-x-2.5 cursor-pointer disabled:opacity-60"
+              className="px-6 py-3.5 rounded-none bg-[#00F0FF] hover:bg-white text-black font-mono font-black text-xs sm:text-sm uppercase tracking-wider border-2 border-[#00F0FF] hover:border-white shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF] flex items-center space-x-2.5 cursor-pointer disabled:opacity-60 transition-all min-h-[44px]"
             >
               {isSimulating ? (
                 <>
                   <RefreshCw className="w-4 h-4 animate-spin text-black" />
-                  <span>Streaming Payload Pulse...</span>
+                  <span>[STREAMING PAYLOAD PULSE...]</span>
                 </>
               ) : (
                 <>
                   <Play className="w-4 h-4 fill-black" />
-                  <span>Trigger Test Payload Stream</span>
+                  <span>[TRIGGER TEST PAYLOAD STREAM]</span>
                 </>
               )}
             </button>
@@ -223,12 +221,12 @@ export default function PipelineTopologyPage() {
 
         {/* VISUAL NODE FLOW DIAGRAM (HORIZONTAL / RESPONSIVE GRID) */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between text-xs font-mono-tabular text-[#94A3B8]">
-            <span className="uppercase tracking-wider flex items-center space-x-2">
+          <div className="flex items-center justify-between text-xs font-mono text-[#94A3B8]">
+            <span className="uppercase tracking-wider font-bold flex items-center space-x-2">
               <Layers className="w-4 h-4 text-[#00F0FF]" />
-              <span>5-STAGE AGENTIC DISPATCH GRAPH (CLICK ANY NODE TO INSPECT)</span>
+              <span>[5-STAGE AGENTIC DISPATCH GRAPH: CLICK TO INSPECT]</span>
             </span>
-            <span className="text-[#00F0FF]">TOTAL LATENCY: ~27.1ms</span>
+            <span className="text-[#00F0FF] font-bold">[TOTAL LATENCY: ~27.1ms]</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
@@ -242,37 +240,34 @@ export default function PipelineTopologyPage() {
                   {/* Step Card */}
                   <div
                     onClick={() => setSelectedNode(node)}
-                    className={`rounded-2xl p-5 border transition-all duration-300 backdrop-blur-md cursor-pointer flex flex-col justify-between h-full relative overflow-hidden group ${
+                    className={`rounded-none p-5 border-2 transition-all cursor-pointer flex flex-col justify-between h-full relative group ${
                       isActiveInSimulation
-                        ? "bg-[#00F0FF]/20 border-[#00F0FF] shadow-[0_0_35px_rgba(0,240,255,0.4)] scale-[1.03]"
+                        ? "bg-[#00F0FF]/20 border-[#00F0FF] shadow-[4px_4px_0px_0px_#00F0FF] -translate-x-[2px] -translate-y-[2px]"
                         : isSelected
-                        ? "bg-[#0D111A] border-[#00F0FF]/80 shadow-[0_0_20px_rgba(0,240,255,0.2)]"
-                        : "bg-[#0D111A]/80 border-[#1A2234] hover:border-[#00F0FF]/50"
+                        ? "bg-[#0D111A] border-[#00F0FF] shadow-[4px_4px_0px_0px_#00F0FF]"
+                        : "bg-[#0D111A] border-[#1A2234] hover:border-[#00F0FF] shadow-[4px_4px_0px_0px_#1A2234] hover:shadow-[4px_4px_0px_0px_#00F0FF]"
                     }`}
                   >
-                    {/* Top scanline pulse */}
-                    <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] opacity-40" />
-
                     <div>
                       {/* Step Badge & Icon */}
                       <div className="flex items-center justify-between mb-3">
-                        <span className="w-6 h-6 rounded-full bg-[#07090E] border border-[#00F0FF]/40 text-[#00F0FF] font-mono-tabular font-bold text-xs flex items-center justify-center">
+                        <span className="w-6 h-6 rounded-none bg-[#07090E] border-2 border-[#00F0FF] text-[#00F0FF] font-mono font-bold text-xs flex items-center justify-center shadow-[1px_1px_0px_0px_#00F0FF]">
                           {node.id}
                         </span>
-                        <div className="p-2 rounded-xl bg-[#07090E] border border-[#1A2234]">
+                        <div className="p-2 rounded-none bg-[#07090E] border-2 border-[#1A2234]">
                           <IconComponent className="w-4 h-4 text-[#00F0FF]" />
                         </div>
                       </div>
 
-                      <h3 className="text-sm font-bold text-white mb-1 group-hover:text-[#00F0FF] transition-colors">
+                      <h3 className="text-sm font-bold text-white mb-1 group-hover:text-[#00F0FF] transition-colors font-mono">
                         {node.name}
                       </h3>
-                      <p className="text-[11px] text-[#94A3B8] leading-snug">
+                      <p className="text-[11px] text-[#94A3B8] leading-snug font-mono">
                         {node.subtitle}
                       </p>
                     </div>
 
-                    <div className="pt-3 mt-4 border-t border-[#1A2234] flex items-center justify-between text-[11px] font-mono-tabular">
+                    <div className="pt-3 mt-4 border-t-2 border-[#1A2234] flex items-center justify-between text-[11px] font-mono">
                       <span className="text-slate-400">LATENCY:</span>
                       <span className="text-emerald-400 font-bold">{node.latency}</span>
                     </div>
@@ -280,7 +275,7 @@ export default function PipelineTopologyPage() {
 
                   {/* Connecting Arrow for Desktop */}
                   {index < pipelineNodes.length - 1 && (
-                    <div className="hidden md:flex absolute -right-3.5 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-[#07090E] border border-[#00F0FF]/40 items-center justify-center text-[#00F0FF] shadow-md">
+                    <div className="hidden md:flex absolute -right-3.5 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-none bg-[#07090E] border-2 border-[#00F0FF] items-center justify-center text-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]">
                       <ChevronRight className="w-4 h-4" />
                     </div>
                   )}
@@ -292,30 +287,28 @@ export default function PipelineTopologyPage() {
 
         {/* NODE INSPECTION DRAWER / DETAIL PANEL */}
         {selectedNode && (
-          <div className="rounded-3xl bg-[#0D111A]/90 backdrop-blur-md border border-[#00F0FF]/40 p-6 sm:p-8 shadow-[0_0_40px_rgba(0,240,255,0.15)] space-y-6 relative overflow-hidden">
-            <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none" />
-
+          <div className="rounded-none bg-[#0D111A] border-2 border-[#00F0FF] p-6 sm:p-8 shadow-[4px_4px_0px_0px_#00F0FF] space-y-6 relative overflow-hidden">
             {/* Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-[#1A2234]">
+            <div className="flex items-center justify-between pb-4 border-b-2 border-[#1A2234]">
               <div className="flex items-center space-x-3">
-                <span className="w-7 h-7 rounded-full bg-[#00F0FF]/20 border border-[#00F0FF]/50 text-[#00F0FF] font-mono-tabular font-bold text-xs flex items-center justify-center">
+                <span className="w-7 h-7 rounded-none bg-[#00F0FF]/20 border-2 border-[#00F0FF] text-[#00F0FF] font-mono font-bold text-xs flex items-center justify-center">
                   {selectedNode.id}
                 </span>
                 <div>
-                  <h3 className="text-lg font-bold text-white tracking-wide font-mono-tabular">
-                    NODE INSPECTOR: {selectedNode.name.toUpperCase()}
+                  <h3 className="text-lg font-black text-white tracking-wide font-mono uppercase">
+                    [NODE INSPECTOR: {selectedNode.name.toUpperCase()}]
                   </h3>
-                  <p className="text-xs text-[#94A3B8] font-mono-tabular">{selectedNode.subtitle}</p>
+                  <p className="text-xs text-[#94A3B8] font-mono">{selectedNode.subtitle}</p>
                 </div>
               </div>
 
               <div className="flex items-center space-x-3">
-                <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 text-xs font-mono-tabular">
-                  LATENCY: {selectedNode.latency}
+                <span className="px-3 py-1 rounded-none bg-emerald-500/10 border-2 border-emerald-500 text-emerald-400 text-xs font-mono font-bold">
+                  [LATENCY: {selectedNode.latency}]
                 </span>
                 <button
                   onClick={() => setSelectedNode(null)}
-                  className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-[#1A2234]"
+                  className="p-1 rounded-none text-slate-400 hover:text-white border-2 border-transparent hover:border-[#1A2234]"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -323,19 +316,19 @@ export default function PipelineTopologyPage() {
             </div>
 
             {/* Content: Policy & Payload JSON */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start font-mono">
               
               <div className="lg:col-span-4 space-y-4">
-                <div className="p-4 rounded-2xl bg-[#07090E] border border-[#1A2234] space-y-2 font-mono-tabular">
-                  <div className="text-[10px] text-[#94A3B8] uppercase">ACTIVE ENVIRONMENT POLICY:</div>
+                <div className="p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] space-y-2">
+                  <div className="text-[10px] text-[#94A3B8] uppercase font-bold">[ACTIVE ENVIRONMENT POLICY]:</div>
                   <div className="text-xs text-[#00F0FF] font-semibold">{selectedNode.policy}</div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#07090E] border border-[#1A2234] space-y-2 font-mono-tabular">
-                  <div className="text-[10px] text-[#94A3B8] uppercase">PIPELINE STAGE HAS:</div>
-                  <div className="text-xs text-emerald-400 flex items-center space-x-1.5">
+                <div className="p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] space-y-2">
+                  <div className="text-[10px] text-[#94A3B8] uppercase font-bold">[PIPELINE STAGE HAS]:</div>
+                  <div className="text-xs text-emerald-400 flex items-center space-x-1.5 font-bold">
                     <CheckCircle2 className="w-4 h-4" />
-                    <span>Deterministic State Contract Verified</span>
+                    <span>[Deterministic State Contract Verified]</span>
                   </div>
                 </div>
               </div>
@@ -344,16 +337,16 @@ export default function PipelineTopologyPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Sample Input JSON */}
                   <div className="space-y-1">
-                    <div className="text-[10px] font-mono-tabular text-[#94A3B8] uppercase">SAMPLE INBOUND PAYLOAD (JSON):</div>
-                    <pre className="p-4 rounded-2xl bg-[#07090E] border border-[#1A2234] text-[11px] font-mono text-[#00F0FF] overflow-x-auto">
+                    <div className="text-[10px] font-mono text-[#94A3B8] uppercase font-bold">[SAMPLE INBOUND PAYLOAD (JSON)]:</div>
+                    <pre className="p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] text-[11px] font-mono text-[#00F0FF] overflow-x-auto">
                       {JSON.stringify(selectedNode.sampleInput, null, 2)}
                     </pre>
                   </div>
 
                   {/* Sample Output JSON */}
                   <div className="space-y-1">
-                    <div className="text-[10px] font-mono-tabular text-[#94A3B8] uppercase">SAMPLE DISPATCH OUTPUT (JSON):</div>
-                    <pre className="p-4 rounded-2xl bg-[#07090E] border border-[#1A2234] text-[11px] font-mono text-emerald-400 overflow-x-auto">
+                    <div className="text-[10px] font-mono text-[#94A3B8] uppercase font-bold">[SAMPLE DISPATCH OUTPUT (JSON)]:</div>
+                    <pre className="p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] text-[11px] font-mono text-emerald-400 overflow-x-auto">
                       {JSON.stringify(selectedNode.sampleOutput, null, 2)}
                     </pre>
                   </div>
@@ -365,20 +358,20 @@ export default function PipelineTopologyPage() {
         )}
 
         {/* SIMULATION EXECUTION TERMINAL LOG */}
-        <div className="rounded-3xl bg-[#0D111A]/90 backdrop-blur-md border border-[#00F0FF]/30 p-6 sm:p-8 shadow-2xl space-y-4 relative overflow-hidden">
-          <div className="flex items-center justify-between pb-3 border-b border-[#1A2234]">
+        <div className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 sm:p-8 shadow-[4px_4px_0px_0px_#1A2234] space-y-4 relative overflow-hidden">
+          <div className="flex items-center justify-between pb-3 border-b-2 border-[#1A2234]">
             <div className="flex items-center space-x-2">
               <Terminal className="w-5 h-5 text-[#00F0FF]" />
-              <h2 className="text-sm font-bold text-white font-mono-tabular uppercase tracking-wider">
-                LIVE EXECUTION LOG STREAM TERMINAL
+              <h2 className="text-sm font-black text-white font-mono uppercase tracking-wider">
+                [LIVE EXECUTION LOG STREAM TERMINAL]
               </h2>
             </div>
-            <span className="text-xs font-mono-tabular text-slate-400">
-              {isSimulating ? "STATUS: STREAMING..." : "STATUS: IDLE"}
+            <span className="text-xs font-mono font-bold text-slate-400">
+              {isSimulating ? "[STATUS: STREAMING...]" : "[STATUS: IDLE]"}
             </span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#07090E] border border-[#1A2234] font-mono text-xs text-[#00F0FF] space-y-1.5 min-h-[140px] max-h-[220px] overflow-y-auto overflow-x-auto leading-relaxed">
+          <div className="p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] font-mono text-xs text-[#00F0FF] space-y-1.5 min-h-[140px] max-h-[220px] overflow-y-auto overflow-x-auto leading-relaxed">
             {simulationLogs.length > 0 ? (
               simulationLogs.map((log, idx) => (
                 <div key={idx} className="flex items-start space-x-2">
