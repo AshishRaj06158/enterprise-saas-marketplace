@@ -46,7 +46,7 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
   };
 
   const formatAmount = (inr: number, usd?: number) => {
-    if (currency === "INR") {
+    if (!mounted || currency === "INR") {
       return `₹${inr.toLocaleString("en-IN")}`;
     }
     const targetUsd = usd !== undefined ? usd : Math.round(inr / 85);

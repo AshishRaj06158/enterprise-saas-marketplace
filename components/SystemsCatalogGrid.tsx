@@ -26,7 +26,7 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
     return ["All Systems", ...uniqueCats];
   }, [systems]);
 
-  // Real-time case-insensitive trimmed filtering evaluating name, tagline, description, category, and stack
+  // Real-time case-insensitive trimmed filtering evaluating title/name, tagline, overview/description, category, and techStack/stack
   const filteredSystems = useMemo(() => {
     const trimmedTerm = searchQuery.trim().toLowerCase();
 
@@ -39,22 +39,27 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
       // If no search query, return match
       if (!trimmedTerm) return true;
 
-      // Match evaluation
-      const matchesName = sys.name.toLowerCase().includes(trimmedTerm);
-      const matchesTagline = sys.tagline.toLowerCase().includes(trimmedTerm);
-      const matchesDescription = sys.description.toLowerCase().includes(trimmedTerm);
-      const matchesCategory = sys.category.toLowerCase().includes(trimmedTerm);
-      const matchesBadge = sys.badge.toLowerCase().includes(trimmedTerm);
-      const matchesStack = sys.stack.some((tech) => tech.toLowerCase().includes(trimmedTerm));
-      const matchesFeatures = sys.features.some((feat) => feat.toLowerCase().includes(trimmedTerm));
-      const matchesSpecs = sys.specs.some(
+      // Safe evaluation supporting title, tagline, overview, techStack and existing properties
+      const title = (sys as any).title || sys.name || "";
+      const tagline = sys.tagline || "";
+      const overview = (sys as any).overview || sys.description || "";
+      const stack = (sys as any).techStack || sys.stack || [];
+
+      const matchesTitle = title.toLowerCase().includes(trimmedTerm);
+      const matchesTagline = tagline.toLowerCase().includes(trimmedTerm);
+      const matchesOverview = overview.toLowerCase().includes(trimmedTerm);
+      const matchesCategory = (sys.category || "").toLowerCase().includes(trimmedTerm);
+      const matchesBadge = (sys.badge || "").toLowerCase().includes(trimmedTerm);
+      const matchesStack = Array.isArray(stack) && stack.some((tech: string) => tech.toLowerCase().includes(trimmedTerm));
+      const matchesFeatures = Array.isArray(sys.features) && sys.features.some((feat: string) => feat.toLowerCase().includes(trimmedTerm));
+      const matchesSpecs = Array.isArray(sys.specs) && sys.specs.some(
         (sp) => sp.label.toLowerCase().includes(trimmedTerm) || sp.value.toLowerCase().includes(trimmedTerm)
       );
 
       return (
-        matchesName ||
+        matchesTitle ||
         matchesTagline ||
-        matchesDescription ||
+        matchesOverview ||
         matchesCategory ||
         matchesBadge ||
         matchesStack ||
@@ -221,7 +226,7 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
             className="px-6 py-3.5 rounded-none text-xs font-bold font-mono-tabular text-black bg-[#00F0FF] border-2 border-[#00F0FF] shadow-[4px_4px_0px_0px_#8B5CF6] hover:shadow-[6px_6px_0px_0px_#8B5CF6] active:translate-x-[2px] active:translate-y-[2px] inline-flex items-center space-x-2 cursor-pointer uppercase min-h-[44px]"
           >
             <RotateCcw className="w-4 h-4" />
-            <span>[RESET FILTER MATRIX]</span>
+            <span>[RESET FILTER]</span>
           </button>
         </div>
       )}

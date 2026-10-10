@@ -1,8 +1,8 @@
-import Metadata from "next";
+import type { Metadata } from "next";
 import PricingSection from "@/components/PricingSection";
 import ContactSection from "@/components/ContactSection";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Commercial Licensing & Pricing | SUTRA / NEXUS",
   description: "Transparent single license options for Core Launch Tier, Growth Stack Tier, and Enterprise Engine Tier with 100% source code ownership.",
 };

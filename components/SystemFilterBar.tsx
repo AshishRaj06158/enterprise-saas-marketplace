@@ -139,7 +139,7 @@ export default function SystemFilterBar({
             className="sm:ml-auto text-xs font-mono-tabular text-black bg-[#8B5CF6] border-2 border-[#8B5CF6] shadow-[3px_3px_0px_0px_#8B5CF6] hover:bg-[#8B5CF6]/90 flex items-center space-x-1.5 px-3.5 py-2.5 cursor-pointer uppercase font-bold min-h-[44px] active:translate-x-[2px] active:translate-y-[2px]"
           >
             <X className="w-3.5 h-3.5" />
-            <span>[RESET FILTER MATRIX]</span>
+            <span>[RESET FILTER]</span>
           </button>
         )}
       </div>
