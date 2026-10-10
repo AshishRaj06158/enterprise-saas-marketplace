@@ -205,13 +205,13 @@ Tax Status: PAID (18% GST Credit Eligible)
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#00F0FF]/40 bg-[#00F0FF]/10 text-xs font-mono-tabular text-[#00F0FF] backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-none border-2 border-[#00F0FF] bg-[#00F0FF]/10 text-xs font-mono text-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]">
             <ShieldCheck className="w-4 h-4 text-[#00F0FF]" />
-            <span>CUSTOMER DEPLOYMENT VAULT // ENTITLED ASSETS</span>
+            <span>[CUSTOMER DEPLOYMENT VAULT // ENTITLED ASSETS]</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Customer License Vault & Asset Hub
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight uppercase">
+            Customer License Vault &amp; Asset Hub
           </h1>
 
           <p className="text-base text-[#94A3B8] leading-relaxed">
@@ -221,67 +221,67 @@ Tax Status: PAID (18% GST Credit Eligible)
 
         {/* Quick Metrics Strip */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div className="rounded-2xl bg-[#0D111A]/90 border border-[#00F0FF]/30 p-6 backdrop-blur-md shadow-xl flex items-center space-x-4">
-            <div className="p-3.5 rounded-xl bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/30">
+          <div className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 shadow-[4px_4px_0px_0px_#1A2234] hover:border-[#00F0FF] hover:shadow-[4px_4px_0px_0px_#00F0FF] transition-all flex items-center space-x-4">
+            <div className="p-3.5 rounded-none bg-[#00F0FF]/10 text-[#00F0FF] border-2 border-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]">
               <Key className="w-6 h-6" />
             </div>
             <div>
-              <div className="text-xs font-mono-tabular text-[#94A3B8] uppercase">
-                Active Licenses
+              <div className="text-xs font-mono text-[#94A3B8] uppercase">
+                [ACTIVE LICENSES]
               </div>
-              <div className="text-2xl font-bold text-white font-mono-tabular mt-0.5">
+              <div className="text-2xl font-bold text-white font-mono mt-0.5">
                 {licenses.length} Verified
               </div>
             </div>
           </div>
 
-          <div className="rounded-2xl bg-[#0D111A]/90 border border-[#8B5CF6]/30 p-6 backdrop-blur-md shadow-xl flex items-center space-x-4">
-            <div className="p-3.5 rounded-xl bg-[#8B5CF6]/10 text-[#8B5CF6] border border-[#8B5CF6]/30">
+          <div className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 shadow-[4px_4px_0px_0px_#1A2234] hover:border-[#8B5CF6] hover:shadow-[4px_4px_0px_0px_#8B5CF6] transition-all flex items-center space-x-4">
+            <div className="p-3.5 rounded-none bg-[#8B5CF6]/10 text-[#8B5CF6] border-2 border-[#8B5CF6] shadow-[2px_2px_0px_0px_#8B5CF6]">
               <Layers className="w-6 h-6" />
             </div>
             <div>
-              <div className="text-xs font-mono-tabular text-[#94A3B8] uppercase">
-                Deployment Quota
+              <div className="text-xs font-mono text-[#94A3B8] uppercase">
+                [DEPLOYMENT QUOTA]
               </div>
-              <div className="text-2xl font-bold text-white font-mono-tabular mt-0.5">
+              <div className="text-2xl font-bold text-white font-mono mt-0.5">
                 12 / Unlimited
               </div>
             </div>
           </div>
 
-          <div className="rounded-2xl bg-[#0D111A]/90 border border-emerald-500/30 p-6 backdrop-blur-md shadow-xl flex items-center space-x-4">
-            <div className="p-3.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+          <div className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 shadow-[4px_4px_0px_0px_#1A2234] hover:border-emerald-400 hover:shadow-[4px_4px_0px_0px_#10B981] transition-all flex items-center space-x-4">
+            <div className="p-3.5 rounded-none bg-emerald-500/10 text-emerald-400 border-2 border-emerald-500 shadow-[2px_2px_0px_0px_#10B981]">
               <Zap className="w-6 h-6" />
             </div>
             <div>
-              <div className="text-xs font-mono-tabular text-[#94A3B8] uppercase">
-                Enterprise SLA
+              <div className="text-xs font-mono text-[#94A3B8] uppercase">
+                [ENTERPRISE SLA]
               </div>
-              <div className="text-2xl font-bold text-emerald-400 font-mono-tabular mt-0.5">
-                Active (24/7 Priority)
+              <div className="text-2xl font-bold text-emerald-400 font-mono mt-0.5">
+                Active (24/7)
               </div>
             </div>
           </div>
         </div>
 
         {/* Section Header & Claim Key CTA */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-[#1A2234]">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t-2 border-[#1A2234]">
           <div>
-            <h2 className="text-xl font-bold text-white flex items-center space-x-2">
+            <h2 className="text-xl font-bold text-white flex items-center space-x-2 font-mono uppercase">
               <Lock className="w-5 h-5 text-[#00F0FF]" />
-              <span>Entitled Software Codebases & Repositories</span>
+              <span>[ENTITLED SOFTWARE CODEBASES &amp; REPOSITORIES]</span>
             </h2>
-            <p className="text-xs text-[#94A3B8] font-mono-tabular mt-0.5">
+            <p className="text-xs text-[#94A3B8] font-mono mt-0.5">
               Cryptographically verified commercial source code entitlements linked to your account.
             </p>
           </div>
 
           <button
             onClick={() => setShowClaimModal(true)}
-            className="px-4 py-2.5 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)] flex items-center space-x-2 cursor-pointer min-h-[44px]"
+            className="px-4 py-2.5 rounded-none text-xs font-mono font-bold uppercase text-black bg-[#00F0FF] border-2 border-black hover:bg-[#00F0FF]/90 transition-all shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF] flex items-center space-x-2 cursor-pointer min-h-[44px]"
           >
             <PlusCircle className="w-4 h-4" />
-            <span>Claim / Add License Key</span>
+            <span>[CLAIM / ADD LICENSE KEY]</span>
           </button>
         </div>
 
@@ -290,7 +290,7 @@ Tax Status: PAID (18% GST Credit Eligible)
           {licenses.map((lic) => (
             <div
               key={lic.id}
-              className="rounded-2xl bg-[#0D111A]/80 backdrop-blur-md border border-[#00F0FF]/30 p-6 sm:p-8 shadow-2xl relative overflow-hidden group hover:border-[#00F0FF]/60 transition-all"
+              className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 sm:p-8 shadow-[4px_4px_0px_0px_#1A2234] hover:border-[#00F0FF] hover:shadow-[4px_4px_0px_0px_#00F0FF] transition-all relative overflow-hidden group"
             >
               <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none opacity-40 z-20" />
 
@@ -298,48 +298,48 @@ Tax Status: PAID (18% GST Credit Eligible)
                 {/* Left Col: Details & Key */}
                 <div className="lg:col-span-7 space-y-4">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-[10px] font-mono-tabular tracking-wider uppercase px-3 py-1 rounded bg-[#07090E] text-[#00F0FF] border border-[#00F0FF]/30">
-                      {lic.tierBadge}
+                    <span className="text-[10px] font-mono tracking-wider uppercase px-3 py-1 rounded-none bg-[#07090E] text-[#00F0FF] border-2 border-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]">
+                      [{lic.tierBadge}]
                     </span>
-                    <span className="text-[10px] font-mono-tabular uppercase px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center space-x-1">
+                    <span className="text-[10px] font-mono uppercase px-2.5 py-1 rounded-none bg-emerald-500/10 text-emerald-400 border-2 border-emerald-500 shadow-[2px_2px_0px_0px_#10B981] flex items-center space-x-1">
                       <CheckCircle2 className="w-3 h-3" />
-                      <span>{lic.slaStatus}</span>
+                      <span>[{lic.slaStatus}]</span>
                     </span>
                   </div>
 
                   <div>
-                    <h3 className="text-2xl font-bold text-white group-hover:text-[#00F0FF] transition-colors">
+                    <h3 className="text-2xl font-bold text-white group-hover:text-[#00F0FF] transition-colors tracking-tight">
                       <Link href={`/systems/${lic.systemSlug}`}>{lic.systemName}</Link>
                     </h3>
-                    <p className="text-xs text-[#94A3B8] mt-1 font-mono-tabular">
+                    <p className="text-xs text-[#94A3B8] mt-1 font-mono">
                       {lic.tagline}
                     </p>
                   </div>
 
                   {/* SHA-256 Key Box */}
-                  <div className="p-4 rounded-xl bg-[#07090E] border border-[#1A2234] space-y-2">
-                    <div className="flex items-center justify-between text-[11px] font-mono-tabular text-[#94A3B8]">
-                      <span>CRYPTOGRAPHIC SHA-256 LICENSE KEY:</span>
+                  <div className="p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] space-y-2 shadow-[2px_2px_0px_0px_#1A2234]">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-[#94A3B8]">
+                      <span>[CRYPTOGRAPHIC SHA-256 LICENSE KEY]:</span>
                       <span className="text-slate-400">Issued: {lic.issuedDate}</span>
                     </div>
 
-                    <div className="flex items-center justify-between gap-3 bg-[#0D111A] p-3 rounded-lg border border-[#1A2234]">
+                    <div className="flex items-center justify-between gap-3 bg-[#0D111A] p-3 rounded-none border-2 border-[#1A2234]">
                       <code className="text-xs sm:text-sm font-mono text-[#00F0FF] font-bold truncate">
                         {lic.licenseKey}
                       </code>
                       <button
                         onClick={() => handleCopyKey(lic.licenseKey)}
-                        className="px-3 py-1.5 rounded-md bg-[#00F0FF]/10 text-[#00F0FF] hover:bg-[#00F0FF]/20 border border-[#00F0FF]/30 text-xs font-mono-tabular flex items-center space-x-1.5 transition-colors shrink-0 cursor-pointer min-h-[36px]"
+                        className="px-3 py-1.5 rounded-none bg-[#00F0FF]/10 text-[#00F0FF] hover:bg-[#00F0FF]/20 border-2 border-[#00F0FF] text-xs font-mono flex items-center space-x-1.5 transition-colors shrink-0 cursor-pointer min-h-[36px] shadow-[2px_2px_0px_0px_#00F0FF]"
                       >
                         {copiedKey === lic.licenseKey ? (
                           <>
                             <Check className="w-3.5 h-3.5 text-emerald-400" />
-                            <span className="text-emerald-400">Copied!</span>
+                            <span className="text-emerald-400">COPIED!</span>
                           </>
                         ) : (
                           <>
                             <Copy className="w-3.5 h-3.5" />
-                            <span>Copy</span>
+                            <span>[COPY]</span>
                           </>
                         )}
                       </button>
@@ -347,8 +347,8 @@ Tax Status: PAID (18% GST Credit Eligible)
                   </div>
 
                   {/* Domain & Invoice Metadata */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono-tabular">
-                    <div className="p-3 rounded-xl bg-[#07090E] border border-[#1A2234] flex items-center justify-between">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+                    <div className="p-3 rounded-none bg-[#07090E] border-2 border-[#1A2234] flex items-center justify-between shadow-[2px_2px_0px_0px_#1A2234]">
                       <span className="text-[#94A3B8] flex items-center space-x-1.5">
                         <Globe className="w-3.5 h-3.5 text-[#00F0FF]" />
                         <span>Domain Binding:</span>
@@ -358,7 +358,7 @@ Tax Status: PAID (18% GST Credit Eligible)
                       </span>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-[#07090E] border border-[#1A2234] flex items-center justify-between">
+                    <div className="p-3 rounded-none bg-[#07090E] border-2 border-[#1A2234] flex items-center justify-between shadow-[2px_2px_0px_0px_#1A2234]">
                       <span className="text-[#94A3B8] flex items-center space-x-1.5">
                         <FileText className="w-3.5 h-3.5 text-[#8B5CF6]" />
                         <span>Invoice:</span>
@@ -372,27 +372,27 @@ Tax Status: PAID (18% GST Credit Eligible)
 
                 {/* Right Col: Actions & GitHub Status */}
                 <div className="lg:col-span-5 space-y-4">
-                  <div className="p-4 rounded-xl bg-[#07090E] border border-[#1A2234] space-y-3">
-                    <div className="text-xs font-mono-tabular text-[#00F0FF] uppercase flex items-center justify-between">
+                  <div className="p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] space-y-3 shadow-[2px_2px_0px_0px_#1A2234]">
+                    <div className="text-xs font-mono text-[#00F0FF] uppercase flex items-center justify-between">
                       <span className="flex items-center space-x-1.5">
                         <Github className="w-4 h-4 text-white" />
-                        <span>GITHUB REPOSITORY ACCESS</span>
+                        <span>[GITHUB REPOSITORY ACCESS]</span>
                       </span>
                       {lic.githubSynced ? (
-                        <span className="text-emerald-400 text-[10px] font-bold">SYNCED</span>
+                        <span className="text-emerald-400 text-[10px] font-bold border border-emerald-400/40 px-2 py-0.5">[SYNCED]</span>
                       ) : (
-                        <span className="text-yellow-400 text-[10px]">PENDING</span>
+                        <span className="text-yellow-400 text-[10px] border border-yellow-400/40 px-2 py-0.5">[PENDING]</span>
                       )}
                     </div>
 
                     {lic.githubSynced ? (
-                      <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-xs font-mono-tabular text-emerald-300 flex items-center justify-between">
+                      <div className="p-3 rounded-none bg-emerald-500/10 border-2 border-emerald-500 text-xs font-mono text-emerald-300 flex items-center justify-between shadow-[2px_2px_0px_0px_#10B981]">
                         <span>Connected: {lic.githubHandle}</span>
                         <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                       </div>
                     ) : (
-                      <p className="text-xs text-[#94A3B8]">
-                        Link your GitHub handle to receive automated repository invitation & deploy tokens.
+                      <p className="text-xs text-[#94A3B8] font-mono">
+                        Link your GitHub handle to receive automated repository invitation &amp; deploy tokens.
                       </p>
                     )}
                   </div>
@@ -401,10 +401,10 @@ Tax Status: PAID (18% GST Credit Eligible)
                   <div className="space-y-2.5">
                     <button
                       onClick={() => handleDownloadBundle(lic)}
-                      className="w-full py-3 px-4 rounded-xl text-xs font-bold text-black bg-[#00F0FF] hover:bg-[#00F0FF]/90 transition-all flex items-center justify-center space-x-2 shadow-[0_0_15px_rgba(0,240,255,0.2)] cursor-pointer min-h-[44px]"
+                      className="w-full py-3 px-4 rounded-none text-xs font-mono font-bold uppercase text-black bg-[#00F0FF] border-2 border-black hover:bg-[#00F0FF]/90 transition-all flex items-center justify-center space-x-2 shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF] cursor-pointer min-h-[44px]"
                     >
                       <Download className="w-4 h-4" />
-                      <span>Download Verified Bundle (.zip)</span>
+                      <span>[DOWNLOAD BUNDLE (.ZIP)]</span>
                     </button>
 
                     <button
@@ -412,22 +412,22 @@ Tax Status: PAID (18% GST Credit Eligible)
                         setActiveModalLicense(lic);
                         setGithubHandleInput(lic.githubHandle || "");
                       }}
-                      className="w-full py-3 px-4 rounded-xl text-xs font-bold text-white bg-[#0D111A] border border-[#8B5CF6]/50 hover:bg-[#8B5CF6]/20 transition-all flex items-center justify-center space-x-2 cursor-pointer min-h-[44px]"
+                      className="w-full py-3 px-4 rounded-none text-xs font-mono font-bold uppercase text-white bg-[#0D111A] border-2 border-[#8B5CF6] hover:bg-[#8B5CF6]/20 transition-all flex items-center justify-center space-x-2 cursor-pointer min-h-[44px] shadow-[4px_4px_0px_0px_#8B5CF6] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#8B5CF6]"
                     >
                       <Github className="w-4 h-4 text-[#8B5CF6]" />
                       <span>
                         {lic.githubSynced
-                          ? "Re-sync GitHub Org Access"
-                          : "Request GitHub Org Invite"}
+                          ? "[RE-SYNC GITHUB ORG ACCESS]"
+                          : "[REQUEST GITHUB ORG INVITE]"}
                       </span>
                     </button>
 
                     <Link
-                      href={`/invoice/${lic.invoiceId}`}
-                      className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-[#00F0FF] bg-[#07090E] border border-[#00F0FF]/30 hover:bg-[#00F0FF]/10 transition-all flex items-center justify-center space-x-2 cursor-pointer min-h-[44px]"
+                      href={`/invoice/${lic.invoiceId}?system=${lic.systemSlug}`}
+                      className="w-full py-2.5 px-4 rounded-none text-xs font-mono font-bold uppercase text-[#00F0FF] bg-[#07090E] border-2 border-[#00F0FF]/40 hover:bg-[#00F0FF]/10 transition-all flex items-center justify-center space-x-2 cursor-pointer min-h-[44px] shadow-[2px_2px_0px_0px_#1A2234]"
                     >
                       <FileText className="w-4 h-4 text-[#00F0FF]" />
-                      <span>View &amp; Print GST Tax Invoice</span>
+                      <span>[VIEW &amp; PRINT GST TAX INVOICE]</span>
                     </Link>
                   </div>
                 </div>
@@ -439,27 +439,27 @@ Tax Status: PAID (18% GST Credit Eligible)
         {/* GITHUB SYNCHRONIZATION MODAL */}
         {activeModalLicense && (
           <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-            <div className="rounded-2xl bg-[#0D111A] border border-[#00F0FF]/60 p-6 sm:p-8 max-w-lg w-full space-y-6 shadow-[0_0_50px_rgba(0,240,255,0.3)] relative overflow-hidden">
+            <div className="rounded-none bg-[#0D111A] border-2 border-[#00F0FF] p-6 sm:p-8 max-w-lg w-full space-y-6 shadow-[6px_6px_0px_0px_#00F0FF] relative overflow-hidden">
               <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline" />
 
-              <div className="flex items-center justify-between pb-3 border-b border-[#1A2234]">
+              <div className="flex items-center justify-between pb-3 border-b-2 border-[#1A2234]">
                 <div className="flex items-center space-x-2">
                   <Github className="w-5 h-5 text-[#00F0FF]" />
-                  <h3 className="text-base font-bold text-white font-mono-tabular uppercase">
-                    GitHub Org Collaborator Sync
+                  <h3 className="text-base font-bold text-white font-mono uppercase">
+                    [GITHUB ORG COLLABORATOR SYNC]
                   </h3>
                 </div>
                 <button
                   onClick={() => setActiveModalLicense(null)}
-                  className="p-1 rounded-lg text-slate-400 hover:text-white"
+                  className="p-1 rounded-none text-slate-400 hover:text-white"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="space-y-3 text-xs font-mono-tabular">
-                <div className="p-3 rounded-xl bg-[#07090E] border border-[#1A2234] space-y-1">
-                  <div className="text-[#94A3B8]">TARGET SYSTEM:</div>
+              <div className="space-y-3 text-xs font-mono">
+                <div className="p-3 rounded-none bg-[#07090E] border-2 border-[#1A2234] space-y-1">
+                  <div className="text-[#94A3B8]">[TARGET SYSTEM]:</div>
                   <div className="text-white font-bold">{activeModalLicense.systemName}</div>
                   <div className="text-[#00F0FF]">{activeModalLicense.licenseKey}</div>
                 </div>
@@ -469,7 +469,7 @@ Tax Status: PAID (18% GST Credit Eligible)
                 </p>
 
                 {syncSuccessMsg ? (
-                  <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 flex items-center space-x-2">
+                  <div className="p-4 rounded-none bg-emerald-500/10 border-2 border-emerald-500 text-emerald-400 flex items-center space-x-2">
                     <CheckCircle2 className="w-5 h-5 shrink-0" />
                     <span>{syncSuccessMsg}</span>
                   </div>
@@ -485,14 +485,14 @@ Tax Status: PAID (18% GST Credit Eligible)
                         value={githubHandleInput}
                         onChange={(e) => setGithubHandleInput(e.target.value)}
                         placeholder="@developer (e.g. @octocat)"
-                        className="w-full bg-[#07090E] border border-[#1A2234] focus:border-[#00F0FF] rounded-xl px-4 py-3 text-xs text-white placeholder-slate-600 focus:outline-none font-mono"
+                        className="w-full bg-[#07090E] border-2 border-[#1A2234] focus:border-[#00F0FF] rounded-none px-4 py-3 text-xs text-white placeholder-slate-600 focus:outline-none font-mono shadow-[2px_2px_0px_0px_#1A2234]"
                       />
                     </div>
 
                     <button
                       type="submit"
                       disabled={isSyncing}
-                      className="w-full py-3.5 px-4 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)] flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-60 min-h-[44px]"
+                      className="w-full py-3.5 px-4 rounded-none text-xs font-mono font-bold uppercase text-black bg-[#00F0FF] border-2 border-black hover:bg-[#00F0FF]/90 transition-all shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF] flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-60 min-h-[44px]"
                     >
                       {isSyncing ? (
                         <>
@@ -502,7 +502,7 @@ Tax Status: PAID (18% GST Credit Eligible)
                       ) : (
                         <>
                           <Github className="w-4 h-4" />
-                          <span>Grant Deploy Token & Send Invite</span>
+                          <span>[GRANT DEPLOY TOKEN &amp; SEND INVITE]</span>
                         </>
                       )}
                     </button>
@@ -516,33 +516,33 @@ Tax Status: PAID (18% GST Credit Eligible)
         {/* CLAIM LICENSE MODAL */}
         {showClaimModal && (
           <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-            <div className="rounded-2xl bg-[#0D111A] border border-[#00F0FF]/60 p-6 sm:p-8 max-w-lg w-full space-y-6 shadow-[0_0_50px_rgba(0,240,255,0.3)] relative overflow-hidden">
-              <div className="flex items-center justify-between pb-3 border-b border-[#1A2234]">
+            <div className="rounded-none bg-[#0D111A] border-2 border-[#00F0FF] p-6 sm:p-8 max-w-lg w-full space-y-6 shadow-[6px_6px_0px_0px_#00F0FF] relative overflow-hidden">
+              <div className="flex items-center justify-between pb-3 border-b-2 border-[#1A2234]">
                 <div className="flex items-center space-x-2">
                   <Key className="w-5 h-5 text-[#00F0FF]" />
-                  <h3 className="text-base font-bold text-white font-mono-tabular uppercase">
-                    Claim Production License
+                  <h3 className="text-base font-bold text-white font-mono uppercase">
+                    [CLAIM PRODUCTION LICENSE]
                   </h3>
                 </div>
                 <button
                   onClick={() => setShowClaimModal(false)}
-                  className="p-1 rounded-lg text-slate-400 hover:text-white"
+                  className="p-1 rounded-none text-slate-400 hover:text-white"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="space-y-4 text-xs font-mono-tabular">
+              <div className="space-y-4 text-xs font-mono">
                 <p className="text-[#94A3B8]">
                   Paste your SHA-256 commercial entitlement key to register your software license to this account.
                 </p>
 
                 {claimMsg && (
                   <div
-                    className={`p-3.5 rounded-xl border flex items-center space-x-2 ${
+                    className={`p-3.5 rounded-none border-2 flex items-center space-x-2 ${
                       claimMsg.includes("Validated")
-                        ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
-                        : "bg-rose-500/10 border-rose-500/40 text-rose-400"
+                        ? "bg-emerald-500/10 border-emerald-500 text-emerald-400 shadow-[2px_2px_0px_0px_#10B981]"
+                        : "bg-rose-500/10 border-rose-500 text-rose-400 shadow-[2px_2px_0px_0px_#EF4444]"
                     }`}
                   >
                     <CheckCircle2 className="w-4 h-4 shrink-0" />
@@ -561,16 +561,16 @@ Tax Status: PAID (18% GST Credit Eligible)
                       value={claimInput}
                       onChange={(e) => setClaimInput(e.target.value)}
                       placeholder="NEXUS-COMM-XXXX-XXXX-2026"
-                      className="w-full bg-[#07090E] border border-[#1A2234] focus:border-[#00F0FF] rounded-xl px-4 py-3 text-xs text-white placeholder-slate-600 focus:outline-none font-mono"
+                      className="w-full bg-[#07090E] border-2 border-[#1A2234] focus:border-[#00F0FF] rounded-none px-4 py-3 text-xs text-white placeholder-slate-600 focus:outline-none font-mono shadow-[2px_2px_0px_0px_#1A2234]"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 px-4 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)] flex items-center justify-center space-x-2 cursor-pointer min-h-[44px]"
+                    className="w-full py-3.5 px-4 rounded-none text-xs font-mono font-bold uppercase text-black bg-[#00F0FF] border-2 border-black hover:bg-[#00F0FF]/90 transition-all shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF] flex items-center justify-center space-x-2 cursor-pointer min-h-[44px]"
                   >
                     <ShieldCheck className="w-4 h-4" />
-                    <span>Validate & Claim Entitlement</span>
+                    <span>[VALIDATE &amp; CLAIM ENTITLEMENT]</span>
                   </button>
                 </form>
               </div>

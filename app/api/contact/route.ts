@@ -1,24 +1,50 @@
 import { NextResponse } from 'next/server';
 
-// Simple in-memory rate limiting map (IP -> timestamp)
+// In-memory rate limiting map (IP -> timestamp) with automatic stale pruning
 const rateLimitMap = new Map<string, number>();
 const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute window
 
+function getClientIp(req: Request): string | null {
+  const forwarded = req.headers.get('x-forwarded-for');
+  if (forwarded) {
+    return forwarded.split(',')[0].trim();
+  }
+  const realIp = req.headers.get('x-real-ip') || req.headers.get('cf-connecting-ip');
+  return realIp ? realIp.trim() : null;
+}
+
 export async function POST(req: Request) {
   try {
-    const ip = req.headers.get('x-forwarded-for') || 'unknown-client';
+    const ip = getClientIp(req);
     const now = Date.now();
 
-    // Rate limiting check
-    const lastRequest = rateLimitMap.get(ip);
-    if (lastRequest && now - lastRequest < RATE_LIMIT_WINDOW_MS) {
-      return NextResponse.json(
-        { success: false, error: 'Rate limit exceeded. Please wait a minute before submitting again.' },
-        { status: 429 }
-      );
+    // Prune stale entries if map size grows large to prevent memory leaks
+    if (rateLimitMap.size > 1000) {
+      for (const [key, timestamp] of rateLimitMap.entries()) {
+        if (now - timestamp > RATE_LIMIT_WINDOW_MS) {
+          rateLimitMap.delete(key);
+        }
+      }
     }
 
-    const body = await req.json();
+    // Rate limiting check (only enforce when IP is identified)
+    if (ip) {
+      const lastRequest = rateLimitMap.get(ip);
+      if (lastRequest && now - lastRequest < RATE_LIMIT_WINDOW_MS) {
+        return NextResponse.json(
+          { success: false, error: 'Rate limit exceeded. Please wait a minute before submitting again.' },
+          { status: 429 }
+        );
+      }
+    }
+
+    const body = await req.json().catch(() => null);
+    if (!body) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid JSON payload received.' },
+        { status: 400 }
+      );
+    }
     const { fullName, email, company, gstin, requirements, systemRequirements, website_hp } = body;
 
     // Honeypot validation: bot hidden field protection
@@ -46,7 +72,9 @@ export async function POST(req: Request) {
     }
 
     // Record rate limit timestamp
-    rateLimitMap.set(ip, now);
+    if (ip) {
+      rateLimitMap.set(ip, now);
+    }
 
     const leadData = {
       fullName: fullName.trim(),

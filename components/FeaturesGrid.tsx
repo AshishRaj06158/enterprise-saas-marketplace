@@ -125,16 +125,16 @@ export default function FeaturesGrid() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#00F0FF]/40 bg-[#00F0FF]/10 text-xs font-mono-tabular text-[#00F0FF] backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-none border-2 border-[#00F0FF] bg-[#00F0FF]/10 text-xs font-mono text-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00F0FF] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00F0FF]" />
+              <span className="animate-ping absolute inline-flex h-full w-full bg-[#00F0FF] opacity-75" />
+              <span className="relative inline-flex h-2 w-2 bg-[#00F0FF]" />
             </span>
-            <span>FULLSTACK SYSTEMS ARCHITECTURE</span>
+            <span>[SYS_PIPELINE // FULLSTACK SYSTEMS ARCHITECTURE]</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Production-Grade Software Stacks Built for Speed & Compliance
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight uppercase">
+            Production-Grade Software Stacks Built for Speed &amp; Compliance
           </h2>
 
           <p className="text-base sm:text-lg text-[#94A3B8]">
@@ -150,40 +150,37 @@ export default function FeaturesGrid() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.45, delay: idx * 0.08 }}
-              whileHover={{ y: -4, transition: { duration: 0.2, ease: "easeOut" } }}
-              className="rounded-2xl bg-[#0D111A]/80 backdrop-blur-md border border-[#1A2234] p-7 flex flex-col justify-between hover:border-[#00F0FF]/60 transition-all duration-300 group hover:shadow-[0_10px_30px_-5px_rgba(0,240,255,0.2)] relative overflow-hidden"
+              transition={{ duration: 0.35, delay: idx * 0.05 }}
+              whileHover={{ y: -4, transition: { duration: 0.15, ease: "easeOut" } }}
+              className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-7 flex flex-col justify-between hover:border-[#00F0FF] transition-all duration-200 group shadow-[4px_4px_0px_0px_#1A2234] hover:shadow-[4px_4px_0px_0px_#00F0FF] relative overflow-hidden"
             >
               {/* Subtle Scanline Effect on Hover */}
-              <div className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
-
-              {/* Gradient Corner Ambient Glow */}
-              <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-bl from-[#00F0FF]/15 via-[#8B5CF6]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-bl-full" />
+              <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
 
               <div>
                 {/* Header row */}
                 <div className="flex items-center justify-between mb-5">
-                  <div className="p-3 rounded-xl bg-[#07090E] border border-[#1A2234] text-[#00F0FF] group-hover:border-[#00F0FF]/50 transition-colors">
+                  <div className="p-3 rounded-none bg-[#07090E] border-2 border-[#1A2234] text-[#00F0FF] group-hover:border-[#00F0FF] transition-colors shadow-[2px_2px_0px_0px_#1A2234]">
                     <item.icon className="w-6 h-6" />
                   </div>
-                  <span className="text-[10px] font-mono-tabular tracking-wider uppercase px-2.5 py-1 rounded bg-[#07090E] text-[#8B5CF6] border border-[#8B5CF6]/30 flex items-center space-x-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />
-                    <span>{item.badge}</span>
+                  <span className="text-[10px] font-mono tracking-wider uppercase px-2.5 py-1 rounded-none bg-[#07090E] text-[#8B5CF6] border-2 border-[#8B5CF6]/40 flex items-center space-x-1.5 shadow-[2px_2px_0px_0px_#1A2234]">
+                    <span className="w-1.5 h-1.5 bg-[#8B5CF6]" />
+                    <span>[{item.badge}]</span>
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#00F0FF] transition-colors">
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#00F0FF] transition-colors tracking-tight">
                   {item.title}
                 </h3>
 
-                <p className="text-sm text-[#94A3B8] leading-relaxed mb-6">
+                <p className="text-sm text-[#94A3B8] leading-relaxed mb-6 font-sans">
                   {item.description}
                 </p>
 
                 {/* Feature Bullet Points */}
                 <ul className="space-y-2.5 mb-8">
                   {item.bullets.map((bullet, i) => (
-                    <li key={i} className="flex items-start space-x-2.5 text-xs text-slate-300">
+                    <li key={i} className="flex items-start space-x-2.5 text-xs text-slate-300 font-mono">
                       <CheckCircle2 className="w-4 h-4 text-[#00F0FF] shrink-0 mt-0.5" />
                       <span>{bullet}</span>
                     </li>
@@ -192,14 +189,15 @@ export default function FeaturesGrid() {
               </div>
 
               {/* Card Footer CTA */}
-              <div className="pt-4 border-t border-[#1A2234]">
+              <div className="pt-4 border-t-2 border-[#1A2234] flex items-center justify-between">
                 <Link
                   href={item.ctaLink}
-                  className="inline-flex items-center space-x-2 text-xs font-semibold text-[#00F0FF] group-hover:text-white transition-colors"
+                  className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#00F0FF] group-hover:text-white transition-colors min-h-[44px]"
                 >
-                  <span>{item.ctaText}</span>
+                  <span>[{item.ctaText.toUpperCase()}]</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </Link>
+                <span className="text-[10px] font-mono text-slate-600">SYS_V2.4</span>
               </div>
             </motion.div>
           ))}

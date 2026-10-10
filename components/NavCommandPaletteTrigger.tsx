@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Command, Search } from "lucide-react";
+import { Search } from "lucide-react";
 
 export default function NavCommandPaletteTrigger() {
   const [isMac, setIsMac] = useState(false);
@@ -18,11 +18,11 @@ export default function NavCommandPaletteTrigger() {
     <button
       type="button"
       onClick={handleOpen}
-      className="px-2.5 py-1.5 rounded-xl bg-[#0D111A]/90 border border-[#00F0FF]/30 hover:border-[#00F0FF]/70 hover:shadow-[0_0_15px_rgba(0,240,255,0.25)] transition-all text-xs font-mono-tabular text-[#00F0FF] flex items-center space-x-1.5 cursor-pointer backdrop-blur-md"
+      className="px-3 py-1.5 rounded-none bg-[#0D111A] border-2 border-[#1A2234] hover:border-[#00F0FF] shadow-[3px_3px_0px_0px_#1A2234] hover:shadow-[3px_3px_0px_0px_#00F0FF] active:translate-x-[1px] active:translate-y-[1px] transition-all text-xs font-mono-tabular text-[#00F0FF] flex items-center space-x-1.5 cursor-pointer min-h-[44px]"
       title="Open Command Palette (Cmd+K / Ctrl+K)"
     >
       <Search className="w-3.5 h-3.5 text-[#00F0FF]" />
-      <span className="font-bold">{isMac ? "⌘K" : "Ctrl+K"}</span>
+      <span className="font-bold tracking-wider">[{isMac ? "⌘K" : "CTRL+K"}]</span>
     </button>
   );
 }

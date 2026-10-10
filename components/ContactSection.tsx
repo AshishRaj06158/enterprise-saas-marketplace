@@ -80,9 +80,9 @@ function ContactFormInner() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-8 rounded-2xl bg-[#0D111A]/80 backdrop-blur-md border border-[#00F0FF]/30 shadow-[0_0_35px_rgba(0,240,255,0.1)] space-y-6 relative overflow-hidden group"
+      className="p-8 rounded-none bg-[#0D111A] border-2 border-[#1A2234] shadow-[4px_4px_0px_0px_#1A2234] hover:border-[#00F0FF] hover:shadow-[4px_4px_0px_0px_#00F0FF] space-y-6 relative overflow-hidden group transition-all"
     >
-      <div className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none opacity-30 z-20" />
+      <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none opacity-40 z-20" />
 
       {/* Honeypot field for bot protection */}
       <div className="hidden" aria-hidden="true">
@@ -98,44 +98,44 @@ function ContactFormInner() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <label className="block text-xs font-mono text-slate-400 mb-2">FULL NAME *</label>
+          <label className="block text-xs font-mono text-slate-400 mb-2 uppercase">[FULL NAME] *</label>
           <input
             type="text"
             required
             placeholder="Rajesh Kumar"
-            className="w-full bg-[#07090E]/90 border border-[#1A2234] rounded-lg px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-[#00F0FF] transition-colors font-mono"
+            className="w-full bg-[#07090E] border-2 border-[#1A2234] rounded-none px-4 py-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-[#00F0FF] transition-colors font-mono shadow-[2px_2px_0px_0px_#1A2234]"
             value={formData.fullName}
             onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
           />
         </div>
 
         <div>
-          <label className="block text-xs font-mono text-slate-400 mb-2">WORK EMAIL *</label>
+          <label className="block text-xs font-mono text-slate-400 mb-2 uppercase">[WORK EMAIL] *</label>
           <input
             type="email"
             required
             placeholder="rajesh@company.com"
-            className="w-full bg-[#07090E]/90 border border-[#1A2234] rounded-lg px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-[#00F0FF] transition-colors font-mono"
+            className="w-full bg-[#07090E] border-2 border-[#1A2234] rounded-none px-4 py-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-[#00F0FF] transition-colors font-mono shadow-[2px_2px_0px_0px_#1A2234]"
             value={formData.workEmail}
             onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
           />
         </div>
 
         <div>
-          <label className="block text-xs font-mono text-slate-400 mb-2">COMPANY / ENTITY</label>
+          <label className="block text-xs font-mono text-slate-400 mb-2 uppercase">[COMPANY / ENTITY]</label>
           <input
             type="text"
             placeholder="Nexus Technologies Ltd."
-            className="w-full bg-[#07090E]/90 border border-[#1A2234] rounded-lg px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-[#00F0FF] transition-colors font-mono"
+            className="w-full bg-[#07090E] border-2 border-[#1A2234] rounded-none px-4 py-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-[#00F0FF] transition-colors font-mono shadow-[2px_2px_0px_0px_#1A2234]"
             value={formData.company}
             onChange={(e) => setFormData({ ...formData, company: e.target.value })}
           />
         </div>
 
         <div>
-          <label className="block text-xs font-mono text-slate-400 mb-2">SYSTEM MODULE REQUESTED</label>
+          <label className="block text-xs font-mono text-slate-400 mb-2 uppercase">[SYSTEM MODULE REQUESTED]</label>
           <select
-            className="w-full bg-[#07090E]/90 border border-[#1A2234] rounded-lg px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-[#00F0FF] transition-colors font-mono"
+            className="w-full bg-[#07090E] border-2 border-[#1A2234] rounded-none px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-[#00F0FF] transition-colors font-mono shadow-[2px_2px_0px_0px_#1A2234] cursor-pointer"
             value={formData.systemRequested}
             onChange={(e) => setFormData({ ...formData, systemRequested: e.target.value })}
           >
@@ -152,9 +152,9 @@ function ContactFormInner() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <label className="block text-xs font-mono text-slate-400 mb-2">COMMERCIAL BUDGET TIER</label>
+          <label className="block text-xs font-mono text-slate-400 mb-2 uppercase">[COMMERCIAL BUDGET TIER]</label>
           <select
-            className="w-full bg-[#07090E]/90 border border-[#1A2234] rounded-lg px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-[#00F0FF] transition-colors font-mono"
+            className="w-full bg-[#07090E] border-2 border-[#1A2234] rounded-none px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-[#00F0FF] transition-colors font-mono shadow-[2px_2px_0px_0px_#1A2234] cursor-pointer"
             value={formData.budget}
             onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
           >
@@ -166,27 +166,27 @@ function ContactFormInner() {
         </div>
 
         <div className="flex items-center">
-          <div className="p-3 rounded-xl bg-[#00F0FF]/10 border border-[#00F0FF]/30 text-xs font-mono text-[#00F0FF] flex items-center space-x-2 w-full">
+          <div className="p-3.5 rounded-none bg-[#00F0FF]/10 border-2 border-[#00F0FF] text-xs font-mono text-[#00F0FF] flex items-center space-x-2 w-full shadow-[2px_2px_0px_0px_#00F0FF]">
             <MessageSquareText className="w-4 h-4 shrink-0 text-[#00F0FF]" />
-            <span>Includes Direct WhatsApp Priority Channel (+91 9771596801)</span>
+            <span>[DIRECT WHATSAPP PRIORITY: +91 9771596801]</span>
           </div>
         </div>
       </div>
 
       <div>
-        <label className="block text-xs font-mono text-slate-400 mb-2">SYSTEM REQUIREMENTS & SCOPE *</label>
+        <label className="block text-xs font-mono text-slate-400 mb-2 uppercase">[SYSTEM REQUIREMENTS &amp; SCOPE] *</label>
         <textarea
           required
           rows={4}
           placeholder="Describe your tech stack, required custom modules (CRM, ERP, Billing), or expected deployment timeline..."
-          className="w-full bg-[#07090E]/90 border border-[#1A2234] rounded-lg px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-[#00F0FF] transition-colors leading-relaxed"
+          className="w-full bg-[#07090E] border-2 border-[#1A2234] rounded-none px-4 py-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-[#00F0FF] transition-colors leading-relaxed font-mono shadow-[2px_2px_0px_0px_#1A2234]"
           value={formData.requirements}
           onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
         />
       </div>
 
       {errorMsg && (
-        <div className="p-3.5 rounded-lg bg-red-950/40 border border-red-500/50 text-xs text-red-300 flex items-center gap-2 font-mono">
+        <div className="p-3.5 rounded-none bg-red-950/60 border-2 border-red-500 text-xs text-red-300 flex items-center gap-2 font-mono shadow-[2px_2px_0px_0px_#EF4444]">
           <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
           <span>{errorMsg}</span>
         </div>
@@ -195,14 +195,14 @@ function ContactFormInner() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-4 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] text-black font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-[0_0_25px_rgba(0,240,255,0.3)] hover:opacity-95 disabled:opacity-50 hover:-translate-y-0.5 cursor-pointer"
+        className="w-full py-4 rounded-none bg-[#00F0FF] text-black font-mono font-bold text-xs uppercase flex items-center justify-center gap-2 transition-all border-2 border-black shadow-[4px_4px_0px_0px_#00F0FF] hover:bg-[#00F0FF]/90 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF] disabled:opacity-50 cursor-pointer min-h-[48px]"
       >
         {loading ? (
-          "Transmitting Request..."
+          "[TRANSMITTING INQUIRY PACKET...]"
         ) : (
           <>
             <Send className="w-4 h-4" />
-            <span>Submit Deployment Request & Launch WhatsApp Dispatch</span>
+            <span>[SUBMIT DEPLOYMENT REQUEST &amp; LAUNCH WHATSAPP DISPATCH]</span>
           </>
         )}
       </button>
@@ -212,22 +212,22 @@ function ContactFormInner() {
 
 export default function ContactSection() {
   return (
-    <section className="py-24 bg-[#07090E] border-t border-[#1A2234] relative overflow-hidden" id="contact">
+    <section className="py-24 bg-[#07090E] border-t-2 border-[#1A2234] relative overflow-hidden" id="contact">
       {/* Ambient Glow Orbs */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#00F0FF]/10 blur-3xl pointer-events-none rounded-full animate-pulse-slow" />
       <div className="absolute inset-0 bg-dot-matrix opacity-20 pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-6 relative z-10">
         <div className="text-center mb-12 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#00F0FF]/40 bg-[#00F0FF]/10 text-xs font-mono text-[#00F0FF] backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-none border-2 border-[#00F0FF] bg-[#00F0FF]/10 text-xs font-mono text-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00F0FF] opacity-75" />
+              <span className="animate-ping absolute inline-flex h-full w-full bg-[#00F0FF] opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00F0FF]" />
             </span>
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>ENTERPRISE DEPLOYMENT INQUIRY</span>
+            <span>[SYS_INQUIRY // ENTERPRISE DEPLOYMENT INQUIRY]</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight uppercase">
             Deploy Custom Architectures
           </h2>
           <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto">

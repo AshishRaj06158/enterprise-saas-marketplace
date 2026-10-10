@@ -205,7 +205,7 @@ export default function DeveloperConsolePage() {
           "content-type": "application/json",
           "x-nexus-signature": "t=1791483492,v1=9a8b7c6d5e4f3a210fedcba9876543210",
           "user-agent": "Nexus-Webhook-Relay/2.4.0",
-          "x-[#00F0FF]-node": "ap-south-1-mumbai-edge-01"
+          "x-nexus-node": "ap-south-1-mumbai-edge-01"
         }
       });
       setIsDispatching(false);
@@ -223,12 +223,12 @@ export default function DeveloperConsolePage() {
         
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#00F0FF]/40 bg-[#00F0FF]/10 text-xs font-mono-tabular text-[#00F0FF] backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-none border-2 border-[#00F0FF] bg-[#00F0FF]/10 text-xs font-mono text-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]">
             <Code2 className="w-4 h-4 text-[#00F0FF]" />
-            <span>DEVELOPER CONSOLE // API KEYS &amp; WEBHOOK DISPATCH</span>
+            <span>[DEVELOPER CONSOLE // API KEYS &amp; WEBHOOK DISPATCH]</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight uppercase">
             Developer Settings &amp; Webhook Hub
           </h1>
 
@@ -239,7 +239,7 @@ export default function DeveloperConsolePage() {
 
         {/* Global Key Created Notice Banner */}
         {keyCreatedNotice && (
-          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 text-xs font-mono-tabular flex items-center justify-between shadow-[0_0_15px_rgba(52,211,153,0.15)]">
+          <div className="p-4 rounded-none bg-emerald-500/10 border-2 border-emerald-500 text-emerald-400 text-xs font-mono flex items-center justify-between shadow-[4px_4px_0px_0px_#10B981]">
             <div className="flex items-center space-x-2">
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>{keyCreatedNotice}</span>
@@ -251,72 +251,72 @@ export default function DeveloperConsolePage() {
         )}
 
         {/* NAVIGATION TAB STRIP */}
-        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 border-b border-[#1A2234] pb-4 font-mono-tabular text-xs">
+        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 border-b-2 border-[#1A2234] pb-4 font-mono text-xs">
           <button
             onClick={() => setActiveTab("keys")}
-            className={`px-4 py-2.5 rounded-xl transition-all cursor-pointer flex items-center space-x-2 font-bold min-h-[44px] ${
+            className={`px-4 py-2.5 rounded-none transition-all cursor-pointer flex items-center space-x-2 font-bold min-h-[44px] ${
               activeTab === "keys"
-                ? "bg-[#00F0FF] text-black shadow-[0_0_15px_rgba(0,240,255,0.3)]"
-                : "bg-[#0D111A] text-slate-400 border border-[#1A2234] hover:text-white"
+                ? "bg-[#00F0FF] text-black border-2 border-black shadow-[4px_4px_0px_0px_#00F0FF]"
+                : "bg-[#0D111A] text-slate-400 border-2 border-[#1A2234] hover:text-white shadow-[2px_2px_0px_0px_#1A2234]"
             }`}
           >
             <Key className="w-4 h-4" />
-            <span>API Access Keys ({keys.length})</span>
+            <span>[API ACCESS KEYS ({keys.length})]</span>
           </button>
 
           <button
             onClick={() => setActiveTab("webhooks")}
-            className={`px-4 py-2.5 rounded-xl transition-all cursor-pointer flex items-center space-x-2 font-bold min-h-[44px] ${
+            className={`px-4 py-2.5 rounded-none transition-all cursor-pointer flex items-center space-x-2 font-bold min-h-[44px] ${
               activeTab === "webhooks"
-                ? "bg-[#00F0FF] text-black shadow-[0_0_15px_rgba(0,240,255,0.3)]"
-                : "bg-[#0D111A] text-slate-400 border border-[#1A2234] hover:text-white"
+                ? "bg-[#00F0FF] text-black border-2 border-black shadow-[4px_4px_0px_0px_#00F0FF]"
+                : "bg-[#0D111A] text-slate-400 border-2 border-[#1A2234] hover:text-white shadow-[2px_2px_0px_0px_#1A2234]"
             }`}
           >
             <Webhook className="w-4 h-4" />
-            <span>Webhook Endpoints</span>
+            <span>[WEBHOOK ENDPOINTS]</span>
           </button>
 
           <button
             onClick={() => setActiveTab("dispatcher")}
-            className={`px-4 py-2.5 rounded-xl transition-all cursor-pointer flex items-center space-x-2 font-bold min-h-[44px] ${
+            className={`px-4 py-2.5 rounded-none transition-all cursor-pointer flex items-center space-x-2 font-bold min-h-[44px] ${
               activeTab === "dispatcher"
-                ? "bg-[#00F0FF] text-black shadow-[0_0_15px_rgba(0,240,255,0.3)]"
-                : "bg-[#0D111A] text-slate-400 border border-[#1A2234] hover:text-white"
+                ? "bg-[#00F0FF] text-black border-2 border-black shadow-[4px_4px_0px_0px_#00F0FF]"
+                : "bg-[#0D111A] text-slate-400 border-2 border-[#1A2234] hover:text-white shadow-[2px_2px_0px_0px_#1A2234]"
             }`}
           >
             <Send className="w-4 h-4" />
-            <span>Live Webhook Dispatcher / Test Sandbox</span>
+            <span>[WEBHOOK TEST DISPATCHER]</span>
           </button>
         </div>
 
         {/* TAB 1: API ACCESS KEYS */}
         {activeTab === "keys" && (
           <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 rounded-2xl bg-[#0D111A]/90 border border-[#00F0FF]/30 backdrop-blur-md shadow-xl">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 rounded-none bg-[#0D111A] border-2 border-[#1A2234] shadow-[4px_4px_0px_0px_#1A2234] hover:border-[#00F0FF] transition-all">
               <div>
-                <h2 className="text-lg font-bold text-white flex items-center space-x-2">
+                <h2 className="text-lg font-bold text-white flex items-center space-x-2 font-mono uppercase">
                   <Lock className="w-5 h-5 text-[#00F0FF]" />
-                  <span>Production &amp; Sandbox API Tokens</span>
+                  <span>[PRODUCTION &amp; SANDBOX API TOKENS]</span>
                 </h2>
-                <p className="text-xs text-[#94A3B8] mt-1">
+                <p className="text-xs text-[#94A3B8] mt-1 font-mono">
                   Use bearer tokens to authenticate HTTP requests against the SUTRA / NEXUS Gateway. Keep secret keys safe.
                 </p>
               </div>
 
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] text-black font-bold text-xs hover:opacity-95 transition-all flex items-center space-x-2 shrink-0 min-h-[44px] cursor-pointer shadow-[0_0_15px_rgba(0,240,255,0.25)]"
+                className="px-4 py-2.5 rounded-none bg-[#00F0FF] text-black font-mono font-bold text-xs uppercase border-2 border-black hover:bg-[#00F0FF]/90 transition-all flex items-center space-x-2 shrink-0 min-h-[44px] cursor-pointer shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF]"
               >
                 <Plus className="w-4 h-4" />
-                <span>Generate New Scoped Secret</span>
+                <span>[GENERATE SCOPED SECRET]</span>
               </button>
             </div>
 
             {/* Keys Table / List */}
-            <div className="rounded-2xl bg-[#0D111A]/80 border border-[#1A2234] overflow-hidden shadow-2xl">
+            <div className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] overflow-hidden shadow-[4px_4px_0px_0px_#1A2234]">
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs font-mono-tabular">
-                  <thead className="bg-[#07090E] text-slate-400 border-b border-[#1A2234] uppercase tracking-wider text-[11px]">
+                <table className="w-full text-left text-xs font-mono">
+                  <thead className="bg-[#07090E] text-slate-400 border-b-2 border-[#1A2234] uppercase tracking-wider text-[11px]">
                     <tr>
                       <th className="py-3.5 px-6">Token Identifier &amp; Type</th>
                       <th className="py-3.5 px-6">Secret Bearer Key</th>
@@ -325,7 +325,7 @@ export default function DeveloperConsolePage() {
                       <th className="py-3.5 px-6 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#1A2234] text-slate-200">
+                  <tbody className="divide-y-2 divide-[#1A2234] text-slate-200">
                     {keys.map((k) => {
                       const isRevealed = !!revealedKeys[k.id];
                       const isCopied = copiedKeyId === k.id;
@@ -336,20 +336,20 @@ export default function DeveloperConsolePage() {
                             <div className="font-bold text-white text-sm flex items-center space-x-2">
                               <span>{k.name}</span>
                               <span
-                                className={`text-[10px] uppercase px-2 py-0.5 rounded border ${
+                                className={`text-[10px] uppercase px-2 py-0.5 rounded-none border ${
                                   k.type === "production"
-                                    ? "bg-[#00F0FF]/10 text-[#00F0FF] border-[#00F0FF]/30"
-                                    : "bg-[#8B5CF6]/10 text-[#8B5CF6] border-[#8B5CF6]/30"
+                                    ? "bg-[#00F0FF]/10 text-[#00F0FF] border-[#00F0FF]"
+                                    : "bg-[#8B5CF6]/10 text-[#8B5CF6] border-[#8B5CF6]"
                                 }`}
                               >
-                                {k.type}
+                                [{k.type}]
                               </span>
                             </div>
                             <div className="text-[11px] text-slate-500">Created: {k.created}</div>
                           </td>
 
                           <td className="py-4 px-6">
-                            <div className="flex items-center space-x-2 bg-[#07090E] px-3 py-1.5 rounded-lg border border-[#1A2234] w-fit">
+                            <div className="flex items-center space-x-2 bg-[#07090E] px-3 py-1.5 rounded-none border-2 border-[#1A2234] w-fit shadow-[2px_2px_0px_0px_#1A2234]">
                               <span className="font-mono text-[#00F0FF]">
                                 {isRevealed ? k.key : k.maskedKey}
                               </span>
@@ -368,7 +368,7 @@ export default function DeveloperConsolePage() {
                               {k.scopes.map((s) => (
                                 <span
                                   key={s}
-                                  className="text-[10px] bg-[#1A2234] text-slate-300 px-2 py-0.5 rounded border border-slate-700"
+                                  className="text-[10px] bg-[#1A2234] text-slate-300 px-2 py-0.5 rounded-none border border-slate-700"
                                 >
                                   {s}
                                 </span>
@@ -381,17 +381,17 @@ export default function DeveloperConsolePage() {
                           <td className="py-4 px-6 text-right">
                             <button
                               onClick={() => copyToClipboard(k.key, k.id)}
-                              className="px-3 py-1.5 rounded-lg bg-[#07090E] border border-[#00F0FF]/40 text-[#00F0FF] hover:bg-[#00F0FF]/10 transition-colors inline-flex items-center space-x-1.5 cursor-pointer min-h-[36px]"
+                              className="px-3 py-1.5 rounded-none bg-[#07090E] border-2 border-[#00F0FF] text-[#00F0FF] hover:bg-[#00F0FF]/10 transition-colors inline-flex items-center space-x-1.5 cursor-pointer min-h-[36px] font-mono shadow-[2px_2px_0px_0px_#00F0FF]"
                             >
                               {isCopied ? (
                                 <>
                                   <Check className="w-3.5 h-3.5 text-emerald-400" />
-                                  <span className="text-emerald-400">Copied!</span>
+                                  <span className="text-emerald-400">COPIED!</span>
                                 </>
                               ) : (
                                 <>
                                   <Copy className="w-3.5 h-3.5" />
-                                  <span>Copy Token</span>
+                                  <span>[COPY]</span>
                                 </>
                               )}
                             </button>
@@ -409,74 +409,74 @@ export default function DeveloperConsolePage() {
         {/* TAB 2: WEBHOOK ENDPOINTS */}
         {activeTab === "webhooks" && (
           <div className="space-y-6">
-            <div className="rounded-2xl bg-[#0D111A]/90 border border-[#00F0FF]/30 p-8 space-y-6 backdrop-blur-md shadow-2xl">
+            <div className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-8 space-y-6 shadow-[4px_4px_0px_0px_#1A2234] hover:border-[#00F0FF] transition-all">
               <div>
-                <h2 className="text-xl font-bold text-white flex items-center space-x-2">
+                <h2 className="text-xl font-bold text-white flex items-center space-x-2 font-mono uppercase">
                   <Webhook className="w-5 h-5 text-[#00F0FF]" />
-                  <span>Outbound Webhook Relay Configuration</span>
+                  <span>[OUTBOUND WEBHOOK RELAY CONFIGURATION]</span>
                 </h2>
-                <p className="text-xs text-[#94A3B8] mt-1">
+                <p className="text-xs text-[#94A3B8] mt-1 font-mono">
                   SUTRA / NEXUS will dispatch HMAC-SHA256 signed POST payloads to your designated HTTPS callback URL upon system events.
                 </p>
               </div>
 
               {/* Target URL Input */}
               <div className="space-y-2">
-                <label className="text-xs font-mono-tabular text-slate-300 font-bold uppercase tracking-wider block">
-                  Target Endpoint Callback URL (HTTPS)
+                <label className="text-xs font-mono text-slate-300 font-bold uppercase tracking-wider block">
+                  [TARGET ENDPOINT CALLBACK URL (HTTPS)]:
                 </label>
                 <input
                   type="url"
                   value={webhookUrl}
                   onChange={(e) => setWebhookUrl(e.target.value)}
                   placeholder="https://api.yourdomain.com/webhooks/nexus"
-                  className="w-full bg-[#07090E] border border-[#1A2234] focus:border-[#00F0FF] rounded-xl px-4 py-3 text-xs text-white font-mono-tabular focus:outline-none"
+                  className="w-full bg-[#07090E] border-2 border-[#1A2234] focus:border-[#00F0FF] rounded-none px-4 py-3 text-xs text-white font-mono focus:outline-none shadow-[2px_2px_0px_0px_#1A2234]"
                 />
               </div>
 
               {/* Signing Secret Box */}
               <div className="space-y-2">
-                <label className="text-xs font-mono-tabular text-slate-300 font-bold uppercase tracking-wider block">
-                  HMAC Signing Secret Key
+                <label className="text-xs font-mono text-slate-300 font-bold uppercase tracking-wider block">
+                  [HMAC SIGNING SECRET KEY]:
                 </label>
-                <div className="flex items-center space-x-3 bg-[#07090E] p-4 rounded-xl border border-[#1A2234]">
+                <div className="flex items-center space-x-3 bg-[#07090E] p-4 rounded-none border-2 border-[#1A2234] shadow-[2px_2px_0px_0px_#1A2234]">
                   <span className="font-mono text-xs text-[#00F0FF] flex-1 break-all">
                     {signingSecret}
                   </span>
                   <button
                     onClick={copySigningSecret}
-                    className="px-3 py-1.5 rounded-lg bg-[#0D111A] border border-[#00F0FF]/40 text-[#00F0FF] hover:bg-[#00F0FF]/10 text-xs font-mono-tabular flex items-center space-x-1.5 cursor-pointer shrink-0 min-h-[36px]"
+                    className="px-3 py-1.5 rounded-none bg-[#0D111A] border-2 border-[#00F0FF] text-[#00F0FF] hover:bg-[#00F0FF]/10 text-xs font-mono flex items-center space-x-1.5 cursor-pointer shrink-0 min-h-[36px] shadow-[2px_2px_0px_0px_#00F0FF]"
                   >
                     {copiedSecret ? (
                       <>
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
-                        <span className="text-emerald-400">Secret Copied!</span>
+                        <span className="text-emerald-400">COPIED!</span>
                       </>
                     ) : (
                       <>
                         <Copy className="w-3.5 h-3.5" />
-                        <span>Copy Secret</span>
+                        <span>[COPY SECRET]</span>
                       </>
                     )}
                   </button>
                 </div>
-                <p className="text-[11px] text-slate-500 font-mono-tabular">
+                <p className="text-[11px] text-slate-500 font-mono">
                   Signatures are passed in header <code className="text-[#00F0FF]">x-nexus-signature</code> to verify payload authenticity.
                 </p>
               </div>
 
               {/* Event Subscriptions Checkboxes */}
               <div className="space-y-3 pt-2">
-                <label className="text-xs font-mono-tabular text-slate-300 font-bold uppercase tracking-wider block">
-                  Event Subscriptions
+                <label className="text-xs font-mono text-slate-300 font-bold uppercase tracking-wider block">
+                  [EVENT SUBSCRIPTIONS]:
                 </label>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono-tabular text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs">
                   
-                  <label className={`p-4 rounded-xl border cursor-pointer transition-all flex items-start space-x-3 ${
+                  <label className={`p-4 rounded-none border-2 cursor-pointer transition-all flex items-start space-x-3 ${
                     subscribedEvents.licensePurchased
-                      ? "bg-[#00F0FF]/10 border-[#00F0FF]/40 text-white"
-                      : "bg-[#07090E] border-[#1A2234] text-slate-400"
+                      ? "bg-[#00F0FF]/10 border-[#00F0FF] text-white shadow-[2px_2px_0px_0px_#00F0FF]"
+                      : "bg-[#07090E] border-[#1A2234] text-slate-400 shadow-[2px_2px_0px_0px_#1A2234]"
                   }`}>
                     <input
                       type="checkbox"
@@ -490,10 +490,10 @@ export default function DeveloperConsolePage() {
                     </div>
                   </label>
 
-                  <label className={`p-4 rounded-xl border cursor-pointer transition-all flex items-start space-x-3 ${
+                  <label className={`p-4 rounded-none border-2 cursor-pointer transition-all flex items-start space-x-3 ${
                     subscribedEvents.deploymentVerified
-                      ? "bg-[#00F0FF]/10 border-[#00F0FF]/40 text-white"
-                      : "bg-[#07090E] border-[#1A2234] text-slate-400"
+                      ? "bg-[#00F0FF]/10 border-[#00F0FF] text-white shadow-[2px_2px_0px_0px_#00F0FF]"
+                      : "bg-[#07090E] border-[#1A2234] text-slate-400 shadow-[2px_2px_0px_0px_#1A2234]"
                   }`}>
                     <input
                       type="checkbox"
@@ -507,10 +507,10 @@ export default function DeveloperConsolePage() {
                     </div>
                   </label>
 
-                  <label className={`p-4 rounded-xl border cursor-pointer transition-all flex items-start space-x-3 ${
+                  <label className={`p-4 rounded-none border-2 cursor-pointer transition-all flex items-start space-x-3 ${
                     subscribedEvents.securityAlertTriggered
-                      ? "bg-[#00F0FF]/10 border-[#00F0FF]/40 text-white"
-                      : "bg-[#07090E] border-[#1A2234] text-slate-400"
+                      ? "bg-[#00F0FF]/10 border-[#00F0FF] text-white shadow-[2px_2px_0px_0px_#00F0FF]"
+                      : "bg-[#07090E] border-[#1A2234] text-slate-400 shadow-[2px_2px_0px_0px_#1A2234]"
                   }`}>
                     <input
                       type="checkbox"
@@ -528,23 +528,23 @@ export default function DeveloperConsolePage() {
               </div>
 
               {/* Action Button */}
-              <div className="pt-4 flex items-center justify-between border-t border-[#1A2234]">
+              <div className="pt-4 flex items-center justify-between border-t-2 border-[#1A2234]">
                 {configSavedNotice ? (
-                  <span className="text-xs font-mono-tabular text-emerald-400 flex items-center space-x-1">
+                  <span className="text-xs font-mono text-emerald-400 flex items-center space-x-1">
                     <CheckCircle2 className="w-4 h-4" />
-                    <span>Webhook endpoint configuration saved successfully!</span>
+                    <span>[WEBHOOK ENDPOINT CONFIGURATION SAVED]</span>
                   </span>
                 ) : (
-                  <span className="text-[11px] font-mono-tabular text-slate-500">
+                  <span className="text-[11px] font-mono text-slate-500">
                     Endpoint active • HMAC-SHA256 signing enabled
                   </span>
                 )}
 
                 <button
                   onClick={handleSaveWebhookConfig}
-                  className="px-6 py-2.5 rounded-xl bg-[#00F0FF] text-black font-bold text-xs hover:bg-[#00F0FF]/90 transition-all cursor-pointer min-h-[44px] shadow-[0_0_15px_rgba(0,240,255,0.3)]"
+                  className="px-6 py-2.5 rounded-none bg-[#00F0FF] text-black border-2 border-black font-mono font-bold text-xs uppercase hover:bg-[#00F0FF]/90 transition-all cursor-pointer min-h-[44px] shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF]"
                 >
-                  Save Webhook Configuration
+                  [SAVE CONFIGURATION]
                 </button>
               </div>
             </div>
@@ -557,25 +557,25 @@ export default function DeveloperConsolePage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               
               {/* Controls Column */}
-              <div className="lg:col-span-4 rounded-2xl bg-[#0D111A]/90 border border-[#00F0FF]/30 p-6 space-y-6 backdrop-blur-md h-fit shadow-xl">
+              <div className="lg:col-span-4 rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 space-y-6 h-fit shadow-[4px_4px_0px_0px_#1A2234]">
                 <div>
-                  <h3 className="text-base font-bold text-white flex items-center space-x-2">
+                  <h3 className="text-base font-bold text-white flex items-center space-x-2 font-mono uppercase">
                     <Send className="w-4 h-4 text-[#00F0FF]" />
-                    <span>Test Event Dispatcher</span>
+                    <span>[TEST EVENT DISPATCHER]</span>
                   </h3>
-                  <p className="text-xs text-[#94A3B8] mt-1">
+                  <p className="text-xs text-[#94A3B8] mt-1 font-mono">
                     Simulate real-time HTTP payload POST transmission to your configured webhook endpoint.
                   </p>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs font-mono-tabular text-slate-300 font-bold uppercase tracking-wider block">
-                    Select Test Event Payload
+                  <label className="text-xs font-mono text-slate-300 font-bold uppercase tracking-wider block">
+                    [SELECT TEST EVENT PAYLOAD]:
                   </label>
                   <select
                     value={selectedEvent}
                     onChange={(e) => setSelectedEvent(e.target.value as any)}
-                    className="w-full bg-[#07090E] border border-[#1A2234] focus:border-[#00F0FF] rounded-xl px-3 py-2.5 text-xs text-white font-mono-tabular focus:outline-none cursor-pointer"
+                    className="w-full bg-[#07090E] border-2 border-[#1A2234] focus:border-[#00F0FF] rounded-none px-3 py-2.5 text-xs text-white font-mono focus:outline-none cursor-pointer shadow-[2px_2px_0px_0px_#1A2234]"
                   >
                     <option value="license.purchased">license.purchased (Commercial Sale)</option>
                     <option value="security.alert_triggered">security.alert_triggered (RLS Alert)</option>
@@ -583,47 +583,47 @@ export default function DeveloperConsolePage() {
                   </select>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#07090E] border border-[#1A2234] space-y-2 text-xs font-mono-tabular">
-                  <div className="text-slate-400 text-[11px] uppercase">Target Callback URL:</div>
+                <div className="p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] space-y-2 text-xs font-mono shadow-[2px_2px_0px_0px_#1A2234]">
+                  <div className="text-slate-400 text-[11px] uppercase">[TARGET CALLBACK URL]:</div>
                   <div className="text-[#00F0FF] font-mono truncate">{webhookUrl}</div>
                 </div>
 
                 <button
                   onClick={handleDispatchTestEvent}
                   disabled={isDispatching}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] text-black font-bold text-xs hover:opacity-95 transition-all flex items-center justify-center space-x-2 cursor-pointer shadow-[0_0_15px_rgba(0,240,255,0.3)] disabled:opacity-50 min-h-[44px]"
+                  className="w-full py-3.5 rounded-none bg-[#00F0FF] text-black border-2 border-black font-mono font-bold text-xs uppercase hover:bg-[#00F0FF]/90 transition-all flex items-center justify-center space-x-2 cursor-pointer shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF] disabled:opacity-50 min-h-[44px]"
                 >
                   {isDispatching ? (
                     <>
                       <RefreshCw className="w-4 h-4 animate-spin" />
-                      <span>Transmitting Payload...</span>
+                      <span>[TRANSMITTING PAYLOAD...]</span>
                     </>
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
-                      <span>Dispatch Test Event ➔</span>
+                      <span>[DISPATCH TEST EVENT ➔]</span>
                     </>
                   )}
                 </button>
               </div>
 
               {/* Terminal Viewer Column */}
-              <div className="lg:col-span-8 rounded-2xl bg-[#07090E] border border-[#1A2234] overflow-hidden shadow-2xl flex flex-col min-h-[420px]">
+              <div className="lg:col-span-8 rounded-none bg-[#07090E] border-2 border-[#1A2234] overflow-hidden shadow-[4px_4px_0px_0px_#1A2234] flex flex-col min-h-[420px]">
                 
                 {/* Terminal Header */}
-                <div className="bg-[#0D111A] px-4 py-3 border-b border-[#1A2234] flex items-center justify-between">
+                <div className="bg-[#0D111A] px-4 py-3 border-b-2 border-[#1A2234] flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                    <span className="text-xs font-mono-tabular text-slate-400 ml-2">
+                    <span className="w-3 h-3 bg-red-500 inline-block" />
+                    <span className="w-3 h-3 bg-yellow-500 inline-block" />
+                    <span className="w-3 h-3 bg-emerald-500 inline-block" />
+                    <span className="text-xs font-mono text-slate-400 ml-2">
                       webhook-dispatch-console.log
                     </span>
                   </div>
 
                   {dispatchResult && (
-                    <div className="flex items-center space-x-3 text-xs font-mono-tabular">
-                      <span className="px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold">
+                    <div className="flex items-center space-x-3 text-xs font-mono">
+                      <span className="px-2.5 py-0.5 rounded-none bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold">
                         {dispatchResult.status} {dispatchResult.statusText}
                       </span>
                       <span className="text-[#00F0FF]">
@@ -645,7 +645,7 @@ export default function DeveloperConsolePage() {
                         <div className="text-[#00F0FF] font-bold uppercase text-[11px] tracking-wider">
                           // TRANSMITTED REQUEST HEADERS:
                         </div>
-                        <pre className="bg-[#0D111A] p-3 rounded-xl border border-[#1A2234] text-slate-300 text-[11px] overflow-x-auto">
+                        <pre className="bg-[#0D111A] p-3 rounded-none border border-[#1A2234] text-slate-300 text-[11px] overflow-x-auto">
                           {JSON.stringify(dispatchResult.headers, null, 2)}
                         </pre>
                       </div>
@@ -654,7 +654,7 @@ export default function DeveloperConsolePage() {
                         <div className="text-[#8B5CF6] font-bold uppercase text-[11px] tracking-wider">
                           // JSON EVENT PAYLOAD:
                         </div>
-                        <pre className="bg-[#0D111A] p-4 rounded-xl border border-[#00F0FF]/30 text-emerald-400 text-[11px] overflow-x-auto">
+                        <pre className="bg-[#0D111A] p-4 rounded-none border border-[#00F0FF]/30 text-emerald-400 text-[11px] overflow-x-auto">
                           {JSON.stringify(dispatchResult.payload, null, 2)}
                         </pre>
                       </div>
@@ -665,9 +665,9 @@ export default function DeveloperConsolePage() {
                       </div>
                     </>
                   ) : (
-                    <div className="h-full flex flex-col items-center justify-center text-center p-12 text-slate-500 space-y-3">
+                    <div className="h-full flex flex-col items-center justify-center text-center p-12 text-slate-500 space-y-3 font-mono">
                       <Terminal className="w-8 h-8 text-[#00F0FF]/40" />
-                      <div>Ready to dispatch test webhooks. Select an event payload on the left and click &quot;Dispatch Test Event&quot;.</div>
+                      <div>Ready to dispatch test webhooks. Select an event payload on the left and click &quot;[DISPATCH TEST EVENT]&quot;.</div>
                     </div>
                   )}
                 </div>
@@ -681,7 +681,7 @@ export default function DeveloperConsolePage() {
         {/* NEW KEY CREATION MODAL */}
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-            <div className="bg-[#0D111A] border border-[#00F0FF]/40 rounded-2xl p-6 sm:p-8 max-w-md w-full space-y-6 shadow-2xl relative">
+            <div className="bg-[#0D111A] border-2 border-[#00F0FF] rounded-none p-6 sm:p-8 max-w-md w-full space-y-6 shadow-[6px_6px_0px_0px_#00F0FF] relative">
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="absolute top-4 right-4 text-slate-400 hover:text-white"
@@ -690,34 +690,34 @@ export default function DeveloperConsolePage() {
               </button>
 
               <div className="space-y-1">
-                <h3 className="text-lg font-bold text-white flex items-center space-x-2">
+                <h3 className="text-lg font-bold text-white flex items-center space-x-2 font-mono uppercase">
                   <Key className="w-5 h-5 text-[#00F0FF]" />
-                  <span>Generate Scoped Secret Key</span>
+                  <span>[GENERATE SCOPED SECRET KEY]</span>
                 </h3>
-                <p className="text-xs text-[#94A3B8]">Create a new bearer token with restricted API permissions.</p>
+                <p className="text-xs text-[#94A3B8] font-mono">Create a new bearer token with restricted API permissions.</p>
               </div>
 
-              <div className="space-y-4 text-xs font-mono-tabular">
+              <div className="space-y-4 text-xs font-mono">
                 <div className="space-y-1.5">
-                  <label className="text-slate-300 font-bold uppercase">Token Descriptor Name</label>
+                  <label className="text-slate-300 font-bold uppercase">[TOKEN DESCRIPTOR NAME]:</label>
                   <input
                     type="text"
                     value={newKeyName}
                     onChange={(e) => setNewKeyName(e.target.value)}
                     placeholder="e.g. CI/CD Deployment Runner"
-                    className="w-full bg-[#07090E] border border-[#1A2234] focus:border-[#00F0FF] rounded-xl px-3 py-2.5 text-white focus:outline-none"
+                    className="w-full bg-[#07090E] border-2 border-[#1A2234] focus:border-[#00F0FF] rounded-none px-3 py-2.5 text-white focus:outline-none shadow-[2px_2px_0px_0px_#1A2234]"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-slate-300 font-bold uppercase">Token Environment</label>
+                  <label className="text-slate-300 font-bold uppercase">[TOKEN ENVIRONMENT]:</label>
                   <div className="grid grid-cols-2 gap-3">
                     <button
                       type="button"
                       onClick={() => setNewKeyType("production")}
-                      className={`py-2 rounded-xl border text-center font-bold cursor-pointer ${
+                      className={`py-2 rounded-none border-2 text-center font-bold cursor-pointer ${
                         newKeyType === "production"
-                          ? "bg-[#00F0FF]/10 border-[#00F0FF] text-[#00F0FF]"
+                          ? "bg-[#00F0FF]/10 border-[#00F0FF] text-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]"
                           : "bg-[#07090E] border-[#1A2234] text-slate-400"
                       }`}
                     >
@@ -726,9 +726,9 @@ export default function DeveloperConsolePage() {
                     <button
                       type="button"
                       onClick={() => setNewKeyType("test")}
-                      className={`py-2 rounded-xl border text-center font-bold cursor-pointer ${
+                      className={`py-2 rounded-none border-2 text-center font-bold cursor-pointer ${
                         newKeyType === "test"
-                          ? "bg-[#8B5CF6]/10 border-[#8B5CF6] text-[#8B5CF6]"
+                          ? "bg-[#8B5CF6]/10 border-[#8B5CF6] text-[#8B5CF6] shadow-[2px_2px_0px_0px_#8B5CF6]"
                           : "bg-[#07090E] border-[#1A2234] text-slate-400"
                       }`}
                     >
@@ -738,7 +738,7 @@ export default function DeveloperConsolePage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-slate-300 font-bold uppercase">Select Granted Scopes</label>
+                  <label className="text-slate-300 font-bold uppercase">[GRANTED SCOPES]:</label>
                   <div className="space-y-2">
                     {["Read Catalog", "Verify License", "Dispatch Webhooks"].map((scope) => (
                       <label
@@ -761,15 +761,15 @@ export default function DeveloperConsolePage() {
               <div className="flex items-center justify-end space-x-3 pt-2">
                 <button
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-xl bg-[#07090E] text-slate-400 border border-[#1A2234] hover:text-white text-xs font-mono-tabular"
+                  className="px-4 py-2 rounded-none bg-[#07090E] text-slate-400 border-2 border-[#1A2234] hover:text-white text-xs font-mono"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleCreateKey}
-                  className="px-5 py-2 rounded-xl bg-[#00F0FF] text-black font-bold text-xs hover:bg-[#00F0FF]/90 transition-all font-mono-tabular"
+                  className="px-5 py-2 rounded-none bg-[#00F0FF] text-black border-2 border-black font-bold text-xs uppercase hover:bg-[#00F0FF]/90 transition-all font-mono shadow-[2px_2px_0px_0px_#00F0FF]"
                 >
-                  Generate Token
+                  [GENERATE TOKEN]
                 </button>
               </div>
 

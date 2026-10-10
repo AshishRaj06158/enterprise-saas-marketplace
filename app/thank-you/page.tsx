@@ -40,23 +40,20 @@ function ThankYouContent() {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-6 py-20 bg-[#07090E] relative overflow-hidden">
-      {/* Ambient Radial Glow Orbs */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#00F0FF]/15 blur-3xl pointer-events-none rounded-full animate-pulse-slow" />
+      {/* Structural Neo-Brutalist Grid Lines */}
       <div className="absolute inset-0 bg-dot-matrix opacity-20 pointer-events-none" />
 
-      <div className="max-w-md w-full text-center space-y-6 p-8 rounded-2xl bg-[#0D111A]/90 backdrop-blur-md border border-[#00F0FF]/40 shadow-[0_0_50px_rgba(0,240,255,0.2)] relative z-10 overflow-hidden group">
-        <div className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none opacity-50 z-20" />
-
-        <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mx-auto shadow-[0_0_30px_rgba(16,185,129,0.3)]">
+      <div className="max-w-md w-full text-center space-y-6 p-8 rounded-none bg-[#0D111A] border-2 border-[#00F0FF] shadow-[4px_4px_0px_0px_#00F0FF] relative z-10 overflow-hidden group">
+        <div className="w-16 h-16 rounded-none bg-emerald-500/10 border-2 border-emerald-500 flex items-center justify-center text-emerald-400 mx-auto shadow-[2px_2px_0px_0px_#10B981]">
           <CheckCircle2 className="w-8 h-8" />
         </div>
 
         <div className="space-y-2">
-          <span className="text-xs font-mono-tabular text-[#00F0FF] tracking-wider uppercase px-3 py-1 rounded bg-[#07090E] border border-[#00F0FF]/30 inline-block">
-            INQUIRY DISPATCHED & LOGGED
+          <span className="text-xs font-mono font-bold text-[#00F0FF] tracking-wider uppercase px-3 py-1 rounded-none bg-[#07090E] border-2 border-[#00F0FF] inline-block shadow-[2px_2px_0px_0px_#00F0FF]">
+            [INQUIRY DISPATCHED &amp; LOGGED]
           </span>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Advisory Pipeline Assigned</h1>
-          <p className="text-xs text-[#94A3B8] leading-relaxed">
+          <h1 className="text-2xl font-black text-white tracking-tight uppercase font-mono">Advisory Pipeline Assigned</h1>
+          <p className="text-xs font-mono text-[#94A3B8] leading-relaxed">
             Our systems architecture team has logged your submission. A dedicated lead architect has been assigned to your SLA dispatch window.
           </p>
         </div>
@@ -67,31 +64,31 @@ function ThankYouContent() {
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-400 via-[#00F0FF] to-[#8B5CF6] text-black font-bold text-xs shadow-[0_0_30px_rgba(0,240,255,0.4)] hover:opacity-95 transition-all flex items-center justify-center space-x-2 group hover:-translate-y-0.5"
+            className="w-full py-3.5 px-4 rounded-none bg-[#10B981] hover:bg-white text-black font-mono font-black text-xs uppercase tracking-wider border-2 border-[#10B981] hover:border-white shadow-[4px_4px_0px_0px_#10B981] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#10B981] transition-all flex items-center justify-center space-x-2 min-h-[44px]"
           >
             <MessageSquareText className="w-4 h-4 text-black" />
-            <span>Chat on WhatsApp (+91 9771596801) ➔</span>
+            <span>[CHAT ON WHATSAPP: +91 9771596801 ➔]</span>
           </a>
-          <p className="text-[10px] text-slate-500 font-mono-tabular mt-2">
+          <p className="text-[10px] text-slate-500 font-mono mt-2">
             Target WhatsApp Channel: +91 9771596801 • Instant Response SLA
           </p>
         </div>
 
-        <div className="pt-4 border-t border-[#1A2234] flex flex-col gap-3 font-mono-tabular text-xs">
+        <div className="pt-4 border-t-2 border-[#1A2234] flex flex-col gap-3 font-mono text-xs">
           <Link
             href="/"
-            className="w-full py-2.5 rounded-xl bg-[#07090E] border border-[#1A2234] hover:border-[#00F0FF]/50 text-white font-semibold flex items-center justify-center space-x-1.5 transition-colors"
+            className="w-full py-3 rounded-none bg-[#07090E] border-2 border-[#1A2234] hover:border-[#00F0FF] text-white font-bold flex items-center justify-center space-x-1.5 transition-colors min-h-[44px]"
           >
-            <span>Return to Marketplace Home</span>
+            <span>[RETURN TO MARKETPLACE HOME]</span>
             <ArrowRight className="w-3.5 h-3.5 text-[#00F0FF]" />
           </Link>
 
           <Link
             href="/docs"
-            className="w-full py-2.5 rounded-xl border border-[#1A2234] hover:bg-[#161F30] text-slate-400 hover:text-white flex items-center justify-center space-x-1.5 transition-colors"
+            className="w-full py-3 rounded-none border-2 border-[#1A2234] bg-[#07090E] hover:border-slate-500 text-slate-400 hover:text-white flex items-center justify-center space-x-1.5 transition-colors min-h-[44px]"
           >
             <BookOpen className="w-3.5 h-3.5" />
-            <span>Explore Developer Documentation</span>
+            <span>[EXPLORE DEVELOPER DOCUMENTATION]</span>
           </Link>
         </div>
 

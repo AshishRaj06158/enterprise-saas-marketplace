@@ -167,51 +167,47 @@ export default function OperationsStatusPage() {
 
   return (
     <div className="pt-32 pb-24 bg-[#07090E] min-h-screen text-slate-100 relative overflow-hidden">
-      {/* Ambient Radial Glow Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#00F0FF]/10 blur-3xl pointer-events-none rounded-full animate-pulse-slow" />
-      <div className="absolute bottom-10 right-1/4 w-[550px] h-[350px] bg-[#8B5CF6]/12 blur-3xl pointer-events-none rounded-full animate-pulse-slow" style={{ animationDelay: "3s" }} />
+      {/* Structural Neo-Brutalist Grid Lines */}
       <div className="absolute inset-0 bg-dot-matrix opacity-20 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#00F0FF]/40 bg-[#00F0FF]/10 text-xs font-mono-tabular text-[#00F0FF] backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-none border-2 border-[#00F0FF] bg-[#00F0FF]/10 text-xs font-mono font-bold text-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]">
             <Radio className="w-4 h-4 text-[#00F0FF] animate-pulse" />
-            <span>GLOBAL SYSTEM HEALTH // LIVE TELEMETRY STATUS</span>
+            <span>[GLOBAL SYSTEM HEALTH // LIVE TELEMETRY STATUS]</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            System Status & Operations Dashboard
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight uppercase font-mono">
+            SYSTEM STATUS &amp; OPERATIONS DASHBOARD
           </h1>
 
-          <p className="text-base text-[#94A3B8] leading-relaxed">
+          <p className="text-sm font-mono text-[#94A3B8] leading-relaxed">
             Real-time operational health, edge node latency, and incident maintenance logs across all software platforms.
           </p>
         </div>
 
         {/* Global Operational Status Banner */}
-        <div className="rounded-3xl bg-[#0D111A]/90 backdrop-blur-md border border-emerald-500/50 p-6 sm:p-8 shadow-[0_0_40px_rgba(16,185,129,0.2)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative overflow-hidden">
-          <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent blur-[1px] animate-scanline pointer-events-none" />
-
+        <div className="rounded-none bg-[#0D111A] border-2 border-emerald-500 p-6 sm:p-8 shadow-[4px_4px_0px_0px_#10B981] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative overflow-hidden">
           <div className="flex items-center space-x-4">
             <div className="relative flex h-5 w-5 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-5 w-5 bg-emerald-400" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-none bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-none h-5 w-5 bg-emerald-400" />
             </div>
 
             <div>
-              <div className="text-xs font-mono-tabular text-emerald-400 font-bold uppercase tracking-wider">
-                ALL SYSTEMS OPERATIONAL // 99.98% UPTIME
+              <div className="text-xs font-mono text-emerald-400 font-black uppercase tracking-wider">
+                [ALL SYSTEMS OPERATIONAL // 99.98% UPTIME]
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-white mt-0.5">
+              <h2 className="text-xl sm:text-2xl font-black font-mono text-white mt-0.5 uppercase">
                 All 6 Core Infrastructure Nodes Active
               </h2>
             </div>
           </div>
 
-          <div className="flex items-center space-x-4 shrink-0 font-mono-tabular text-xs">
+          <div className="flex items-center space-x-4 shrink-0 font-mono text-xs">
             <div className="text-right hidden sm:block">
-              <div className="text-slate-400 text-[10px]">REAL-TIME EDGE HEARTBEAT</div>
+              <div className="text-slate-400 text-[10px] font-bold">[REAL-TIME EDGE HEARTBEAT]</div>
               <div className="text-white font-semibold flex items-center space-x-1">
                 <Clock className="w-3.5 h-3.5 text-[#00F0FF]" />
                 <span>Auto-sync 30s (Last: {lastSync.toLocaleTimeString()})</span>
@@ -221,55 +217,55 @@ export default function OperationsStatusPage() {
             <button
               onClick={handleManualSync}
               disabled={isSyncing}
-              className="px-4 py-2.5 rounded-xl bg-[#00F0FF]/10 text-[#00F0FF] hover:bg-[#00F0FF]/20 border border-[#00F0FF]/40 text-xs font-mono-tabular flex items-center space-x-2 transition-all cursor-pointer"
+              className="px-4 py-2.5 rounded-none bg-[#07090E] text-[#00F0FF] hover:bg-[#00F0FF] hover:text-black border-2 border-[#00F0FF] text-xs font-mono font-bold flex items-center space-x-2 transition-all cursor-pointer shadow-[2px_2px_0px_0px_#00F0FF] active:translate-x-[1px] active:translate-y-[1px] min-h-[44px]"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? "animate-spin" : ""}`} />
-              <span>{isSyncing ? "Syncing..." : "Pulse Refresh"}</span>
+              <span>{isSyncing ? "[SYNCING...]" : "[PULSE REFRESH]"}</span>
             </button>
           </div>
         </div>
 
         {/* Operational Nodes Grid (6 Nodes) */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between text-xs font-mono-tabular text-[#94A3B8]">
-            <span className="uppercase tracking-wider flex items-center space-x-2">
+          <div className="flex items-center justify-between text-xs font-mono text-[#94A3B8]">
+            <span className="uppercase tracking-wider font-bold flex items-center space-x-2">
               <Server className="w-4 h-4 text-[#00F0FF]" />
-              <span>ACTIVE OPERATIONAL NODES (6 REGISTRY NODES)</span>
+              <span>[ACTIVE OPERATIONAL NODES: 6 REGISTRY NODES]</span>
             </span>
-            <span className="text-emerald-400 font-semibold">6 / 6 OPERATIONAL</span>
+            <span className="text-emerald-400 font-bold border border-emerald-500/40 bg-emerald-500/10 px-2 py-0.5">[6 / 6 OPERATIONAL]</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {nodeData.map((node) => (
               <div
                 key={node.id}
-                className="rounded-2xl bg-[#0D111A]/80 backdrop-blur-md border border-[#1A2234] p-6 hover:border-[#00F0FF]/50 hover:shadow-[0_0_25px_rgba(0,240,255,0.15)] transition-all duration-300 flex flex-col justify-between space-y-4 relative overflow-hidden group"
+                className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 hover:border-[#00F0FF] shadow-[4px_4px_0px_0px_#1A2234] hover:shadow-[4px_4px_0px_0px_#00F0FF] transition-all flex flex-col justify-between space-y-4 relative group"
               >
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between text-[10px] font-mono-tabular">
-                    <span className="px-2.5 py-0.5 rounded bg-[#07090E] text-[#00F0FF] border border-[#00F0FF]/30 uppercase">
-                      {node.category}
+                  <div className="flex items-center justify-between text-[10px] font-mono">
+                    <span className="px-2 py-0.5 rounded-none bg-[#07090E] text-[#00F0FF] border-2 border-[#1A2234] uppercase font-bold">
+                      [{node.category}]
                     </span>
                     <span className="text-emerald-400 font-bold flex items-center space-x-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      <span>{node.status}</span>
+                      <span className="w-1.5 h-1.5 rounded-none bg-emerald-400 animate-pulse" />
+                      <span>[{node.status}]</span>
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-white group-hover:text-[#00F0FF] transition-colors">
+                  <h3 className="text-base font-bold text-white group-hover:text-[#00F0FF] transition-colors font-mono">
                     {node.name}
                   </h3>
                 </div>
 
-                <div className="space-y-3 pt-3 border-t border-[#1A2234] text-xs font-mono-tabular">
+                <div className="space-y-3 pt-3 border-t-2 border-[#1A2234] text-xs font-mono">
                   <div className="flex justify-between items-center text-slate-400">
                     <span>Response Ping:</span>
-                    <span className="text-emerald-400 font-semibold">{node.ping}</span>
+                    <span className="text-emerald-400 font-bold">{node.ping}</span>
                   </div>
 
                   <div className="flex justify-between items-center text-slate-400">
                     <span>{node.metricLabel}:</span>
-                    <span className="text-white font-semibold">{node.metricValue}</span>
+                    <span className="text-white font-bold">{node.metricValue}</span>
                   </div>
 
                   {/* 30-Day Uptime Ticks Visualizer */}
@@ -282,7 +278,7 @@ export default function OperationsStatusPage() {
                       {node.uptimeHistory.map((_, idx) => (
                         <span
                           key={idx}
-                          className="h-4 flex-1 rounded-sm bg-emerald-400/80 hover:bg-[#00F0FF] transition-colors"
+                          className="h-4 flex-1 rounded-none bg-emerald-400 hover:bg-[#00F0FF] transition-colors"
                           title={`Day ${30 - idx}: 100% Operational`}
                         />
                       ))}
@@ -295,44 +291,44 @@ export default function OperationsStatusPage() {
         </div>
 
         {/* Live Incident & Maintenance Log Table */}
-        <div className="rounded-3xl bg-[#0D111A]/90 backdrop-blur-md border border-[#00F0FF]/30 p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
-          <div className="flex items-center justify-between pb-4 border-b border-[#1A2234]">
+        <div className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 sm:p-8 shadow-[4px_4px_0px_0px_#1A2234] space-y-6 relative overflow-hidden">
+          <div className="flex items-center justify-between pb-4 border-b-2 border-[#1A2234]">
             <div className="flex items-center space-x-3">
               <Terminal className="w-5 h-5 text-[#00F0FF]" />
-              <h2 className="text-lg font-bold text-white tracking-wide font-mono-tabular">
-                INCIDENT & MAINTENANCE AUDIT LOG
+              <h2 className="text-sm font-black text-white tracking-wider font-mono uppercase">
+                [INCIDENT &amp; MAINTENANCE AUDIT LOG]
               </h2>
             </div>
-            <span className="text-xs font-mono-tabular text-slate-400">
-              HISTORICAL AUDIT TRAIL
+            <span className="text-xs font-mono font-bold text-slate-400">
+              [HISTORICAL AUDIT TRAIL]
             </span>
           </div>
 
-          <div className="space-y-3 font-mono-tabular">
+          <div className="space-y-3 font-mono">
             {logsData.map((log) => {
               const isExpanded = !!expandedLogs[log.id];
               return (
                 <div
                   key={log.id}
-                  className="rounded-xl bg-[#07090E] border border-[#1A2234] p-4 space-y-2 hover:border-[#00F0FF]/40 transition-colors"
+                  className="rounded-none bg-[#07090E] border-2 border-[#1A2234] p-4 space-y-2 hover:border-[#00F0FF] transition-colors"
                 >
                   <div
                     onClick={() => toggleLogExpand(log.id)}
-                    className="flex items-center justify-between cursor-pointer"
+                    className="flex items-center justify-between cursor-pointer min-h-[36px]"
                   >
                     <div className="flex items-center space-x-3 truncate mr-2">
                       <span
-                        className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                        className={`px-2 py-0.5 rounded-none text-[10px] font-bold border-2 ${
                           log.type === "RESOLVED"
-                            ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
+                            ? "bg-emerald-500/10 text-emerald-400 border-emerald-500"
                             : log.type === "MAINTENANCE"
-                            ? "bg-yellow-500/10 text-yellow-400 border border-yellow-500/30"
-                            : "bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/30"
+                            ? "bg-yellow-500/10 text-yellow-400 border-yellow-500"
+                            : "bg-[#00F0FF]/10 text-[#00F0FF] border-[#00F0FF]"
                         }`}
                       >
                         [{log.type}]
                       </span>
-                      <span className="text-xs font-semibold text-white truncate">
+                      <span className="text-xs font-bold text-white truncate">
                         {log.title}
                       </span>
                     </div>
@@ -348,7 +344,7 @@ export default function OperationsStatusPage() {
                   </div>
 
                   {isExpanded && (
-                    <div className="pt-2 border-t border-[#1A2234] text-xs text-slate-300 leading-relaxed bg-[#0D111A] p-3 rounded-lg">
+                    <div className="pt-2 border-t-2 border-[#1A2234] text-xs text-slate-300 leading-relaxed bg-[#0D111A] p-3 rounded-none">
                       {log.details}
                     </div>
                   )}
@@ -362,9 +358,9 @@ export default function OperationsStatusPage() {
         <div className="text-center pt-4">
           <Link
             href="/systems"
-            className="inline-flex items-center space-x-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] text-black font-bold text-xs hover:opacity-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+            className="inline-flex items-center space-x-2 px-8 py-3.5 rounded-none bg-[#00F0FF] hover:bg-white text-black font-mono font-black text-xs uppercase tracking-wider border-2 border-[#00F0FF] hover:border-white shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF] transition-all min-h-[44px]"
           >
-            <span>Explore Systems Catalog</span>
+            <span>[EXPLORE SYSTEMS CATALOG]</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

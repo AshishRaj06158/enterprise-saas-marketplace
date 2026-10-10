@@ -227,24 +227,22 @@ jobs:
 
   return (
     <div className="pt-32 pb-24 bg-[#07090E] min-h-screen text-slate-100 relative overflow-hidden">
-      {/* Ambient Radial Glow Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#00F0FF]/10 blur-3xl pointer-events-none rounded-full animate-pulse-slow" />
-      <div className="absolute bottom-10 right-1/4 w-[550px] h-[350px] bg-[#8B5CF6]/12 blur-3xl pointer-events-none rounded-full animate-pulse-slow" style={{ animationDelay: "3s" }} />
+      {/* Structural Neo-Brutalist Grid Lines */}
       <div className="absolute inset-0 bg-dot-matrix opacity-20 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#00F0FF]/40 bg-[#00F0FF]/10 text-xs font-mono-tabular text-[#00F0FF] backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-none border-2 border-[#00F0FF] bg-[#00F0FF]/10 text-xs font-mono font-bold text-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]">
             <Sliders className="w-4 h-4 text-[#00F0FF]" />
-            <span>DEPLOYMENT ORCHESTRATION GENERATOR // INFRASTRUCTURE MATRIX</span>
+            <span>[SYS_ORCHESTRATION // INFRASTRUCTURE_MATRIX]</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Deployment Config & Environment Generator
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight uppercase font-mono">
+            DEPLOYMENT CONFIG &amp; RUNTIME GENERATOR
           </h1>
 
-          <p className="text-base text-[#94A3B8] leading-relaxed">
+          <p className="text-sm font-mono text-[#94A3B8] leading-relaxed">
             Generate production-ready environment configurations, Docker Compose setups, and CI/CD pipelines in seconds.
           </p>
         </div>
@@ -253,23 +251,23 @@ jobs:
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* LEFT COLUMN: Controls & Toggles (5 cols) */}
-          <div className="lg:col-span-5 rounded-3xl bg-[#0D111A]/90 backdrop-blur-md border border-[#00F0FF]/30 p-6 sm:p-8 space-y-6 shadow-2xl relative">
-            <div className="flex items-center space-x-2 pb-4 border-b border-[#1A2234]">
+          <div className="lg:col-span-5 rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 sm:p-8 space-y-6 shadow-[4px_4px_0px_0px_#1A2234] relative">
+            <div className="flex items-center space-x-2 pb-4 border-b-2 border-[#1A2234]">
               <Cpu className="w-5 h-5 text-[#00F0FF]" />
-              <h2 className="text-lg font-bold text-white tracking-wide font-mono-tabular">
-                CONFIGURATION PARAMETERS
+              <h2 className="text-sm font-mono font-black text-white tracking-wider uppercase">
+                [CONFIGURATION_PARAMETERS]
               </h2>
             </div>
 
             {/* 1. Target System Selector */}
             <div className="space-y-2">
-              <label className="text-xs font-mono-tabular text-[#00F0FF] uppercase block">
-                1. SELECT TARGET SYSTEM MODULE:
+              <label className="text-xs font-mono font-bold text-[#00F0FF] uppercase block tracking-wider">
+                [01. TARGET SYSTEM MODULE]:
               </label>
               <select
                 value={selectedSystemSlug}
                 onChange={(e) => setSelectedSystemSlug(e.target.value)}
-                className="w-full bg-[#07090E] border border-[#1A2234] focus:border-[#00F0FF] rounded-xl px-4 py-3 text-xs font-mono-tabular text-white focus:outline-none"
+                className="w-full bg-[#07090E] border-2 border-[#1A2234] focus:border-[#00F0FF] rounded-none px-4 py-3 text-xs font-mono text-white focus:outline-none transition-colors"
               >
                 {allSystems.map((s) => (
                   <option key={s.id} value={s.slug}>
@@ -281,22 +279,22 @@ jobs:
 
             {/* 2. Deployment Target Toggle */}
             <div className="space-y-2 pt-2">
-              <label className="text-xs font-mono-tabular text-[#8B5CF6] uppercase block">
-                2. SELECT DEPLOYMENT TARGET:
+              <label className="text-xs font-mono font-bold text-[#8B5CF6] uppercase block tracking-wider">
+                [02. DEPLOYMENT RUNTIME TARGET]:
               </label>
-              <div className="grid grid-cols-1 gap-2 font-mono-tabular text-xs">
+              <div className="grid grid-cols-1 gap-2.5 font-mono text-xs">
                 <button
                   type="button"
                   onClick={() => setDeployTarget("vercel")}
-                  className={`p-3 rounded-xl border text-left flex items-center justify-between transition-all cursor-pointer ${
+                  className={`p-3.5 rounded-none border-2 text-left flex items-center justify-between transition-all cursor-pointer min-h-[44px] ${
                     deployTarget === "vercel"
-                      ? "bg-[#00F0FF]/10 border-[#00F0FF] text-white shadow-[0_0_15px_rgba(0,240,255,0.2)]"
-                      : "bg-[#07090E] border-[#1A2234] text-slate-400 hover:text-white"
+                      ? "bg-[#00F0FF]/10 border-[#00F0FF] text-white shadow-[4px_4px_0px_0px_#00F0FF] -translate-x-[2px] -translate-y-[2px]"
+                      : "bg-[#07090E] border-[#1A2234] text-slate-400 hover:text-white hover:border-[#00F0FF]/50"
                   }`}
                 >
                   <div className="flex items-center space-x-2">
                     <Server className="w-4 h-4 text-[#00F0FF]" />
-                    <span>Vercel / Next.js Edge Platform</span>
+                    <span className="font-bold">VERCEL / NEXT.JS EDGE PLATFORM</span>
                   </div>
                   {deployTarget === "vercel" && <Check className="w-4 h-4 text-[#00F0FF]" />}
                 </button>
@@ -304,15 +302,15 @@ jobs:
                 <button
                   type="button"
                   onClick={() => setDeployTarget("docker")}
-                  className={`p-3 rounded-xl border text-left flex items-center justify-between transition-all cursor-pointer ${
+                  className={`p-3.5 rounded-none border-2 text-left flex items-center justify-between transition-all cursor-pointer min-h-[44px] ${
                     deployTarget === "docker"
-                      ? "bg-[#8B5CF6]/10 border-[#8B5CF6] text-white shadow-[0_0_15px_rgba(139,92,246,0.2)]"
-                      : "bg-[#07090E] border-[#1A2234] text-slate-400 hover:text-white"
+                      ? "bg-[#8B5CF6]/10 border-[#8B5CF6] text-white shadow-[4px_4px_0px_0px_#8B5CF6] -translate-x-[2px] -translate-y-[2px]"
+                      : "bg-[#07090E] border-[#1A2234] text-slate-400 hover:text-white hover:border-[#8B5CF6]/50"
                   }`}
                 >
                   <div className="flex items-center space-x-2">
                     <FileCode className="w-4 h-4 text-[#8B5CF6]" />
-                    <span>Docker Compose & Microservices</span>
+                    <span className="font-bold">DOCKER COMPOSE &amp; MICROSERVICES</span>
                   </div>
                   {deployTarget === "docker" && <Check className="w-4 h-4 text-[#8B5CF6]" />}
                 </button>
@@ -320,15 +318,15 @@ jobs:
                 <button
                   type="button"
                   onClick={() => setDeployTarget("k8s")}
-                  className={`p-3 rounded-xl border text-left flex items-center justify-between transition-all cursor-pointer ${
+                  className={`p-3.5 rounded-none border-2 text-left flex items-center justify-between transition-all cursor-pointer min-h-[44px] ${
                     deployTarget === "k8s"
-                      ? "bg-emerald-500/10 border-emerald-400 text-white shadow-[0_0_15px_rgba(52,211,153,0.2)]"
-                      : "bg-[#07090E] border-[#1A2234] text-slate-400 hover:text-white"
+                      ? "bg-emerald-500/10 border-emerald-400 text-white shadow-[4px_4px_0px_0px_#10B981] -translate-x-[2px] -translate-y-[2px]"
+                      : "bg-[#07090E] border-[#1A2234] text-slate-400 hover:text-white hover:border-emerald-500/50"
                   }`}
                 >
                   <div className="flex items-center space-x-2">
                     <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                    <span>Kubernetes Helm Manifest Cluster</span>
+                    <span className="font-bold">KUBERNETES HELM CLUSTER</span>
                   </div>
                   {deployTarget === "k8s" && <Check className="w-4 h-4 text-emerald-400" />}
                 </button>
@@ -336,58 +334,58 @@ jobs:
             </div>
 
             {/* 3. Add-on Feature Toggles */}
-            <div className="space-y-3 pt-2 border-t border-[#1A2234]">
-              <label className="text-xs font-mono-tabular text-emerald-400 uppercase block">
-                3. ARCHITECTURAL ADD-ON RULES:
+            <div className="space-y-3 pt-2 border-t-2 border-[#1A2234]">
+              <label className="text-xs font-mono font-bold text-emerald-400 uppercase block tracking-wider">
+                [03. ARCHITECTURAL ADD-ON RULES]:
               </label>
 
               <button
                 type="button"
                 onClick={() => setIncludeRedis(!includeRedis)}
-                className="w-full flex items-center space-x-3 text-xs font-mono-tabular text-left text-slate-300 hover:text-white p-2 rounded-lg bg-[#07090E] border border-[#1A2234] cursor-pointer"
+                className="w-full flex items-center space-x-3 text-xs font-mono text-left text-slate-300 hover:text-white p-3 rounded-none bg-[#07090E] border-2 border-[#1A2234] hover:border-[#00F0FF] cursor-pointer transition-colors min-h-[44px]"
               >
                 {includeRedis ? (
                   <CheckSquare className="w-4 h-4 text-[#00F0FF] shrink-0" />
                 ) : (
                   <Square className="w-4 h-4 text-slate-500 shrink-0" />
                 )}
-                <span>Include Upstash Redis Vector config</span>
+                <span className="font-semibold">Include Upstash Redis Vector config</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setEnableOwasp(!enableOwasp)}
-                className="w-full flex items-center space-x-3 text-xs font-mono-tabular text-left text-slate-300 hover:text-white p-2 rounded-lg bg-[#07090E] border border-[#1A2234] cursor-pointer"
+                className="w-full flex items-center space-x-3 text-xs font-mono text-left text-slate-300 hover:text-white p-3 rounded-none bg-[#07090E] border-2 border-[#1A2234] hover:border-[#8B5CF6] cursor-pointer transition-colors min-h-[44px]"
               >
                 {enableOwasp ? (
                   <CheckSquare className="w-4 h-4 text-[#8B5CF6] shrink-0" />
                 ) : (
                   <Square className="w-4 h-4 text-slate-500 shrink-0" />
                 )}
-                <span>Enable OWASP Guardrail Environment Rules</span>
+                <span className="font-semibold">Enable OWASP Guardrail Environment Rules</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setIncludeApiHooks(!includeApiHooks)}
-                className="w-full flex items-center space-x-3 text-xs font-mono-tabular text-left text-slate-300 hover:text-white p-2 rounded-lg bg-[#07090E] border border-[#1A2234] cursor-pointer"
+                className="w-full flex items-center space-x-3 text-xs font-mono text-left text-slate-300 hover:text-white p-3 rounded-none bg-[#07090E] border-2 border-[#1A2234] hover:border-emerald-500 cursor-pointer transition-colors min-h-[44px]"
               >
                 {includeApiHooks ? (
                   <CheckSquare className="w-4 h-4 text-emerald-400 shrink-0" />
                 ) : (
                   <Square className="w-4 h-4 text-slate-500 shrink-0" />
                 )}
-                <span>Pre-configure WhatsApp & Resend API hooks</span>
+                <span className="font-semibold">Pre-configure WhatsApp &amp; Resend API hooks</span>
               </button>
             </div>
 
             {/* Quick CTA */}
-            <div className="pt-4 border-t border-[#1A2234]">
+            <div className="pt-4 border-t-2 border-[#1A2234]">
               <Link
                 href={`/checkout?system=${selectedSystem.slug}`}
-                className="w-full py-3.5 px-4 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)] flex items-center justify-center space-x-2"
+                className="w-full py-3.5 px-4 rounded-none text-xs font-black uppercase tracking-wider font-mono text-black bg-[#00F0FF] hover:bg-white border-2 border-[#00F0FF] hover:border-white shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF] transition-all flex items-center justify-center space-x-2 min-h-[44px]"
               >
-                <span>Acquire System Source Code</span>
+                <span>[ACQUIRE SYSTEM SOURCE CODE]</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -395,19 +393,19 @@ jobs:
           </div>
 
           {/* RIGHT COLUMN: Real-Time Generated Output Terminal (7 cols) */}
-          <div className="lg:col-span-7 rounded-3xl bg-[#0D111A]/90 backdrop-blur-md border border-[#00F0FF]/40 shadow-2xl overflow-hidden relative flex flex-col justify-between">
-            <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none" />
+          <div className="lg:col-span-7 rounded-none bg-[#0D111A] border-2 border-[#1A2234] shadow-[4px_4px_0px_0px_#1A2234] overflow-hidden relative flex flex-col justify-between">
+            <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent pointer-events-none" />
 
             {/* Terminal Header Tabs */}
-            <div className="bg-[#07090E] border-b border-[#1A2234] p-3 flex flex-wrap items-center justify-between gap-2">
-              <div className="flex items-center space-x-1.5 font-mono-tabular text-xs">
+            <div className="bg-[#07090E] border-b-2 border-[#1A2234] p-3 flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center space-x-1.5 font-mono text-xs">
                 <button
                   type="button"
                   onClick={() => setActiveTab(".env.production")}
-                  className={`px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-none font-bold transition-all cursor-pointer border-2 min-h-[38px] ${
                     activeTab === ".env.production"
-                      ? "bg-[#00F0FF] text-black shadow-md"
-                      : "text-slate-400 hover:text-white"
+                      ? "bg-[#00F0FF] text-black border-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]"
+                      : "text-slate-400 hover:text-white border-transparent hover:border-[#1A2234]"
                   }`}
                 >
                   .env.production
@@ -415,10 +413,10 @@ jobs:
                 <button
                   type="button"
                   onClick={() => setActiveTab("docker-compose.yml")}
-                  className={`px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-none font-bold transition-all cursor-pointer border-2 min-h-[38px] ${
                     activeTab === "docker-compose.yml"
-                      ? "bg-[#8B5CF6] text-white shadow-md"
-                      : "text-slate-400 hover:text-white"
+                      ? "bg-[#8B5CF6] text-white border-[#8B5CF6] shadow-[2px_2px_0px_0px_#8B5CF6]"
+                      : "text-slate-400 hover:text-white border-transparent hover:border-[#1A2234]"
                   }`}
                 >
                   docker-compose.yml
@@ -426,10 +424,10 @@ jobs:
                 <button
                   type="button"
                   onClick={() => setActiveTab("github-actions-deploy.yml")}
-                  className={`px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-none font-bold transition-all cursor-pointer border-2 min-h-[38px] ${
                     activeTab === "github-actions-deploy.yml"
-                      ? "bg-emerald-500 text-black shadow-md"
-                      : "text-slate-400 hover:text-white"
+                      ? "bg-emerald-500 text-black border-emerald-500 shadow-[2px_2px_0px_0px_#10B981]"
+                      : "text-slate-400 hover:text-white border-transparent hover:border-[#1A2234]"
                   }`}
                 >
                   github-actions.yml
@@ -441,17 +439,17 @@ jobs:
                 <button
                   type="button"
                   onClick={handleCopyCode}
-                  className="px-3 py-1.5 rounded-lg bg-[#00F0FF]/10 text-[#00F0FF] hover:bg-[#00F0FF]/20 border border-[#00F0FF]/30 text-xs font-mono-tabular flex items-center space-x-1.5 transition-colors cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-none bg-[#07090E] text-[#00F0FF] hover:bg-[#00F0FF] hover:text-black border-2 border-[#00F0FF] text-xs font-mono font-bold flex items-center space-x-1.5 transition-all cursor-pointer shadow-[2px_2px_0px_0px_#00F0FF] active:translate-x-[1px] active:translate-y-[1px] min-h-[38px]"
                 >
                   {copied ? (
                     <>
                       <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-emerald-400">Copied</span>
+                      <span className="text-emerald-400">[COPIED]</span>
                     </>
                   ) : (
                     <>
                       <Copy className="w-3.5 h-3.5" />
-                      <span>Copy Config</span>
+                      <span>[COPY CONFIG]</span>
                     </>
                   )}
                 </button>
@@ -459,10 +457,10 @@ jobs:
                 <button
                   type="button"
                   onClick={handleDownloadFile}
-                  className="px-3 py-1.5 rounded-lg bg-[#8B5CF6]/10 text-[#8B5CF6] hover:bg-[#8B5CF6]/20 border border-[#8B5CF6]/30 text-xs font-mono-tabular flex items-center space-x-1.5 transition-colors cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-none bg-[#07090E] text-[#8B5CF6] hover:bg-[#8B5CF6] hover:text-white border-2 border-[#8B5CF6] text-xs font-mono font-bold flex items-center space-x-1.5 transition-all cursor-pointer shadow-[2px_2px_0px_0px_#8B5CF6] active:translate-x-[1px] active:translate-y-[1px] min-h-[38px]"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>Download</span>
+                  <span>[DOWNLOAD]</span>
                 </button>
               </div>
             </div>
@@ -475,12 +473,12 @@ jobs:
             </div>
 
             {/* Terminal Footer */}
-            <div className="px-6 py-3 bg-[#07090E] border-t border-[#1A2234] flex items-center justify-between text-[11px] font-mono-tabular text-slate-400">
+            <div className="px-6 py-3 bg-[#07090E] border-t-2 border-[#1A2234] flex items-center justify-between text-[11px] font-mono text-slate-400">
               <div className="flex items-center space-x-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>REAL-TIME INFRASTRUCTURE MATRIX GENERATED</span>
+                <span className="w-2 h-2 rounded-none bg-emerald-400 animate-pulse" />
+                <span className="font-bold text-slate-300">[REAL-TIME INFRASTRUCTURE MATRIX GENERATED]</span>
               </div>
-              <div>{activeTab}</div>
+              <div className="text-[#00F0FF] font-bold">[{activeTab}]</div>
             </div>
 
           </div>

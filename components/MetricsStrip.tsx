@@ -10,7 +10,7 @@ const metrics = [
     subtext: "Processed via native UPI, Razorpay & Stripe integrations",
     icon: TrendingUp,
     accent: "text-[#00F0FF]",
-    badge: "LIVE GMV"
+    badge: "[LIVE GMV]"
   },
   {
     metric: "< 12 ms",
@@ -18,7 +18,7 @@ const metrics = [
     subtext: "Sub-millisecond index hits via Supabase Postgres RLS",
     icon: Clock,
     accent: "text-[#8B5CF6]",
-    badge: "BENCHMARKED"
+    badge: "[BENCHMARKED]"
   },
   {
     metric: "100%",
@@ -26,7 +26,7 @@ const metrics = [
     subtext: "Unencumbered source code transfer with audited licensing",
     icon: ShieldCheck,
     accent: "text-[#00F0FF]",
-    badge: "AUDITED IP"
+    badge: "[AUDITED IP]"
   },
   {
     metric: "Zero-Config",
@@ -34,39 +34,36 @@ const metrics = [
     subtext: "Deploy instantly to Vercel, AWS ECS, or Docker Swarm",
     icon: Rocket,
     accent: "text-[#8B5CF6]",
-    badge: "AUTOMATED"
+    badge: "[AUTOMATED]"
   },
 ];
 
 export default function MetricsStrip() {
   return (
-    <section id="telemetry" className="py-16 bg-[#07090E] relative z-20 border-y border-[#1A2234] overflow-hidden">
-      {/* Ambient Radial Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[250px] bg-gradient-to-r from-[#00F0FF]/10 via-[#8B5CF6]/10 to-[#00F0FF]/10 blur-3xl pointer-events-none rounded-full" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="telemetry" className="py-16 bg-[#07090E] relative z-20 border-b-2 border-[#1A2234] overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 font-mono-tabular">
         
         {/* Header Bar */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
-            <div className="inline-flex items-center space-x-2 text-xs font-mono-tabular text-[#00F0FF] tracking-wider uppercase mb-2">
+            <div className="inline-flex items-center space-x-2 text-xs text-[#00F0FF] uppercase mb-2 font-bold tracking-wider">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00F0FF] opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00F0FF]" />
               </span>
-              <span>SYSTEM PERFORMANCE TELEMETRY</span>
+              <span>// SYSTEM PERFORMANCE TELEMETRY</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight uppercase">
               Engineered for High-Concurrency Enterprise Scale
             </h2>
           </div>
 
-          <div className="mt-4 md:mt-0 inline-flex items-center space-x-2 text-xs text-[#94A3B8] font-mono-tabular px-3 py-1.5 rounded-full bg-[#0D111A]/80 border border-[#1A2234] backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 text-xs text-[#94A3B8] px-3.5 py-2 rounded-none bg-[#0D111A] border-2 border-[#1A2234] shadow-[3px_3px_0px_0px_#1A2234]">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
             </span>
-            <span>Node status: <strong className="text-emerald-400 font-semibold">ALL CLUSTERS OPERATIONAL</strong></span>
+            <span>CLUSTERS: <strong className="text-emerald-400 font-bold uppercase">[ALL OPERATIONAL]</strong></span>
           </div>
         </div>
 
@@ -75,39 +72,37 @@ export default function MetricsStrip() {
           {metrics.map((m, idx) => (
             <motion.div
               key={m.label}
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.45, delay: idx * 0.1 }}
-              whileHover={{ y: -4, transition: { duration: 0.2, ease: "easeOut" } }}
-              className="rounded-2xl bg-[#0D111A]/80 backdrop-blur-md border border-[#1A2234] p-6 shadow-xl relative overflow-hidden transition-all duration-300 hover:border-[#00F0FF]/50 hover:shadow-[0_10px_30px_-5px_rgba(0,240,255,0.2)] group"
+              transition={{ duration: 0.35, delay: idx * 0.08 }}
+              className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 shadow-[4px_4px_0px_0px_#1A2234] relative overflow-hidden transition-all duration-150 hover:border-[#00F0FF] hover:shadow-[4px_4px_0px_0px_#00F0FF] hover:-translate-x-[2px] hover:-translate-y-[2px] group"
             >
               {/* Scanline subtle overlay */}
               <div className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF]/40 to-transparent blur-[1px] animate-scanline pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
 
               {/* Card Top Row */}
               <div className="flex items-center justify-between mb-4">
-                <div className="p-2.5 rounded-xl bg-[#07090E] border border-[#1A2234] text-white group-hover:border-[#00F0FF]/40 transition-colors">
+                <div className="p-2.5 rounded-none bg-[#07090E] border-2 border-[#1A2234] text-white group-hover:border-[#00F0FF] transition-colors">
                   <m.icon className={"w-5 h-5 " + m.accent} />
                 </div>
-                <span className="text-[10px] font-mono-tabular tracking-widest px-2 py-0.5 rounded bg-[#07090E] text-[#94A3B8] border border-[#1A2234] group-hover:border-[#00F0FF]/30 transition-colors">
+                <span className="text-[10px] tracking-widest px-2 py-0.5 bg-[#07090E] text-[#00F0FF] border border-[#1A2234] group-hover:border-[#00F0FF]/40 uppercase font-bold">
                   {m.badge}
                 </span>
               </div>
 
               {/* Big Metric Value */}
-              <div className={"text-3xl lg:text-4xl font-extrabold font-mono-tabular tracking-tight " + m.accent}>
+              <div className={"text-3xl lg:text-4xl font-black tracking-tight " + m.accent}>
                 {m.metric}
               </div>
 
               {/* Label & Description */}
-              <div className="mt-2 space-y-1">
-                <div className="text-sm font-bold text-slate-100">{m.label}</div>
-                <p className="text-xs text-[#94A3B8] leading-relaxed">{m.subtext}</p>
+              <div className="mt-2 text-xs font-bold text-white uppercase tracking-wider">
+                {m.label}
               </div>
-
-              {/* Bottom Subtle Gradient Accent Line */}
-              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <p className="mt-1 text-xs text-[#94A3B8] leading-relaxed font-sans">
+                {m.subtext}
+              </p>
             </motion.div>
           ))}
         </div>

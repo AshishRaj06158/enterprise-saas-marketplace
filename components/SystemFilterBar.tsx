@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { Search, X, Filter, Sparkles, Terminal } from "lucide-react";
+import { Search, X, Filter, Sparkles } from "lucide-react";
 
 interface SystemFilterBarProps {
   searchQuery: string;
@@ -48,9 +48,9 @@ export default function SystemFilterBar({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
         {/* Cybernetic Search Input */}
         <div className="lg:col-span-8 relative">
-          <div className="relative rounded-2xl bg-[#0D111A]/90 border border-[#00F0FF]/30 focus-within:border-[#00F0FF] focus-within:shadow-[0_0_25px_rgba(0,240,255,0.25)] transition-all duration-300 backdrop-blur-md overflow-hidden group">
+          <div className="relative rounded-none bg-[#0D111A] border-2 border-[#1A2234] focus-within:border-[#00F0FF] shadow-[4px_4px_0px_0px_#1A2234] focus-within:shadow-[4px_4px_0px_0px_#00F0FF] transition-all duration-150 overflow-hidden group">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#00F0FF]">
-              <Search className="w-5 h-5 group-focus-within:animate-pulse" />
+              <Search className="w-5 h-5 group-focus-within:text-[#00F0FF]" />
             </div>
 
             <input
@@ -58,8 +58,8 @@ export default function SystemFilterBar({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by title, tech stack (Next.js, Postgres...), keywords, or tagline..."
-              className="w-full bg-transparent pl-12 pr-28 py-3.5 text-sm text-white placeholder-[#94A3B8] font-mono-tabular focus:outline-none"
+              placeholder="SEARCH SYSTEMS (PRESS '/' TO FOCUS // EVALUATES NAME, STACK, SPECS, CATEGORY)..."
+              className="w-full bg-transparent pl-12 pr-28 py-4 text-xs uppercase tracking-wider text-white placeholder-[#94A3B8] font-mono-tabular focus:outline-none"
             />
 
             {/* Clear Button & Keyboard Shortcut Hint */}
@@ -67,14 +67,14 @@ export default function SystemFilterBar({
               {searchQuery ? (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-[#1A2234] transition-colors"
+                  className="p-1.5 rounded-none text-slate-400 hover:text-white hover:bg-[#1A2234] border border-[#1A2234] transition-colors"
                   title="Clear search query"
                 >
                   <X className="w-4 h-4 text-[#00F0FF]" />
                 </button>
               ) : (
-                <kbd className="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono-tabular text-[#94A3B8] bg-[#07090E] border border-[#1A2234]">
-                  Press &apos;/&apos; to focus search
+                <kbd className="hidden sm:inline-flex items-center px-2 py-1 rounded-none text-[10px] font-mono-tabular text-[#94A3B8] bg-[#07090E] border border-[#1A2234]">
+                  [/] SEARCH
                 </kbd>
               )}
             </div>
@@ -83,29 +83,33 @@ export default function SystemFilterBar({
 
         {/* Live Results Counter Badge */}
         <div className="lg:col-span-4 flex justify-start lg:justify-end">
-          <div className="px-4 py-3 rounded-2xl bg-[#0D111A]/90 border border-[#1A2234] text-xs font-mono-tabular backdrop-blur-md flex items-center space-x-2.5 shadow-lg w-full lg:w-auto justify-between lg:justify-start">
+          <div className="px-4 py-3.5 rounded-none bg-[#0D111A] border-2 border-[#1A2234] text-xs font-mono-tabular flex items-center space-x-2.5 shadow-[4px_4px_0px_0px_#1A2234] w-full lg:w-auto justify-between lg:justify-start">
             <div className="flex items-center space-x-2">
               <span className="relative flex h-2 w-2">
                 <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${isFiltered ? "bg-[#00F0FF]" : "bg-emerald-400"} opacity-75`} />
                 <span className={`relative inline-flex rounded-full h-2 w-2 ${isFiltered ? "bg-[#00F0FF]" : "bg-emerald-400"}`} />
               </span>
-              <span className="text-white font-semibold">
-                Showing <span className="text-[#00F0FF]">{totalResults}</span> of {maxResults} Systems
+              <span className="text-white font-bold uppercase tracking-wider">
+                SHOWING <span className="text-[#00F0FF]">{totalResults}</span> OF {maxResults} SYSTEMS
               </span>
             </div>
 
-            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-[#07090E] text-[#8B5CF6] border border-[#8B5CF6]/30">
-              MATRIX FILTER: {isFiltered ? "ACTIVE" : "ALL"}
+            <span className={`text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 border ${
+              isFiltered
+                ? "bg-[#00F0FF]/10 text-[#00F0FF] border-[#00F0FF]/40"
+                : "bg-[#07090E] text-[#8B5CF6] border-[#8B5CF6]/40"
+            }`}>
+              FILTER: {isFiltered ? "ACTIVE" : "ALL"}
             </span>
           </div>
         </div>
       </div>
 
       {/* Category Pills Row */}
-      <div className="flex flex-wrap items-center gap-2 pt-2">
-        <span className="text-xs text-[#94A3B8] font-mono-tabular mr-2 hidden sm:inline-flex items-center space-x-1">
+      <div className="flex flex-wrap items-center gap-2 pt-1 font-mono-tabular">
+        <span className="text-xs text-[#94A3B8] mr-2 hidden sm:inline-flex items-center space-x-1 uppercase tracking-wider font-bold">
           <Filter className="w-3.5 h-3.5 text-[#00F0FF]" />
-          <span>CATEGORY:</span>
+          <span>[CATEGORY]:</span>
         </span>
 
         {categories.map((cat) => {
@@ -114,14 +118,14 @@ export default function SystemFilterBar({
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold font-mono-tabular transition-all duration-300 cursor-pointer flex items-center space-x-1.5 ${
+              className={`px-4 py-2.5 rounded-none text-xs font-bold transition-all duration-100 cursor-pointer flex items-center space-x-1.5 uppercase tracking-wider min-h-[44px] ${
                 isActive
-                  ? "bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] text-black shadow-[0_0_20px_rgba(0,240,255,0.4)] border border-transparent scale-[1.02]"
-                  : "bg-[#0D111A]/80 text-[#94A3B8] hover:text-white hover:bg-[#1A2234] border border-[#1A2234]"
-              }`}
+                  ? "bg-[#00F0FF] text-black border-2 border-[#00F0FF] shadow-[3px_3px_0px_0px_#00F0FF] translate-x-[-1px] translate-y-[-1px]"
+                  : "bg-[#0D111A] text-[#94A3B8] hover:text-white hover:border-[#00F0FF] border-2 border-[#1A2234] shadow-[3px_3px_0px_0px_#1A2234]"
+              } active:translate-x-[2px] active:translate-y-[2px]`}
             >
-              {isActive && <Sparkles className="w-3.5 h-3.5 text-black animate-spin-slow" />}
-              <span>{cat}</span>
+              {isActive && <Sparkles className="w-3.5 h-3.5 text-black shrink-0" />}
+              <span>[{cat}]</span>
             </button>
           );
         })}
@@ -132,10 +136,10 @@ export default function SystemFilterBar({
               setSearchQuery("");
               setSelectedCategory("All Systems");
             }}
-            className="ml-auto text-xs font-mono-tabular text-[#00F0FF] hover:underline flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-[#00F0FF]/10 border border-[#00F0FF]/30 cursor-pointer"
+            className="sm:ml-auto text-xs font-mono-tabular text-black bg-[#8B5CF6] border-2 border-[#8B5CF6] shadow-[3px_3px_0px_0px_#8B5CF6] hover:bg-[#8B5CF6]/90 flex items-center space-x-1.5 px-3.5 py-2.5 cursor-pointer uppercase font-bold min-h-[44px] active:translate-x-[2px] active:translate-y-[2px]"
           >
             <X className="w-3.5 h-3.5" />
-            <span>Reset Matrix</span>
+            <span>[RESET FILTER MATRIX]</span>
           </button>
         )}
       </div>

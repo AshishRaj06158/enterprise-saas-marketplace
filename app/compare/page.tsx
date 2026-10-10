@@ -2,23 +2,17 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import {
-  Layers,
-  Cpu,
   Zap,
-  ShieldCheck,
-  CheckCircle2,
   ArrowRight,
   BarChart3,
   Activity,
   Server,
   Database,
   Lock,
-  ChevronRight,
-  ExternalLink
+  Cpu
 } from "lucide-react";
-import { getAllSystems, getSystemBySlug, SystemProduct } from "@/data/systems";
+import { getAllSystems, getSystemBySlug } from "@/data/systems";
 import { useCurrency } from "@/context/CurrencyContext";
 
 export default function CompareMatrixPage() {
@@ -44,42 +38,40 @@ export default function CompareMatrixPage() {
 
   return (
     <div className="pt-32 pb-24 bg-[#07090E] min-h-screen text-slate-100 relative overflow-hidden">
-      {/* Ambient Radial Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#00F0FF]/10 blur-3xl pointer-events-none rounded-full animate-pulse-slow" />
-      <div className="absolute bottom-10 right-1/4 w-[550px] h-[350px] bg-[#8B5CF6]/12 blur-3xl pointer-events-none rounded-full animate-pulse-slow" style={{ animationDelay: "3s" }} />
+      {/* Ambient Cyber Pattern */}
       <div className="absolute inset-0 bg-dot-matrix opacity-20 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
         
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#00F0FF]/40 bg-[#00F0FF]/10 text-xs font-mono-tabular text-[#00F0FF] backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 bg-[#0D111A] border-2 border-[#00F0FF] text-xs font-mono-tabular text-[#00F0FF] shadow-[3px_3px_0px_0px_#00F0FF]">
             <BarChart3 className="w-4 h-4 text-[#00F0FF]" />
-            <span>ARCHITECTURAL SYSTEM MATRIX // BENCHMARK SPECIFICATIONS</span>
+            <span className="uppercase tracking-widest font-bold">[ARCHITECTURAL SPEC MATRIX // BENCHMARKS]</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Multi-System Benchmark & Spec Matrix
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight font-mono-tabular uppercase">
+            Multi-System Benchmark &amp; Spec Matrix
           </h1>
 
-          <p className="text-base text-[#94A3B8] leading-relaxed">
-            Side-by-side performance metrics, deployment complexity, and concurrency limits across all enterprise software platforms.
+          <p className="text-sm text-[#94A3B8] font-mono-tabular leading-relaxed">
+            Side-by-side performance telemetry, deployment complexity, and concurrency limits across enterprise platforms.
           </p>
         </div>
 
         {/* System Selector Bar */}
-        <div className="rounded-2xl bg-[#0D111A]/90 border border-[#00F0FF]/30 p-6 backdrop-blur-md shadow-xl grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 shadow-[4px_4px_0px_0px_#1A2234] grid grid-cols-1 md:grid-cols-3 gap-6 font-mono-tabular">
           
           {/* Column 1 Selector */}
           <div className="space-y-2">
-            <label className="text-xs font-mono-tabular text-[#00F0FF] uppercase flex items-center justify-between">
-              <span>SYSTEM SLOT 1:</span>
+            <label className="text-xs text-[#00F0FF] uppercase font-bold flex items-center justify-between tracking-wider">
+              <span>[SLOT 1]:</span>
               <span className="text-[10px] text-slate-400">PRIMARY</span>
             </label>
             <select
               value={slot1}
               onChange={(e) => setSlot1(e.target.value)}
-              className="w-full bg-[#07090E] border border-[#1A2234] focus:border-[#00F0FF] rounded-xl px-3.5 py-3 text-xs font-mono-tabular text-white focus:outline-none"
+              className="w-full bg-[#07090E] border-2 border-[#1A2234] focus:border-[#00F0FF] rounded-none px-3.5 py-3 text-xs text-white focus:outline-none min-h-[44px]"
             >
               {allSystems.map((s) => (
                 <option key={s.id} value={s.slug}>
@@ -91,14 +83,14 @@ export default function CompareMatrixPage() {
 
           {/* Column 2 Selector */}
           <div className="space-y-2">
-            <label className="text-xs font-mono-tabular text-[#8B5CF6] uppercase flex items-center justify-between">
-              <span>SYSTEM SLOT 2:</span>
+            <label className="text-xs text-[#8B5CF6] uppercase font-bold flex items-center justify-between tracking-wider">
+              <span>[SLOT 2]:</span>
               <span className="text-[10px] text-slate-400">SECONDARY</span>
             </label>
             <select
               value={slot2}
               onChange={(e) => setSlot2(e.target.value)}
-              className="w-full bg-[#07090E] border border-[#1A2234] focus:border-[#8B5CF6] rounded-xl px-3.5 py-3 text-xs font-mono-tabular text-white focus:outline-none"
+              className="w-full bg-[#07090E] border-2 border-[#1A2234] focus:border-[#8B5CF6] rounded-none px-3.5 py-3 text-xs text-white focus:outline-none min-h-[44px]"
             >
               {allSystems.map((s) => (
                 <option key={s.id} value={s.slug}>
@@ -110,14 +102,14 @@ export default function CompareMatrixPage() {
 
           {/* Column 3 Selector */}
           <div className="space-y-2">
-            <label className="text-xs font-mono-tabular text-emerald-400 uppercase flex items-center justify-between">
-              <span>SYSTEM SLOT 3:</span>
+            <label className="text-xs text-emerald-400 uppercase font-bold flex items-center justify-between tracking-wider">
+              <span>[SLOT 3]:</span>
               <span className="text-[10px] text-slate-400">TERTIARY</span>
             </label>
             <select
               value={slot3}
               onChange={(e) => setSlot3(e.target.value)}
-              className="w-full bg-[#07090E] border border-[#1A2234] focus:border-emerald-400 rounded-xl px-3.5 py-3 text-xs font-mono-tabular text-white focus:outline-none"
+              className="w-full bg-[#07090E] border-2 border-[#1A2234] focus:border-emerald-400 rounded-none px-3.5 py-3 text-xs text-white focus:outline-none min-h-[44px]"
             >
               {allSystems.map((s) => (
                 <option key={s.id} value={s.slug}>
@@ -129,29 +121,27 @@ export default function CompareMatrixPage() {
 
         </div>
 
-        {/* COMPARISON SPECIFICATIONS TABLE */}
-        <div className="rounded-3xl bg-[#0D111A]/80 backdrop-blur-md border border-[#00F0FF]/30 overflow-hidden shadow-2xl relative">
-          <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none" />
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+        {/* COMPARISON SPECIFICATIONS TABLE (Horizontal Scroll with Pinned Left Header on Mobile) */}
+        <div className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] shadow-[6px_6px_0px_0px_#1A2234] overflow-hidden relative">
+          <div className="overflow-x-auto w-full">
+            <table className="w-full text-left border-collapse font-mono-tabular">
               <thead>
-                <tr className="border-b border-[#1A2234] bg-[#07090E]/80">
-                  <th className="p-6 text-xs font-mono-tabular text-[#94A3B8] w-1/4 uppercase tracking-wider">
-                    SPECIFICATION PARAMETERS
+                <tr className="border-b-2 border-[#1A2234] bg-[#07090E]">
+                  <th className="p-4 sm:p-6 text-xs text-[#94A3B8] uppercase tracking-wider sticky left-0 z-20 bg-[#07090E] min-w-[180px] sm:min-w-[240px] border-r-2 border-[#1A2234] shadow-[2px_0px_0px_0px_#1A2234]">
+                    // SPEC PARAMETER
                   </th>
                   {selectedSystems.map((sys, idx) => (
-                    <th key={sys.id + idx} className="p-6 text-left w-1/4 min-w-[240px]">
-                      <div className="space-y-3">
-                        <span className="text-[10px] font-mono-tabular uppercase px-2.5 py-1 rounded bg-[#07090E] text-[#00F0FF] border border-[#00F0FF]/30">
-                          {sys.badge}
+                    <th key={sys.id + idx} className="p-4 sm:p-6 text-left min-w-[240px] border-r border-[#1A2234] last:border-r-0">
+                      <div className="space-y-2">
+                        <span className="text-[10px] uppercase px-2 py-0.5 bg-[#07090E] text-[#00F0FF] border border-[#00F0FF]">
+                          [{sys.badge}]
                         </span>
-                        <h3 className="text-lg font-bold text-white tracking-tight">
+                        <h3 className="text-base sm:text-lg font-black text-white tracking-tight">
                           <Link href={`/systems/${sys.slug}`} className="hover:text-[#00F0FF] transition-colors">
                             {sys.name}
                           </Link>
                         </h3>
-                        <div className="text-base font-bold text-[#00F0FF] font-mono-tabular">
+                        <div className="text-sm font-bold text-[#00F0FF]">
                           {currency === "INR" ? sys.priceInr : sys.priceUsd}{" "}
                           <span className="text-xs text-slate-400 font-normal">
                             ({currency === "INR" ? sys.priceUsd : sys.priceInr})
@@ -162,16 +152,18 @@ export default function CompareMatrixPage() {
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#1A2234] text-xs font-mono-tabular">
+              <tbody className="divide-y-2 divide-[#1A2234] text-xs">
                 
                 {/* Row 1: Core Runtime */}
                 <tr className="hover:bg-[#1A2234]/30 transition-colors">
-                  <td className="p-6 font-semibold text-slate-300 flex items-center space-x-2">
-                    <Server className="w-4 h-4 text-[#00F0FF]" />
-                    <span>Architecture & Core Runtime</span>
+                  <td className="p-4 sm:p-6 font-bold text-slate-300 sticky left-0 z-20 bg-[#0D111A] border-r-2 border-[#1A2234] shadow-[2px_0px_0px_0px_#1A2234]">
+                    <div className="flex items-center space-x-2">
+                      <Server className="w-4 h-4 text-[#00F0FF] shrink-0" />
+                      <span>Runtime Engine</span>
+                    </div>
                   </td>
                   {selectedSystems.map((sys, i) => (
-                    <td key={i} className="p-6 text-white font-medium">
+                    <td key={i} className="p-4 sm:p-6 text-white font-medium border-r border-[#1A2234] last:border-r-0">
                       {sys.runtime}
                     </td>
                   ))}
@@ -179,12 +171,14 @@ export default function CompareMatrixPage() {
 
                 {/* Row 2: Cold Start Latency */}
                 <tr className="hover:bg-[#1A2234]/30 transition-colors">
-                  <td className="p-6 font-semibold text-slate-300 flex items-center space-x-2">
-                    <Zap className="w-4 h-4 text-emerald-400" />
-                    <span>Cold Start P99 Latency</span>
+                  <td className="p-4 sm:p-6 font-bold text-slate-300 sticky left-0 z-20 bg-[#0D111A] border-r-2 border-[#1A2234] shadow-[2px_0px_0px_0px_#1A2234]">
+                    <div className="flex items-center space-x-2">
+                      <Zap className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <span>P99 Cold Latency</span>
+                    </div>
                   </td>
                   {selectedSystems.map((sys, i) => (
-                    <td key={i} className="p-6 text-emerald-400 font-bold">
+                    <td key={i} className="p-4 sm:p-6 text-emerald-400 font-bold border-r border-[#1A2234] last:border-r-0">
                       {sys.latency}
                     </td>
                   ))}
@@ -192,12 +186,14 @@ export default function CompareMatrixPage() {
 
                 {/* Row 3: Concurrency */}
                 <tr className="hover:bg-[#1A2234]/30 transition-colors">
-                  <td className="p-6 font-semibold text-slate-300 flex items-center space-x-2">
-                    <Activity className="w-4 h-4 text-[#8B5CF6]" />
-                    <span>Concurrent Event Capacity</span>
+                  <td className="p-4 sm:p-6 font-bold text-slate-300 sticky left-0 z-20 bg-[#0D111A] border-r-2 border-[#1A2234] shadow-[2px_0px_0px_0px_#1A2234]">
+                    <div className="flex items-center space-x-2">
+                      <Activity className="w-4 h-4 text-[#8B5CF6] shrink-0" />
+                      <span>Concurrency Ops</span>
+                    </div>
                   </td>
                   {selectedSystems.map((sys, i) => (
-                    <td key={i} className="p-6 text-[#8B5CF6] font-bold">
+                    <td key={i} className="p-4 sm:p-6 text-[#8B5CF6] font-bold border-r border-[#1A2234] last:border-r-0">
                       {sys.concurrency}
                     </td>
                   ))}
@@ -205,12 +201,14 @@ export default function CompareMatrixPage() {
 
                 {/* Row 4: Database Engine */}
                 <tr className="hover:bg-[#1A2234]/30 transition-colors">
-                  <td className="p-6 font-semibold text-slate-300 flex items-center space-x-2">
-                    <Database className="w-4 h-4 text-[#00F0FF]" />
-                    <span>Database & Storage Integration</span>
+                  <td className="p-4 sm:p-6 font-bold text-slate-300 sticky left-0 z-20 bg-[#0D111A] border-r-2 border-[#1A2234] shadow-[2px_0px_0px_0px_#1A2234]">
+                    <div className="flex items-center space-x-2">
+                      <Database className="w-4 h-4 text-[#00F0FF] shrink-0" />
+                      <span>Database Stack</span>
+                    </div>
                   </td>
                   {selectedSystems.map((sys, i) => (
-                    <td key={i} className="p-6 text-slate-200">
+                    <td key={i} className="p-4 sm:p-6 text-slate-200 border-r border-[#1A2234] last:border-r-0">
                       {sys.database}
                     </td>
                   ))}
@@ -218,12 +216,14 @@ export default function CompareMatrixPage() {
 
                 {/* Row 5: OWASP Security */}
                 <tr className="hover:bg-[#1A2234]/30 transition-colors">
-                  <td className="p-6 font-semibold text-slate-300 flex items-center space-x-2">
-                    <Lock className="w-4 h-4 text-yellow-400" />
-                    <span>OWASP Security & Token Vault</span>
+                  <td className="p-4 sm:p-6 font-bold text-slate-300 sticky left-0 z-20 bg-[#0D111A] border-r-2 border-[#1A2234] shadow-[2px_0px_0px_0px_#1A2234]">
+                    <div className="flex items-center space-x-2">
+                      <Lock className="w-4 h-4 text-yellow-400 shrink-0" />
+                      <span>OWASP Hardening</span>
+                    </div>
                   </td>
                   {selectedSystems.map((sys, i) => (
-                    <td key={i} className="p-6 text-slate-200">
+                    <td key={i} className="p-4 sm:p-6 text-slate-200 border-r border-[#1A2234] last:border-r-0">
                       {sys.owaspStatus}
                     </td>
                   ))}
@@ -231,16 +231,18 @@ export default function CompareMatrixPage() {
 
                 {/* Row 6: Technology Stack */}
                 <tr className="hover:bg-[#1A2234]/30 transition-colors">
-                  <td className="p-6 font-semibold text-slate-300 flex items-center space-x-2">
-                    <Cpu className="w-4 h-4 text-[#00F0FF]" />
-                    <span>Primary Stack Technologies</span>
+                  <td className="p-4 sm:p-6 font-bold text-slate-300 sticky left-0 z-20 bg-[#0D111A] border-r-2 border-[#1A2234] shadow-[2px_0px_0px_0px_#1A2234]">
+                    <div className="flex items-center space-x-2">
+                      <Cpu className="w-4 h-4 text-[#00F0FF] shrink-0" />
+                      <span>Stack Modules</span>
+                    </div>
                   </td>
                   {selectedSystems.map((sys, i) => (
-                    <td key={i} className="p-6">
+                    <td key={i} className="p-4 sm:p-6 border-r border-[#1A2234] last:border-r-0">
                       <div className="flex flex-wrap gap-1.5">
                         {sys.stack.map((st, sIdx) => (
-                          <span key={sIdx} className="px-2 py-0.5 rounded bg-[#07090E] border border-[#1A2234] text-[10px] text-slate-300">
-                            {st}
+                          <span key={sIdx} className="px-2 py-0.5 bg-[#07090E] border border-[#1A2234] text-[10px] text-slate-300 uppercase">
+                            [{st}]
                           </span>
                         ))}
                       </div>
@@ -249,17 +251,17 @@ export default function CompareMatrixPage() {
                 </tr>
 
                 {/* Row 7: Deployment Action Buttons */}
-                <tr className="bg-[#07090E]/60">
-                  <td className="p-6 font-semibold text-[#00F0FF]">
-                    DEPLOYMENT AUTHORIZATION
+                <tr className="bg-[#07090E]">
+                  <td className="p-4 sm:p-6 font-bold text-[#00F0FF] uppercase sticky left-0 z-20 bg-[#07090E] border-r-2 border-[#1A2234] shadow-[2px_0px_0px_0px_#1A2234]">
+                    // ACTION
                   </td>
                   {selectedSystems.map((sys, i) => (
-                    <td key={i} className="p-6">
+                    <td key={i} className="p-4 sm:p-6 border-r border-[#1A2234] last:border-r-0">
                       <Link
                         href={`/checkout?system=${sys.slug}`}
-                        className="w-full py-3 px-4 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)] flex items-center justify-center space-x-1.5"
+                        className="w-full py-3 px-4 rounded-none text-xs font-bold text-black bg-[#00F0FF] border-2 border-[#00F0FF] shadow-[3px_3px_0px_0px_#8B5CF6] hover:shadow-[5px_5px_0px_0px_#8B5CF6] active:translate-x-[2px] active:translate-y-[2px] flex items-center justify-center space-x-1.5 uppercase min-h-[44px]"
                       >
-                        <span>Deploy System</span>
+                        <span>DEPLOY SYSTEM</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </td>
@@ -272,18 +274,18 @@ export default function CompareMatrixPage() {
         </div>
 
         {/* LIVE BENCHMARKING VISUALIZER (BAR CHARTS) */}
-        <div className="rounded-3xl bg-[#0D111A]/90 backdrop-blur-md border border-[#00F0FF]/40 p-8 space-y-8 shadow-2xl relative">
+        <div className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-8 space-y-8 shadow-[6px_6px_0px_0px_#1A2234] font-mono-tabular">
           
-          <div className="flex items-center space-x-3 pb-4 border-b border-[#1A2234]">
-            <div className="p-2 rounded-xl bg-[#00F0FF]/10 border border-[#00F0FF]/30">
-              <BarChart3 className="w-6 h-6 text-[#00F0FF]" />
+          <div className="flex items-center space-x-3 pb-4 border-b-2 border-[#1A2234]">
+            <div className="p-2.5 rounded-none bg-[#07090E] border-2 border-[#00F0FF] text-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]">
+              <BarChart3 className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white tracking-wide font-mono-tabular">
-                LIVE BENCHMARK METRICS VISUALIZER
+              <h2 className="text-xl font-black text-white tracking-wider uppercase">
+                // LIVE BENCHMARK METRICS VISUALIZER
               </h2>
-              <p className="text-xs text-[#94A3B8] font-mono-tabular">
-                Empirical load simulation: Request Throughput, Memory Footprint & P99 Cycle Latency.
+              <p className="text-xs text-[#94A3B8]">
+                Empirical load simulation: Request Throughput, Memory Footprint &amp; P99 Cycle Latency.
               </p>
             </div>
           </div>
@@ -291,23 +293,23 @@ export default function CompareMatrixPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             {/* Metric 1: Request Throughput (Req/sec) */}
-            <div className="p-6 rounded-2xl bg-[#07090E] border border-[#1A2234] space-y-4">
-              <div className="flex items-center justify-between text-xs font-mono-tabular">
-                <span className="text-[#00F0FF] font-bold">THROUGHPUT (REQ/SEC)</span>
-                <span className="text-[#94A3B8]">Higher is better</span>
+            <div className="p-6 rounded-none bg-[#07090E] border-2 border-[#1A2234] shadow-[4px_4px_0px_0px_#1A2234] space-y-4">
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-[#00F0FF] font-bold">[THROUGHPUT: REQ/SEC]</span>
+                <span className="text-[#94A3B8] text-[10px]">Higher is better</span>
               </div>
               <div className="space-y-3">
                 {selectedSystems.map((sys, i) => {
                   const pct = Math.round((sys.throughputReqSec / maxThroughput) * 100);
                   return (
                     <div key={i} className="space-y-1">
-                      <div className="flex justify-between text-[11px] font-mono-tabular">
+                      <div className="flex justify-between text-[11px]">
                         <span className="text-slate-300 truncate max-w-[150px]">{sys.name}</span>
                         <span className="text-white font-bold">{sys.throughputReqSec.toLocaleString()} Req/s</span>
                       </div>
-                      <div className="w-full bg-[#0D111A] h-2.5 rounded-full overflow-hidden border border-[#1A2234]">
+                      <div className="w-full bg-[#0D111A] h-3 rounded-none overflow-hidden border border-[#1A2234]">
                         <div
-                          className="bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] h-full rounded-full transition-all duration-500"
+                          className="bg-[#00F0FF] h-full transition-all duration-300"
                           style={{ width: `${pct}%` }}
                         />
                       </div>
@@ -318,23 +320,23 @@ export default function CompareMatrixPage() {
             </div>
 
             {/* Metric 2: Memory Footprint (MB) */}
-            <div className="p-6 rounded-2xl bg-[#07090E] border border-[#1A2234] space-y-4">
-              <div className="flex items-center justify-between text-xs font-mono-tabular">
-                <span className="text-[#8B5CF6] font-bold">MEMORY FOOTPRINT (MB)</span>
-                <span className="text-[#94A3B8]">Lower is leaner</span>
+            <div className="p-6 rounded-none bg-[#07090E] border-2 border-[#1A2234] shadow-[4px_4px_0px_0px_#1A2234] space-y-4">
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-[#8B5CF6] font-bold">[MEMORY FOOTPRINT: MB]</span>
+                <span className="text-[#94A3B8] text-[10px]">Lower is leaner</span>
               </div>
               <div className="space-y-3">
                 {selectedSystems.map((sys, i) => {
                   const pct = Math.round((sys.memoryFootprintMb / maxMemory) * 100);
                   return (
                     <div key={i} className="space-y-1">
-                      <div className="flex justify-between text-[11px] font-mono-tabular">
+                      <div className="flex justify-between text-[11px]">
                         <span className="text-slate-300 truncate max-w-[150px]">{sys.name}</span>
                         <span className="text-white font-bold">{sys.memoryFootprintMb} MB</span>
                       </div>
-                      <div className="w-full bg-[#0D111A] h-2.5 rounded-full overflow-hidden border border-[#1A2234]">
+                      <div className="w-full bg-[#0D111A] h-3 rounded-none overflow-hidden border border-[#1A2234]">
                         <div
-                          className="bg-gradient-to-r from-[#8B5CF6] to-[#00F0FF] h-full rounded-full transition-all duration-500"
+                          className="bg-[#8B5CF6] h-full transition-all duration-300"
                           style={{ width: `${pct}%` }}
                         />
                       </div>
@@ -345,23 +347,23 @@ export default function CompareMatrixPage() {
             </div>
 
             {/* Metric 3: Reflection / Latency Cycle (ms) */}
-            <div className="p-6 rounded-2xl bg-[#07090E] border border-[#1A2234] space-y-4">
-              <div className="flex items-center justify-between text-xs font-mono-tabular">
-                <span className="text-emerald-400 font-bold">REFLECTION LATENCY (MS)</span>
-                <span className="text-[#94A3B8]">Lower is faster</span>
+            <div className="p-6 rounded-none bg-[#07090E] border-2 border-[#1A2234] shadow-[4px_4px_0px_0px_#1A2234] space-y-4">
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-emerald-400 font-bold">[REFLECTION LATENCY: MS]</span>
+                <span className="text-[#94A3B8] text-[10px]">Lower is faster</span>
               </div>
               <div className="space-y-3">
                 {selectedSystems.map((sys, i) => {
                   const pct = Math.round((sys.reflectionCycleMs / maxLatency) * 100);
                   return (
                     <div key={i} className="space-y-1">
-                      <div className="flex justify-between text-[11px] font-mono-tabular">
+                      <div className="flex justify-between text-[11px]">
                         <span className="text-slate-300 truncate max-w-[150px]">{sys.name}</span>
                         <span className="text-emerald-400 font-bold">{sys.reflectionCycleMs} ms</span>
                       </div>
-                      <div className="w-full bg-[#0D111A] h-2.5 rounded-full overflow-hidden border border-[#1A2234]">
+                      <div className="w-full bg-[#0D111A] h-3 rounded-none overflow-hidden border border-[#1A2234]">
                         <div
-                          className="bg-gradient-to-r from-emerald-500 to-[#00F0FF] h-full rounded-full transition-all duration-500"
+                          className="bg-emerald-400 h-full transition-all duration-300"
                           style={{ width: `${pct}%` }}
                         />
                       </div>

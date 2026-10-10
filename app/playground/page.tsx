@@ -198,16 +198,16 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 space-y-6">
         
         {/* TOP BAR PLAYGROUND CONTROLS */}
-        <div className="rounded-2xl bg-[#0D111A]/90 backdrop-blur-md border border-[#00F0FF]/40 p-4 shadow-[0_0_35px_rgba(0,240,255,0.15)] flex flex-wrap items-center justify-between gap-4">
+        <div className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-4 shadow-[4px_4px_0px_0px_#1A2234] flex flex-wrap items-center justify-between gap-4">
           
           {/* System Switcher */}
           <div className="flex items-center space-x-3">
-            <div className="p-2 rounded-xl bg-[#00F0FF]/10 border border-[#00F0FF]/40 text-[#00F0FF]">
+            <div className="p-2.5 rounded-none bg-[#00F0FF]/10 border-2 border-[#00F0FF] text-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]">
               <Cpu className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-[10px] font-mono-tabular text-[#94A3B8] uppercase">
-                ACTIVE SYSTEM SANDBOX
+              <div className="text-[10px] font-mono text-[#94A3B8] uppercase">
+                [ACTIVE SYSTEM SANDBOX]
               </div>
               <select
                 value={selectedSystem.slug}
@@ -215,11 +215,11 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
                   const targetSlug = e.target.value;
                   router.push(`/playground?system=${targetSlug}`);
                 }}
-                className="bg-[#07090E] border border-[#1A2234] focus:border-[#00F0FF] rounded-lg px-3 py-1.5 text-xs font-mono-tabular font-bold text-white focus:outline-none cursor-pointer"
+                className="bg-[#07090E] border-2 border-[#1A2234] focus:border-[#00F0FF] rounded-none px-3 py-2 text-xs font-mono font-bold text-white focus:outline-none cursor-pointer shadow-[2px_2px_0px_0px_#1A2234]"
               >
                 {allSystems.map((sys) => (
                   <option key={sys.id} value={sys.slug}>
-                    {sys.name} ({sys.badge})
+                    {sys.name} [{sys.badge}]
                   </option>
                 ))}
               </select>
@@ -227,48 +227,48 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
           </div>
 
           {/* View Mode Toggle */}
-          <div className="p-1 rounded-xl bg-[#07090E] border border-[#1A2234] inline-flex items-center space-x-1 text-xs font-mono-tabular">
+          <div className="p-1 rounded-none bg-[#07090E] border-2 border-[#1A2234] inline-flex items-center space-x-1 text-xs font-mono shadow-[2px_2px_0px_0px_#1A2234]">
             <button
               onClick={() => setViewMode("canvas")}
-              className={`px-3 py-2 rounded-lg font-bold transition-all flex items-center space-x-1.5 cursor-pointer min-h-[38px] ${
+              className={`px-3 py-2 rounded-none font-bold transition-all flex items-center space-x-1.5 cursor-pointer min-h-[38px] ${
                 viewMode === "canvas"
-                  ? "bg-[#00F0FF] text-black shadow-md"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-[#00F0FF] text-black border-2 border-black shadow-[2px_2px_0px_0px_#00F0FF]"
+                  : "text-slate-400 hover:text-white border-2 border-transparent"
               }`}
             >
               <Monitor className="w-4 h-4" />
-              <span>Live Canvas</span>
+              <span>[LIVE CANVAS]</span>
             </button>
             <button
               onClick={() => setViewMode("code")}
-              className={`px-3 py-2 rounded-lg font-bold transition-all flex items-center space-x-1.5 cursor-pointer min-h-[38px] ${
+              className={`px-3 py-2 rounded-none font-bold transition-all flex items-center space-x-1.5 cursor-pointer min-h-[38px] ${
                 viewMode === "code"
-                  ? "bg-[#8B5CF6] text-white shadow-md"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-[#8B5CF6] text-white border-2 border-white shadow-[2px_2px_0px_0px_#8B5CF6]"
+                  : "text-slate-400 hover:text-white border-2 border-transparent"
               }`}
             >
               <Code2 className="w-4 h-4" />
-              <span>Source Code (.tsx)</span>
+              <span>[SOURCE .TSX]</span>
             </button>
             <button
               onClick={() => setViewMode("payload")}
-              className={`px-3 py-2 rounded-lg font-bold transition-all flex items-center space-x-1.5 cursor-pointer min-h-[38px] ${
+              className={`px-3 py-2 rounded-none font-bold transition-all flex items-center space-x-1.5 cursor-pointer min-h-[38px] ${
                 viewMode === "payload"
-                  ? "bg-emerald-500 text-black shadow-md"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-emerald-400 text-black border-2 border-black shadow-[2px_2px_0px_0px_#10B981]"
+                  : "text-slate-400 hover:text-white border-2 border-transparent"
               }`}
             >
               <Database className="w-4 h-4" />
-              <span>Payload Inspector</span>
+              <span>[PAYLOAD INSPECTOR]</span>
             </button>
           </div>
 
           {/* Device Viewport Selector */}
-          <div className="hidden sm:flex items-center space-x-1 bg-[#07090E] p-1 rounded-xl border border-[#1A2234]">
+          <div className="hidden sm:flex items-center space-x-1 bg-[#07090E] p-1 rounded-none border-2 border-[#1A2234] shadow-[2px_2px_0px_0px_#1A2234]">
             <button
               onClick={() => setViewport("desktop")}
-              className={`p-2 rounded-lg transition-colors cursor-pointer ${
-                viewport === "desktop" ? "bg-[#1A2234] text-[#00F0FF]" : "text-slate-400 hover:text-white"
+              className={`p-2 rounded-none transition-colors cursor-pointer border ${
+                viewport === "desktop" ? "bg-[#1A2234] border-[#00F0FF] text-[#00F0FF]" : "border-transparent text-slate-400 hover:text-white"
               }`}
               title="Desktop View (100%)"
             >
@@ -276,8 +276,8 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
             </button>
             <button
               onClick={() => setViewport("tablet")}
-              className={`p-2 rounded-lg transition-colors cursor-pointer ${
-                viewport === "tablet" ? "bg-[#1A2234] text-[#00F0FF]" : "text-slate-400 hover:text-white"
+              className={`p-2 rounded-none transition-colors cursor-pointer border ${
+                viewport === "tablet" ? "bg-[#1A2234] border-[#00F0FF] text-[#00F0FF]" : "border-transparent text-slate-400 hover:text-white"
               }`}
               title="Tablet View (768px)"
             >
@@ -285,8 +285,8 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
             </button>
             <button
               onClick={() => setViewport("mobile")}
-              className={`p-2 rounded-lg transition-colors cursor-pointer ${
-                viewport === "mobile" ? "bg-[#1A2234] text-[#00F0FF]" : "text-slate-400 hover:text-white"
+              className={`p-2 rounded-none transition-colors cursor-pointer border ${
+                viewport === "mobile" ? "bg-[#1A2234] border-[#00F0FF] text-[#00F0FF]" : "border-transparent text-slate-400 hover:text-white"
               }`}
               title="Mobile View (380px)"
             >
@@ -297,9 +297,9 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
           {/* Action CTA */}
           <Link
             href={`/checkout?system=${selectedSystem.slug}`}
-            className="px-4 py-2.5 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)] flex items-center space-x-1.5 cursor-pointer min-h-[44px]"
+            className="px-4 py-2.5 rounded-none text-xs font-mono font-bold uppercase text-black bg-[#00F0FF] border-2 border-black hover:bg-[#00F0FF]/90 transition-all shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF] flex items-center space-x-1.5 cursor-pointer min-h-[44px]"
           >
-            <span>Acquire System ({displayPrice})</span>
+            <span>[ACQUIRE ({displayPrice})]</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -316,23 +316,23 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
         >
           {/* VIEW MODE 1: LIVE CANVAS */}
           {viewMode === "canvas" && (
-            <div className="rounded-3xl bg-[#0D111A]/90 backdrop-blur-md border border-[#00F0FF]/30 p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
+            <div className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-6 sm:p-8 shadow-[4px_4px_0px_0px_#1A2234] space-y-6 relative overflow-hidden">
               <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none" />
 
               {/* Canvas Header info */}
-              <div className="flex flex-wrap items-center justify-between border-b border-[#1A2234] pb-4 gap-2">
+              <div className="flex flex-wrap items-center justify-between border-b-2 border-[#1A2234] pb-4 gap-2">
                 <div className="flex items-center space-x-3">
-                  <span className="text-[10px] font-mono-tabular uppercase px-3 py-1 rounded bg-[#07090E] text-[#00F0FF] border border-[#00F0FF]/30">
-                    {selectedSystem.badge}
+                  <span className="text-[10px] font-mono uppercase px-3 py-1 rounded-none bg-[#07090E] text-[#00F0FF] border-2 border-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF]">
+                    [{selectedSystem.badge}]
                   </span>
-                  <h2 className="text-xl font-bold text-white">{selectedSystem.name}</h2>
+                  <h2 className="text-xl font-bold text-white tracking-tight">{selectedSystem.name}</h2>
                 </div>
-                <div className="flex items-center space-x-2 text-xs font-mono-tabular text-emerald-400">
+                <div className="flex items-center space-x-2 text-xs font-mono text-emerald-400">
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="animate-ping absolute inline-flex h-full w-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
                   </span>
-                  <span>LIVE REACTION SIMULATOR ACTIVE</span>
+                  <span>[LIVE REACTION SIMULATOR ACTIVE]</span>
                 </div>
               </div>
 
@@ -340,17 +340,17 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
               {selectedSystem.slug === "telemetry-matrix" && (
                 <div className="space-y-6">
                   {/* Telemetry controls */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-[#07090E] border border-[#1A2234] text-xs font-mono-tabular">
+                  <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] text-xs font-mono shadow-[2px_2px_0px_0px_#1A2234]">
                     <div className="flex items-center space-x-2">
-                      <span className="text-slate-400">Time Range:</span>
+                      <span className="text-slate-400 uppercase">[TIME RANGE]:</span>
                       {(["1h", "24h", "7d"] as const).map((tr) => (
                         <button
                           key={tr}
                           onClick={() => setTimeRange(tr)}
-                          className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${
+                          className={`px-3 py-1 rounded-none font-bold uppercase transition-colors cursor-pointer border ${
                             timeRange === tr
-                              ? "bg-[#00F0FF] text-black font-bold"
-                              : "text-slate-400 hover:text-white bg-[#0D111A]"
+                              ? "bg-[#00F0FF] text-black border-black shadow-[2px_2px_0px_0px_#00F0FF]"
+                              : "text-slate-400 hover:text-white bg-[#0D111A] border-[#1A2234]"
                           }`}
                         >
                           {tr}
@@ -359,15 +359,15 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
                     </div>
 
                     <div className="flex items-center space-x-2">
-                      <span className="text-slate-400">P99 Latency Mode:</span>
+                      <span className="text-slate-400 uppercase">[LATENCY MODE]:</span>
                       {(["low", "mid", "high"] as const).map((mode) => (
                         <button
                           key={mode}
                           onClick={() => setErrorRateToggle(mode)}
-                          className={`px-3 py-1 rounded-lg uppercase transition-colors cursor-pointer ${
+                          className={`px-3 py-1 rounded-none uppercase font-bold transition-colors cursor-pointer border ${
                             errorRateToggle === mode
-                              ? "bg-[#8B5CF6] text-white font-bold"
-                              : "text-slate-400 hover:text-white bg-[#0D111A]"
+                              ? "bg-[#8B5CF6] text-white border-white shadow-[2px_2px_0px_0px_#8B5CF6]"
+                              : "text-slate-400 hover:text-white bg-[#0D111A] border-[#1A2234]"
                           }`}
                         >
                           {mode === "low" ? "<12ms" : mode === "mid" ? "~28ms" : "~95ms"}
@@ -377,15 +377,15 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
                   </div>
 
                   {/* Real-time Ping Chart Stream */}
-                  <div className="p-6 rounded-2xl bg-[#07090E] border border-[#1A2234] space-y-4">
-                    <div className="flex justify-between items-center text-xs font-mono-tabular">
-                      <span className="text-[#00F0FF] font-bold">SUB-12MS P99 QUERY LATENCY STREAM:</span>
+                  <div className="p-6 rounded-none bg-[#07090E] border-2 border-[#1A2234] space-y-4 shadow-[2px_2px_0px_0px_#1A2234]">
+                    <div className="flex justify-between items-center text-xs font-mono">
+                      <span className="text-[#00F0FF] font-bold">[SUB-12MS P99 QUERY LATENCY STREAM]:</span>
                       <span className="text-emerald-400 font-bold">
                         LATEST PING: {pingStream[pingStream.length - 1]} ms
                       </span>
                     </div>
 
-                    <div className="flex items-end justify-between h-36 gap-2 pt-4 border-b border-[#1A2234] px-2">
+                    <div className="flex items-end justify-between h-36 gap-2 pt-4 border-b-2 border-[#1A2234] px-2">
                       {pingStream.map((val, idx) => {
                         const heightPct = Math.min(100, Math.max(15, (val / 100) * 100));
                         return (
@@ -394,7 +394,7 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
                               {val}ms
                             </div>
                             <div
-                              className="w-full bg-gradient-to-t from-[#00F0FF] to-[#8B5CF6] rounded-t-md transition-all duration-500 shadow-[0_0_10px_rgba(0,240,255,0.3)]"
+                              className="w-full bg-[#00F0FF] border border-black transition-all duration-300"
                               style={{ height: `${heightPct}%` }}
                             />
                             <span className="text-[9px] font-mono text-slate-500">t-{pingStream.length - idx}</span>
@@ -408,40 +408,40 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
 
               {/* 2. Agent Orchestrator Custom Live Canvas */}
               {selectedSystem.slug === "nexus-agent-orchestrator" && (
-                <div className="space-y-6 font-mono-tabular">
-                  <div className="p-4 rounded-2xl bg-[#07090E] border border-[#1A2234] space-y-3">
+                <div className="space-y-6 font-mono">
+                  <div className="p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] space-y-3 shadow-[2px_2px_0px_0px_#1A2234]">
                     <label className="text-xs text-[#00F0FF] font-bold block uppercase">
-                      ENTER AUTONOMOUS AGENT PROMPT:
+                      [AUTONOMOUS AGENT PROMPT DISPATCH]:
                     </label>
                     <div className="flex gap-2">
                       <input
                         type="text"
                         value={agentPrompt}
                         onChange={(e) => setAgentPrompt(e.target.value)}
-                        className="w-full bg-[#0D111A] border border-[#1A2234] rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#00F0FF]"
+                        className="w-full bg-[#0D111A] border-2 border-[#1A2234] rounded-none px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#00F0FF] font-mono shadow-[2px_2px_0px_0px_#1A2234]"
                       />
                       <button
                         onClick={handleRunAgent}
                         disabled={isAgentRunning}
-                        className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] text-black font-bold text-xs shrink-0 cursor-pointer disabled:opacity-60 flex items-center space-x-1.5"
+                        className="px-5 py-2.5 rounded-none bg-[#00F0FF] text-black border-2 border-black font-mono font-bold text-xs uppercase shrink-0 cursor-pointer disabled:opacity-60 flex items-center space-x-1.5 shadow-[2px_2px_0px_0px_#00F0FF] active:translate-x-[1px] active:translate-y-[1px]"
                       >
                         {isAgentRunning ? (
                           <RefreshCw className="w-4 h-4 animate-spin" />
                         ) : (
                           <Play className="w-4 h-4 fill-black" />
                         )}
-                        <span>Run Stream</span>
+                        <span>[RUN STREAM]</span>
                       </button>
                     </div>
                   </div>
 
                   {/* Token Stream Display */}
-                  <div className="p-4 rounded-2xl bg-[#07090E] border border-[#1A2234] space-y-2 min-h-[160px]">
-                    <div className="text-[11px] text-[#94A3B8] uppercase">LLM REFLECTION TOKEN STREAM:</div>
+                  <div className="p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] space-y-2 min-h-[160px] shadow-[2px_2px_0px_0px_#1A2234]">
+                    <div className="text-[11px] text-[#94A3B8] uppercase">[LLM REFLECTION TOKEN STREAM]:</div>
                     {agentTokens.length > 0 ? (
                       <div className="space-y-1.5 text-xs">
                         {agentTokens.map((tok, i) => (
-                          <div key={i} className="flex items-center space-x-2 text-emerald-400 animate-in fade-in">
+                          <div key={i} className="flex items-center space-x-2 text-emerald-400">
                             <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
                             <span>{tok}</span>
                           </div>
@@ -459,16 +459,16 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
               {/* 3. CRM Custom Live Canvas (Kanban) */}
               {selectedSystem.slug === "autonomous-crm-pipeline" && (
                 <div className="space-y-4">
-                  <div className="text-xs font-mono-tabular text-[#94A3B8]">
-                    CLICK ANY DEAL CARD TO ADVANCE STAGE THROUGH AUTONOMOUS GST PIPELINE:
+                  <div className="text-xs font-mono text-[#94A3B8]">
+                    [CLICK ANY DEAL CARD TO ADVANCE STAGE THROUGH AUTONOMOUS GST PIPELINE]:
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono-tabular">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono">
                     {/* Stage 1: Lead Capture */}
-                    <div className="p-4 rounded-2xl bg-[#07090E] border border-[#1A2234] space-y-3">
-                      <div className="text-xs font-bold text-[#00F0FF] flex items-center justify-between pb-2 border-b border-[#1A2234]">
-                        <span>1. INBOUND LEAD CAPTURE</span>
-                        <span className="px-2 py-0.5 rounded bg-[#00F0FF]/10 text-[#00F0FF]">
+                    <div className="p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] space-y-3 shadow-[2px_2px_0px_0px_#1A2234]">
+                      <div className="text-xs font-bold text-[#00F0FF] flex items-center justify-between pb-2 border-b-2 border-[#1A2234]">
+                        <span>[1. INBOUND LEAD]</span>
+                        <span className="px-2 py-0.5 rounded-none bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/30">
                           {kanbanDeals.filter((d) => d.stage === "lead").length}
                         </span>
                       </div>
@@ -479,7 +479,7 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
                             <div
                               key={deal.id}
                               onClick={() => advanceDeal(deal.id)}
-                              className="p-3 rounded-xl bg-[#0D111A] border border-[#1A2234] hover:border-[#00F0FF] cursor-pointer transition-all space-y-1"
+                              className="p-3 rounded-none bg-[#0D111A] border-2 border-[#1A2234] hover:border-[#00F0FF] cursor-pointer transition-all space-y-1 shadow-[2px_2px_0px_0px_#1A2234] active:translate-x-[1px] active:translate-y-[1px]"
                             >
                               <div className="text-xs font-bold text-white">{deal.name}</div>
                               <div className="text-[11px] text-emerald-400">{deal.value}</div>
@@ -490,10 +490,10 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
                     </div>
 
                     {/* Stage 2: Contracted */}
-                    <div className="p-4 rounded-2xl bg-[#07090E] border border-[#1A2234] space-y-3">
-                      <div className="text-xs font-bold text-[#8B5CF6] flex items-center justify-between pb-2 border-b border-[#1A2234]">
-                        <span>2. GST CONTRACT DISPATCH</span>
-                        <span className="px-2 py-0.5 rounded bg-[#8B5CF6]/10 text-[#8B5CF6]">
+                    <div className="p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] space-y-3 shadow-[2px_2px_0px_0px_#1A2234]">
+                      <div className="text-xs font-bold text-[#8B5CF6] flex items-center justify-between pb-2 border-b-2 border-[#1A2234]">
+                        <span>[2. GST CONTRACT]</span>
+                        <span className="px-2 py-0.5 rounded-none bg-[#8B5CF6]/10 text-[#8B5CF6] border border-[#8B5CF6]/30">
                           {kanbanDeals.filter((d) => d.stage === "contract").length}
                         </span>
                       </div>
@@ -504,7 +504,7 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
                             <div
                               key={deal.id}
                               onClick={() => advanceDeal(deal.id)}
-                              className="p-3 rounded-xl bg-[#0D111A] border border-[#1A2234] hover:border-[#8B5CF6] cursor-pointer transition-all space-y-1"
+                              className="p-3 rounded-none bg-[#0D111A] border-2 border-[#1A2234] hover:border-[#8B5CF6] cursor-pointer transition-all space-y-1 shadow-[2px_2px_0px_0px_#1A2234] active:translate-x-[1px] active:translate-y-[1px]"
                             >
                               <div className="text-xs font-bold text-white">{deal.name}</div>
                               <div className="text-[11px] text-[#8B5CF6]">{deal.value}</div>
@@ -515,10 +515,10 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
                     </div>
 
                     {/* Stage 3: Won */}
-                    <div className="p-4 rounded-2xl bg-[#07090E] border border-[#1A2234] space-y-3">
-                      <div className="text-xs font-bold text-emerald-400 flex items-center justify-between pb-2 border-b border-[#1A2234]">
-                        <span>3. SETTLED & CLOSED WON</span>
-                        <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400">
+                    <div className="p-4 rounded-none bg-[#07090E] border-2 border-[#1A2234] space-y-3 shadow-[2px_2px_0px_0px_#1A2234]">
+                      <div className="text-xs font-bold text-emerald-400 flex items-center justify-between pb-2 border-b-2 border-[#1A2234]">
+                        <span>[3. CLOSED WON]</span>
+                        <span className="px-2 py-0.5 rounded-none bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
                           {kanbanDeals.filter((d) => d.stage === "won").length}
                         </span>
                       </div>
@@ -528,10 +528,10 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
                           .map((deal) => (
                             <div
                               key={deal.id}
-                              className="p-3 rounded-xl bg-[#0D111A] border border-emerald-500/40 space-y-1"
+                              className="p-3 rounded-none bg-[#0D111A] border-2 border-emerald-500/60 space-y-1 shadow-[2px_2px_0px_0px_#10B981]"
                             >
                               <div className="text-xs font-bold text-white">{deal.name}</div>
-                              <div className="text-[11px] text-emerald-400 font-bold">{deal.value} (SETTLED)</div>
+                              <div className="text-[11px] text-emerald-400 font-bold">{deal.value} [SETTLED]</div>
                               <div className="text-[9px] text-emerald-400">✓ Revenue locked in database</div>
                             </div>
                           ))}
@@ -543,14 +543,14 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
 
               {/* Default Live Canvas for ERP/Omega/Sentinel */}
               {["quantum-logistics-erp", "omega-core-starter", "sentinel-auth-hub"].includes(selectedSystem.slug) && (
-                <div className="p-6 rounded-2xl bg-[#07090E] border border-[#1A2234] space-y-4 font-mono-tabular text-xs">
+                <div className="p-6 rounded-none bg-[#07090E] border-2 border-[#1A2234] space-y-4 font-mono text-xs shadow-[2px_2px_0px_0px_#1A2234]">
                   <div className="flex items-center justify-between">
-                    <span className="text-[#00F0FF] font-bold">PRODUCTION SYSTEM SPECIFICATION:</span>
+                    <span className="text-[#00F0FF] font-bold">[PRODUCTION SPECIFICATION]:</span>
                     <span className="text-slate-400">{selectedSystem.runtime}</span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {selectedSystem.specs.map((sp, i) => (
-                      <div key={i} className="p-3 rounded-xl bg-[#0D111A] border border-[#1A2234] flex items-center justify-between">
+                      <div key={i} className="p-3 rounded-none bg-[#0D111A] border-2 border-[#1A2234] flex items-center justify-between shadow-[2px_2px_0px_0px_#1A2234]">
                         <span className="text-slate-400">{sp.label}:</span>
                         <span className="text-white font-semibold">{sp.value}</span>
                       </div>
@@ -564,8 +564,8 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
 
           {/* VIEW MODE 2: SOURCE CODE */}
           {viewMode === "code" && (
-            <div className="rounded-3xl bg-[#0D111A]/90 backdrop-blur-md border border-[#8B5CF6]/40 shadow-2xl overflow-hidden relative">
-              <div className="bg-[#07090E] border-b border-[#1A2234] p-4 flex items-center justify-between text-xs font-mono-tabular">
+            <div className="rounded-none bg-[#0D111A] border-2 border-[#8B5CF6] shadow-[4px_4px_0px_0px_#8B5CF6] overflow-hidden relative">
+              <div className="bg-[#07090E] border-b-2 border-[#1A2234] p-4 flex items-center justify-between text-xs font-mono">
                 <span className="text-[#8B5CF6] font-bold flex items-center space-x-2">
                   <Code2 className="w-4 h-4" />
                   <span>app/api/{selectedSystem.slug}/route.ts</span>
@@ -573,17 +573,17 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
 
                 <button
                   onClick={handleCopyCodeSnippet}
-                  className="px-3.5 py-1.5 rounded-lg bg-[#8B5CF6]/10 text-[#8B5CF6] hover:bg-[#8B5CF6]/20 border border-[#8B5CF6]/30 flex items-center space-x-1.5 transition-colors cursor-pointer min-h-[36px]"
+                  className="px-3.5 py-1.5 rounded-none bg-[#8B5CF6]/10 text-[#8B5CF6] hover:bg-[#8B5CF6]/20 border-2 border-[#8B5CF6] flex items-center space-x-1.5 transition-colors cursor-pointer min-h-[36px] font-mono shadow-[2px_2px_0px_0px_#8B5CF6]"
                 >
                   {copiedCode ? (
                     <>
                       <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-emerald-400">Copied!</span>
+                      <span className="text-emerald-400">COPIED!</span>
                     </>
                   ) : (
                     <>
                       <Copy className="w-3.5 h-3.5" />
-                      <span>Copy Snippet</span>
+                      <span>[COPY SNIPPET]</span>
                     </>
                   )}
                 </button>
@@ -599,13 +599,13 @@ export async function execute${selectedSystem.slug.replace(/[^a-zA-Z0-9]/g, "")}
 
           {/* VIEW MODE 3: PAYLOAD INSPECTOR */}
           {viewMode === "payload" && (
-            <div className="rounded-3xl bg-[#0D111A]/90 backdrop-blur-md border border-emerald-500/40 shadow-2xl overflow-hidden relative">
-              <div className="bg-[#07090E] border-b border-[#1A2234] p-4 flex items-center justify-between text-xs font-mono-tabular">
+            <div className="rounded-none bg-[#0D111A] border-2 border-emerald-500 shadow-[4px_4px_0px_0px_#10B981] overflow-hidden relative">
+              <div className="bg-[#07090E] border-b-2 border-[#1A2234] p-4 flex items-center justify-between text-xs font-mono">
                 <span className="text-emerald-400 font-bold flex items-center space-x-2">
                   <Database className="w-4 h-4" />
-                  <span>RESPONSE PAYLOAD INSPECTOR (JSON)</span>
+                  <span>[RESPONSE PAYLOAD INSPECTOR // JSON]</span>
                 </span>
-                <span className="text-slate-400">HTTP 200 OK (11.8ms)</span>
+                <span className="text-slate-400">[HTTP 200 OK // 11.8ms]</span>
               </div>
 
               <div className="p-6 bg-[#07090E] font-mono text-xs text-emerald-400 overflow-x-auto max-h-[500px] leading-relaxed">

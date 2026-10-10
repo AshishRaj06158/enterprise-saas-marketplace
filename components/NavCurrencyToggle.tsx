@@ -7,30 +7,30 @@ export default function NavCurrencyToggle() {
   const { currency, setCurrency } = useCurrency();
 
   return (
-    <div className="p-1 rounded-xl bg-[#0D111A]/90 border border-[#00F0FF]/40 backdrop-blur-md inline-flex items-center text-xs font-mono-tabular shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+    <div className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] shadow-[3px_3px_0px_0px_#1A2234] inline-flex items-center text-xs font-mono-tabular">
       <button
         type="button"
         onClick={() => setCurrency("INR")}
-        className={`px-3 py-1.5 sm:py-2 rounded-lg transition-all font-bold cursor-pointer min-h-[44px] sm:min-h-[38px] flex items-center justify-center ${
+        className={`px-3 py-1.5 transition-all font-bold cursor-pointer min-h-[44px] flex items-center justify-center uppercase tracking-wider ${
           currency === "INR"
-            ? "bg-[#00F0FF] text-black shadow-md"
-            : "text-slate-400 hover:text-white"
-        }`}
+            ? "bg-[#00F0FF] text-black border-r-2 border-[#1A2234] shadow-[inset_0_0_0_1px_#000]"
+            : "text-slate-400 hover:text-white border-r-2 border-[#1A2234]"
+        } active:translate-x-[1px] active:translate-y-[1px]`}
         title="Switch to INR ₹"
       >
-        ₹ INR
+        [₹ INR]
       </button>
       <button
         type="button"
         onClick={() => setCurrency("USD")}
-        className={`px-3 py-1.5 sm:py-2 rounded-lg transition-all font-bold cursor-pointer min-h-[44px] sm:min-h-[38px] flex items-center justify-center ${
+        className={`px-3 py-1.5 transition-all font-bold cursor-pointer min-h-[44px] flex items-center justify-center uppercase tracking-wider ${
           currency === "USD"
-            ? "bg-[#8B5CF6] text-white shadow-md"
+            ? "bg-[#8B5CF6] text-white shadow-[inset_0_0_0_1px_#000]"
             : "text-slate-400 hover:text-white"
-        }`}
+        } active:translate-x-[1px] active:translate-y-[1px]`}
         title="Switch to USD $"
       >
-        $ USD
+        [$ USD]
       </button>
     </div>
   );

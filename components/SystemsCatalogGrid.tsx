@@ -13,14 +13,6 @@ interface SystemsCatalogGridProps {
   systems: SystemProduct[];
 }
 
-const CATEGORIES = [
-  "All Systems",
-  "AI Agents",
-  "Dashboards",
-  "Fintech / Payments",
-  "Developer Tools",
-];
-
 export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps) {
   const [selectedSystem, setSelectedSystem] = useState<SystemProduct | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,62 +20,53 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
 
   const { currency } = useCurrency();
 
-  // Filter systems based on search query and category
+  // Dynamically extract categories from datasets with "All Systems" fallback
+  const categories = useMemo(() => {
+    const uniqueCats = Array.from(new Set(systems.map((s) => s.category).filter(Boolean)));
+    return ["All Systems", ...uniqueCats];
+  }, [systems]);
+
+  // Real-time case-insensitive trimmed filtering evaluating name, tagline, description, category, and stack
   const filteredSystems = useMemo(() => {
+    const trimmedTerm = searchQuery.trim().toLowerCase();
+
     return systems.filter((sys) => {
-      // Category Filter
-      let matchesCat = true;
-      if (selectedCategory === "AI Agents") {
-        matchesCat =
-          sys.category === "AI Agents" ||
-          sys.name.toLowerCase().includes("agent") ||
-          sys.stack.some((s) => s.toLowerCase().includes("ai") || s.toLowerCase().includes("agent"));
-      } else if (selectedCategory === "Dashboards") {
-        matchesCat =
-          sys.category === "Dashboards" ||
-          sys.name.toLowerCase().includes("matrix") ||
-          sys.name.toLowerCase().includes("telemetry");
-      } else if (selectedCategory === "Fintech / Payments") {
-        matchesCat =
-          sys.category === "Websites" ||
-          sys.category === "CRM" ||
-          sys.stack.some((s) =>
-            /upi|razorpay|stripe|payment|credit/i.test(s)
-          ) ||
-          sys.features.some((f) => /upi|razorpay|stripe|payment|gst/i.test(f));
-      } else if (selectedCategory === "Developer Tools") {
-        matchesCat =
-          sys.category === "ERP" ||
-          sys.name.toLowerCase().includes("auth") ||
-          sys.name.toLowerCase().includes("sentinel") ||
-          sys.stack.some((s) => /auth|security|redis|vault|saml/i.test(s));
+      // Dynamic Category match
+      if (selectedCategory !== "All Systems" && sys.category !== selectedCategory) {
+        return false;
       }
 
-      if (!matchesCat) return false;
+      // If no search query, return match
+      if (!trimmedTerm) return true;
 
-      // Search Query Filter
-      if (!searchQuery.trim()) return true;
-      const term = searchQuery.toLowerCase();
+      // Match evaluation
+      const matchesName = sys.name.toLowerCase().includes(trimmedTerm);
+      const matchesTagline = sys.tagline.toLowerCase().includes(trimmedTerm);
+      const matchesDescription = sys.description.toLowerCase().includes(trimmedTerm);
+      const matchesCategory = sys.category.toLowerCase().includes(trimmedTerm);
+      const matchesBadge = sys.badge.toLowerCase().includes(trimmedTerm);
+      const matchesStack = sys.stack.some((tech) => tech.toLowerCase().includes(trimmedTerm));
+      const matchesFeatures = sys.features.some((feat) => feat.toLowerCase().includes(trimmedTerm));
+      const matchesSpecs = sys.specs.some(
+        (sp) => sp.label.toLowerCase().includes(trimmedTerm) || sp.value.toLowerCase().includes(trimmedTerm)
+      );
 
       return (
-        sys.name.toLowerCase().includes(term) ||
-        sys.tagline.toLowerCase().includes(term) ||
-        sys.description.toLowerCase().includes(term) ||
-        sys.badge.toLowerCase().includes(term) ||
-        sys.stack.some((s) => s.toLowerCase().includes(term)) ||
-        sys.features.some((f) => f.toLowerCase().includes(term)) ||
-        sys.specs.some(
-          (sp) =>
-            sp.label.toLowerCase().includes(term) ||
-            sp.value.toLowerCase().includes(term)
-        )
+        matchesName ||
+        matchesTagline ||
+        matchesDescription ||
+        matchesCategory ||
+        matchesBadge ||
+        matchesStack ||
+        matchesFeatures ||
+        matchesSpecs
       );
     });
   }, [systems, searchQuery, selectedCategory]);
 
   return (
     <>
-      {/* Search & Category Filter Matrix */}
+      {/* Search & Dynamic Category Filter Matrix */}
       <SystemFilterBar
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -91,7 +74,7 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
         setSelectedCategory={setSelectedCategory}
         totalResults={filteredSystems.length}
         maxResults={systems.length}
-        categories={CATEGORIES}
+        categories={categories}
       />
 
       {/* Systems Grid */}
@@ -105,7 +88,7 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
               <div
                 key={sys.id}
                 id={sys.id}
-                className="rounded-2xl bg-[#0D111A]/80 backdrop-blur-md border border-[#00F0FF]/30 p-8 flex flex-col justify-between hover:border-[#00F0FF]/60 hover:shadow-[0_10px_35px_-5px_rgba(0,240,255,0.2)] transition-all duration-300 shadow-2xl relative overflow-hidden group hover:-translate-y-1"
+                className="rounded-none bg-[#0D111A] border-2 border-[#1A2234] p-8 flex flex-col justify-between hover:border-[#00F0FF] shadow-[4px_4px_0px_0px_#1A2234] hover:shadow-[4px_4px_0px_0px_#00F0FF] transition-all duration-150 hover:-translate-x-[2px] hover:-translate-y-[2px] relative overflow-hidden group"
               >
                 {/* Scanline Overlay */}
                 <div className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity z-30" />
@@ -113,40 +96,40 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
                 <div>
                   {/* Badge & Name */}
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-[10px] font-mono-tabular tracking-wider uppercase px-3 py-1 rounded bg-[#07090E] text-[#00F0FF] border border-[#00F0FF]/30">
-                      {sys.badge}
+                    <span className="text-[10px] font-mono-tabular tracking-wider uppercase px-2.5 py-1 bg-[#07090E] text-[#00F0FF] border border-[#00F0FF]">
+                      [{sys.badge}]
                     </span>
-                    <span className="text-xs font-mono-tabular text-emerald-400 flex items-center space-x-1.5">
+                    <span className="text-xs font-mono-tabular text-emerald-400 flex items-center space-x-1.5 font-bold">
                       <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
                       </span>
-                      <span>IP AUDITED</span>
+                      <span>[IP AUDITED // VERIFIED]</span>
                     </span>
                   </div>
 
-                  <h2 className="text-2xl font-bold text-white group-hover:text-[#00F0FF] transition-colors">
+                  <h2 className="text-2xl font-black text-white group-hover:text-[#00F0FF] transition-colors tracking-tight font-mono-tabular">
                     <Link href={"/systems/" + sys.slug}>{sys.name}</Link>
                   </h2>
-                  <p className="text-xs font-mono-tabular text-[#8B5CF6] mt-0.5 mb-3">
-                    {sys.tagline}
+                  <p className="text-xs font-mono-tabular text-[#8B5CF6] mt-1 mb-4 uppercase tracking-wider font-semibold">
+                    // {sys.tagline}
                   </p>
 
                   {/* System Preview Image */}
                   <Link
                     href={"/systems/" + sys.slug}
-                    className="block relative w-full overflow-hidden rounded-xl border border-[#1A2234] my-4 shadow-lg bg-[#07090E]"
+                    className="block relative w-full overflow-hidden rounded-none border-2 border-[#1A2234] my-4 shadow-[4px_4px_0px_0px_#07090E] bg-[#07090E] group-hover:border-[#00F0FF] transition-colors"
                   >
                     <Image
                       src={sys.imageSrc}
                       alt={sys.imageAlt}
                       width={1200}
                       height={675}
-                      className="w-full h-auto object-cover rounded-xl transition-transform duration-500 group-hover:scale-[1.01]"
+                      className="w-full h-auto object-cover rounded-none transition-transform duration-300 group-hover:scale-[1.01]"
                     />
                   </Link>
 
-                  <p className="text-sm text-[#94A3B8] leading-relaxed mb-6">
+                  <p className="text-sm text-[#94A3B8] leading-relaxed mb-6 font-sans">
                     {sys.description}
                   </p>
 
@@ -155,22 +138,22 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
                     {sys.stack.map((t, i) => (
                       <span
                         key={i}
-                        className="text-[11px] font-mono-tabular px-2.5 py-1 rounded-lg bg-[#07090E] text-slate-300 border border-[#1A2234]"
+                        className="text-[11px] font-mono-tabular px-2.5 py-1 bg-[#07090E] text-slate-300 border border-[#1A2234] uppercase"
                       >
-                        {t}
+                        [{t}]
                       </span>
                     ))}
                   </div>
 
                   {/* Key Features List */}
-                  <div className="space-y-2 mb-6 pt-4 border-t border-[#1A2234]">
-                    <div className="text-xs font-mono-tabular text-[#94A3B8] uppercase">
-                      CORE FEATURES:
+                  <div className="space-y-2 mb-6 pt-4 border-t-2 border-[#1A2234]">
+                    <div className="text-xs font-mono-tabular text-[#94A3B8] uppercase font-bold tracking-wider">
+                      // ARCHITECTURAL CAPABILITIES:
                     </div>
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {sys.features.map((f, i) => (
-                        <li key={i} className="flex items-center space-x-2 text-xs text-slate-200">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#00F0FF] shrink-0" />
+                        <li key={i} className="flex items-start space-x-2 text-xs text-slate-200 font-mono-tabular">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#00F0FF] shrink-0 mt-0.5" />
                           <span>{f}</span>
                         </li>
                       ))}
@@ -179,10 +162,10 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
                 </div>
 
                 {/* Card Bottom: Metrics, Sandbox & CTA */}
-                <div className="pt-6 border-t border-[#1A2234] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="pt-6 border-t-2 border-[#1A2234] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div>
-                    <div className="text-[11px] text-[#94A3B8] font-mono-tabular">COMMERCIAL TIER</div>
-                    <div className="text-xl font-bold text-white font-mono-tabular">
+                    <div className="text-[10px] text-[#94A3B8] font-mono-tabular uppercase tracking-wider">[COMMERCIAL TIER]</div>
+                    <div className="text-2xl font-black text-white font-mono-tabular">
                       {displayPrice} <span className="text-xs font-normal text-slate-400">({secondaryPrice})</span>
                     </div>
                   </div>
@@ -190,18 +173,18 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
                   <div className="flex items-center space-x-2.5 w-full sm:w-auto">
                     <Link
                       href={"/playground?system=" + sys.slug}
-                      className="px-3 py-2 rounded-xl text-xs font-mono-tabular text-[#00F0FF] bg-[#07090E] border border-[#00F0FF]/40 hover:bg-[#00F0FF]/10 transition-colors flex items-center space-x-1.5 cursor-pointer min-h-[44px]"
+                      className="px-3.5 py-2.5 rounded-none text-xs font-bold font-mono-tabular text-[#00F0FF] bg-[#07090E] border-2 border-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF] hover:bg-[#00F0FF]/10 active:translate-x-[1px] active:translate-y-[1px] transition-all flex items-center space-x-1.5 cursor-pointer min-h-[44px] uppercase"
                       title="Test Live Sandbox Playground"
                     >
                       <Terminal className="w-3.5 h-3.5" />
-                      <span>Sandbox ⚡</span>
+                      <span>[SANDBOX ⚡]</span>
                     </Link>
 
                     <Link
                       href={"/checkout?system=" + sys.slug}
-                      className="px-4 py-2 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)] flex items-center space-x-1.5 min-h-[44px]"
+                      className="px-4 py-2.5 rounded-none text-xs font-bold font-mono-tabular text-black bg-[#00F0FF] border-2 border-[#00F0FF] shadow-[3px_3px_0px_0px_#8B5CF6] hover:shadow-[4px_4px_0px_0px_#8B5CF6] active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center space-x-1.5 min-h-[44px] uppercase"
                     >
-                      <span>Acquire</span>
+                      <span>ACQUIRE</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
@@ -211,22 +194,22 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
           })}
         </div>
       ) : (
-        /* Futuristic Empty State Card */
-        <div className="rounded-2xl bg-[#0D111A]/90 border border-[#00F0FF]/40 p-12 text-center space-y-6 shadow-[0_0_40px_rgba(0,240,255,0.15)] relative overflow-hidden my-8">
+        /* Cybernetic Neo-Brutalism Empty State Card */
+        <div className="rounded-none bg-[#0D111A] border-2 border-[#00F0FF] p-12 text-center space-y-6 shadow-[6px_6px_0px_0px_#00F0FF] relative overflow-hidden my-8">
           <div className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none" />
 
-          <div className="mx-auto w-16 h-16 rounded-full bg-[#00F0FF]/10 border border-[#00F0FF]/40 flex items-center justify-center">
+          <div className="mx-auto w-16 h-16 rounded-none bg-[#07090E] border-2 border-[#00F0FF] flex items-center justify-center shadow-[3px_3px_0px_0px_#00F0FF]">
             <SearchX className="w-8 h-8 text-[#00F0FF]" />
           </div>
 
           <div className="space-y-2 max-w-lg mx-auto">
-            <h3 className="text-xl font-bold text-white tracking-wide font-mono-tabular">
-              NO SYSTEM MATCHES THE SPECIFIED QUERY PARAMETERS
+            <h3 className="text-xl font-black text-white tracking-wider font-mono-tabular uppercase">
+              // ZERO SYSTEMS MATCH THE SPECIFIED QUERY PARAMETERS
             </h3>
-            <p className="text-xs text-[#94A3B8] font-mono-tabular">
-              Zero systems matched search term{" "}
-              {searchQuery && <span className="text-[#00F0FF]">&quot;{searchQuery}&quot;</span>}{" "}
-              under category <span className="text-[#8B5CF6]">&quot;{selectedCategory}&quot;</span>.
+            <p className="text-xs text-[#94A3B8] font-mono-tabular leading-relaxed">
+              No registry records found matching search query{" "}
+              {searchQuery && <span className="text-[#00F0FF] font-bold">&quot;{searchQuery}&quot;</span>}{" "}
+              under category <span className="text-[#8B5CF6] font-bold">&quot;{selectedCategory}&quot;</span>.
             </p>
           </div>
 
@@ -235,10 +218,10 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
               setSearchQuery("");
               setSelectedCategory("All Systems");
             }}
-            className="px-6 py-3 rounded-xl text-xs font-bold font-mono-tabular text-black bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)] inline-flex items-center space-x-2 cursor-pointer"
+            className="px-6 py-3.5 rounded-none text-xs font-bold font-mono-tabular text-black bg-[#00F0FF] border-2 border-[#00F0FF] shadow-[4px_4px_0px_0px_#8B5CF6] hover:shadow-[6px_6px_0px_0px_#8B5CF6] active:translate-x-[2px] active:translate-y-[2px] inline-flex items-center space-x-2 cursor-pointer uppercase min-h-[44px]"
           >
             <RotateCcw className="w-4 h-4" />
-            <span>[ CLEAR FILTER / RESET QUERY ]</span>
+            <span>[RESET FILTER MATRIX]</span>
           </button>
         </div>
       )}

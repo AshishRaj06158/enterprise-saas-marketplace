@@ -9,6 +9,7 @@ interface CurrencyContextType {
   setCurrency: (c: Currency) => void;
   toggleCurrency: () => void;
   formatPrice: (inr: string, usd: string) => string;
+  formatAmount: (inr: number, usd?: number) => string;
 }
 
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);
@@ -44,13 +45,22 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
     return currency === "INR" ? inr : usd;
   };
 
+  const formatAmount = (inr: number, usd?: number) => {
+    if (currency === "INR") {
+      return `₹${inr.toLocaleString("en-IN")}`;
+    }
+    const targetUsd = usd !== undefined ? usd : Math.round(inr / 85);
+    return `$${targetUsd.toLocaleString("en-US")}`;
+  };
+
   return (
     <CurrencyContext.Provider
       value={{
         currency: mounted ? currency : "INR",
         setCurrency,
         toggleCurrency,
-        formatPrice
+        formatPrice,
+        formatAmount
       }}
     >
       {children}
