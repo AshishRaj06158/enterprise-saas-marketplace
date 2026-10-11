@@ -21,7 +21,7 @@ export default function SystemDetailActions({ sys }: SystemDetailActionsProps) {
           className="px-4 py-3 rounded-none text-xs font-bold text-[#00F0FF] bg-[#07090E] border-2 border-[#00F0FF] shadow-[3px_3px_0px_0px_#00F0FF] hover:bg-[#00F0FF]/10 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#00F0FF] transition-all flex items-center space-x-2 cursor-pointer min-h-[44px] uppercase"
         >
           <Terminal className="w-4 h-4 text-[#00F0FF]" />
-          <span>[LIVE SANDBOX ⚡]</span>
+          <span>[LAUNCH LIVE SANDBOX ⚡]</span>
         </Link>
 
         <button
@@ -36,7 +36,7 @@ export default function SystemDetailActions({ sys }: SystemDetailActionsProps) {
           href={`/checkout?system=${sys.slug}`}
           className="px-6 py-3 rounded-none text-xs font-bold text-black bg-[#00F0FF] border-2 border-[#00F0FF] shadow-[4px_4px_0px_0px_#8B5CF6] hover:shadow-[6px_6px_0px_0px_#8B5CF6] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#8B5CF6] transition-all flex items-center space-x-2 min-h-[44px] uppercase"
         >
-          <span>ACQUIRE LICENSE</span>
+          <span>[ACQUIRE COMMERCIAL LICENSE]</span>
           <ArrowRight className="w-4 h-4" />
         </Link>
       </div>

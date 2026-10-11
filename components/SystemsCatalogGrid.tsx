@@ -236,7 +236,7 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
             className="px-6 py-3.5 rounded-none text-xs font-bold font-mono-tabular text-black bg-[#00F0FF] border-2 border-[#00F0FF] shadow-[4px_4px_0px_0px_#8B5CF6] hover:shadow-[6px_6px_0px_0px_#8B5CF6] active:translate-x-[2px] active:translate-y-[2px] inline-flex items-center space-x-2 cursor-pointer uppercase min-h-[44px]"
           >
             <RotateCcw className="w-4 h-4" />
-            <span>[RESET FILTER]</span>
+            <span>[RESET FILTER MATRIX]</span>
           </button>
         </div>
       )}
