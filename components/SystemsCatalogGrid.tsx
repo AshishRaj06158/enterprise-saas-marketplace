@@ -20,6 +20,16 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
 
   const { currency } = useCurrency();
 
+  // Listen for reset filters trigger from Command Palette HUD
+  React.useEffect(() => {
+    const handleReset = () => {
+      setSearchQuery("");
+      setSelectedCategory("All Systems");
+    };
+    window.addEventListener("reset-system-filters", handleReset);
+    return () => window.removeEventListener("reset-system-filters", handleReset);
+  }, []);
+
   // Dynamically extract categories from datasets with "All Systems" fallback
   const categories = useMemo(() => {
     const uniqueCats = Array.from(new Set(systems.map((s) => s.category).filter(Boolean)));

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import {
   Search,
@@ -22,17 +22,24 @@ import {
   Key,
   GitCommit,
   Code2,
-  Calculator
+  Calculator,
+  Mail,
+  RotateCcw,
+  Check,
+  Copy,
+  CornerDownLeft
 } from "lucide-react";
 import { useCurrency } from "@/context/CurrencyContext";
 import { getAllSystems } from "@/data/systems";
 
-interface ActionItem {
+interface CommandAction {
   id: string;
   title: string;
-  subtitle?: string;
-  category: "Navigation" | "Systems" | "Utilities";
+  subtitle: string;
+  category: "Systems" | "Navigation" | "Actions";
+  keywords: string[];
   icon: React.ElementType;
+  badge?: string;
   shortcut?: string;
   onSelect: () => void;
 }
@@ -41,18 +48,32 @@ export default function CommandPalette() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [copiedNotice, setCopiedNotice] = useState<string | null>(null);
 
   const router = useRouter();
   const { currency, toggleCurrency } = useCurrency();
   const inputRef = useRef<HTMLInputElement>(null);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Global hotkey listener (Cmd+K / Ctrl+K & Escape) & custom window event listener
+  // 1. Prevent background body scrolling when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prevOverflow;
+      };
+    }
+  }, [isOpen]);
+
+  // 2. Global hotkey listener (Cmd+K on Mac, Ctrl+K on Windows/Linux, and Escape)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setIsOpen((prev) => !prev);
-      } else if (e.key === "Escape") {
+      } else if (e.key === "Escape" && isOpen) {
+        e.preventDefault();
         setIsOpen(false);
       }
     };
@@ -66,308 +87,339 @@ export default function CommandPalette() {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("open-command-palette", handleCustomOpen);
     };
-  }, []);
+  }, [isOpen]);
 
-  // Auto focus search input on modal open
+  // 3. Auto focus input on modal open & reset selection
   useEffect(() => {
     if (isOpen) {
       setSearchQuery("");
       setSelectedIndex(0);
-      setTimeout(() => inputRef.current?.focus(), 50);
+      setCopiedNotice(null);
+      const timer = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 50);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
+  // 4. Scroll selected item into view
+  useEffect(() => {
+    if (isOpen && itemRefs.current[selectedIndex]) {
+      itemRefs.current[selectedIndex]?.scrollIntoView({
+        block: "nearest",
+        behavior: "smooth",
+      });
+    }
+  }, [selectedIndex, isOpen]);
+
   const systems = getAllSystems();
 
-  // Define available command palette actions
-  const allActions: ActionItem[] = [
-    // Navigation
-    {
-      id: "nav-calculator",
-      title: "Calculate Engineering ROI & Savings",
-      subtitle: "Simulate team burn rate vs instant perpetual deployment savings",
-      category: "Navigation",
-      icon: Calculator,
-      onSelect: () => {
-        router.push("/calculator");
-        setIsOpen(false);
+  // 5. Build full command catalog
+  const allActions: CommandAction[] = useMemo(() => {
+    const actions: CommandAction[] = [
+      // Quick Actions (Top priority utilities)
+      {
+        id: "act-toggle-currency",
+        title: `Switch Currency to ${currency === "INR" ? "USD ($)" : "INR (₹)"}`,
+        subtitle: `Current active currency is [${currency}]. Toggles all pricing tiers across the catalog.`,
+        category: "Actions",
+        keywords: ["currency", "inr", "usd", "rupee", "dollar", "switch", "toggle", "price"],
+        icon: DollarSign,
+        badge: `ACTIVE: ${currency}`,
+        shortcut: "ENTER TO TOGGLE",
+        onSelect: () => {
+          toggleCurrency();
+          setCopiedNotice(`Currency switched to ${currency === "INR" ? "USD ($)" : "INR (₹)"}`);
+          setTimeout(() => setIsOpen(false), 600);
+        },
       },
-    },
-    {
-      id: "nav-developer",
-      title: "Open Developer Console & Webhooks",
-      subtitle: "Manage API access tokens, configure webhooks & test HTTP payloads",
-      category: "Navigation",
-      icon: Code2,
-      onSelect: () => {
-        router.push("/developer");
-        setIsOpen(false);
+      {
+        id: "act-copy-email",
+        title: "Copy Support Email (contact@nexus-systems.in)",
+        subtitle: "1-Click copy to clipboard for architectural inquiries and enterprise SLAs.",
+        category: "Actions",
+        keywords: ["email", "support", "contact", "copy", "architect", "help", "inquiry"],
+        icon: Mail,
+        badge: "SUPPORT",
+        shortcut: "COPY",
+        onSelect: () => {
+          const email = "contact@nexus-systems.in";
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(email);
+          }
+          setCopiedNotice("[COPIED: contact@nexus-systems.in]");
+          setTimeout(() => {
+            setIsOpen(false);
+          }, 900);
+        },
       },
-    },
-    {
-      id: "nav-changelog",
-      title: "View Platform Changelog & Release Notes",
-      subtitle: "Version stream v2.4.0, zero-trust security patches & dependency matrix",
-      category: "Navigation",
-      icon: GitCommit,
-      onSelect: () => {
-        router.push("/changelog");
-        setIsOpen(false);
+      {
+        id: "act-reset-filters",
+        title: "Reset Filters & Clear Catalog Search",
+        subtitle: "Revert category selection back to 'All Systems' and clear any active search queries.",
+        category: "Actions",
+        keywords: ["reset", "filter", "clear", "catalog", "search", "all systems"],
+        icon: RotateCcw,
+        badge: "CATALOG",
+        shortcut: "RESET",
+        onSelect: () => {
+          window.dispatchEvent(new CustomEvent("reset-system-filters"));
+          router.push("/systems");
+          setIsOpen(false);
+        },
       },
-    },
-    {
-      id: "nav-playground",
-      title: "Launch Live Component Playground",
-      subtitle: "Interactive in-browser canvas, server code & payload inspector",
-      category: "Navigation",
-      icon: Terminal,
-      onSelect: () => {
-        router.push("/playground");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-vault",
-      title: "Open Customer License Vault & Asset Hub",
-      subtitle: "Manage entitled production keys, source bundles & GitHub access",
-      category: "Navigation",
-      icon: Key,
-      onSelect: () => {
-        router.push("/vault");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-home",
-      title: "Home / Enterprise Platform Overview",
-      subtitle: "Return to Sutra Nexus home landing page",
-      category: "Navigation",
-      icon: Cpu,
-      onSelect: () => {
-        router.push("/");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-systems",
-      title: "View Full Systems Catalog",
-      subtitle: "Browse all 6 production-ready software codebases",
-      category: "Navigation",
-      icon: Layers,
-      onSelect: () => {
-        router.push("/systems");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-telemetry",
-      title: "Telemetry / Nexus Telemetry Matrix",
-      subtitle: "Executive observability matrix with sub-12ms query latency",
-      category: "Navigation",
-      icon: Terminal,
-      onSelect: () => {
-        router.push("/systems/telemetry-matrix");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-crm",
-      title: "CRM / Autonomous CRM & Revenue Engine",
-      subtitle: "4.8x deal velocity pipeline & contract automation",
-      category: "Navigation",
-      icon: Zap,
-      onSelect: () => {
-        router.push("/systems/autonomous-crm-pipeline");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-erp",
-      title: "ERP / Quantum Logistics & Operations",
-      subtitle: "Multi-depot thermal warehouse & live GPS fleet telemetry",
-      category: "Navigation",
-      icon: Activity,
-      onSelect: () => {
-        router.push("/systems/quantum-logistics-erp");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-ai-agents",
-      title: "AI Agents / Nexus Agent Orchestrator",
-      subtitle: "Self-healing multi-agent pipelines & MCP tool execution",
-      category: "Navigation",
-      icon: Cpu,
-      onSelect: () => {
-        router.push("/systems/nexus-agent-orchestrator");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-compare",
-      title: "Compare Systems & Benchmark Matrix",
-      subtitle: "Side-by-side spec evaluation & empirical benchmarks",
-      category: "Navigation",
-      icon: BarChart3,
-      onSelect: () => {
-        router.push("/compare");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-deploy-config",
-      title: "Generate Deploy Config & Environment Blueprint",
-      subtitle: "Build docker-compose, .env.production & GitHub Actions",
-      category: "Navigation",
-      icon: Sliders,
-      onSelect: () => {
-        router.push("/deploy-config");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-pipelines",
-      title: "View Pipeline Topology & Agent Flow",
-      subtitle: "Interactive step-through visualizer & execution log stream",
-      category: "Navigation",
-      icon: Zap,
-      onSelect: () => {
-        router.push("/pipelines");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-operations",
-      title: "Check Operational Health & System Status",
-      subtitle: "Real-time edge node telemetry & incident audit logs",
-      category: "Navigation",
-      icon: Activity,
-      onSelect: () => {
-        router.push("/operations");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-verify",
-      title: "Go to License Verification Portal",
-      subtitle: "Validate SHA-256 commercial IP entitlements & SLA tier",
-      category: "Navigation",
-      icon: ShieldCheck,
-      onSelect: () => {
-        router.push("/verify");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-checkout",
-      title: "Checkout & Commercial Licensing Portal",
-      subtitle: "Acquire perpetual source code license & dispatch repository",
-      category: "Navigation",
-      icon: ShieldCheck,
-      onSelect: () => {
-        router.push("/checkout");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-pricing",
-      title: "View Commercial Pricing Tiers",
-      subtitle: "Explore single system, suite, and SLA proposals",
-      category: "Navigation",
-      icon: Zap,
-      onSelect: () => {
-        router.push("/pricing");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-demos",
-      title: "View Live Sandbox Demos",
-      subtitle: "Interactive telemetry and system previews",
-      category: "Navigation",
-      icon: Terminal,
-      onSelect: () => {
-        router.push("/demos");
-        setIsOpen(false);
-      },
-    },
-    {
-      id: "nav-docs",
-      title: "API & System Documentation",
-      subtitle: "Read integration guides, RLS rules, and API specs",
-      category: "Navigation",
-      icon: ExternalLink,
-      onSelect: () => {
-        router.push("/docs");
-        setIsOpen(false);
-      },
-    },
 
-    // Systems Direct Jumps
-    ...systems.map((sys) => ({
-      id: `sys-${sys.slug}`,
-      title: sys.name,
-      subtitle: sys.tagline,
-      category: "Systems" as const,
-      icon: Cpu,
-      onSelect: () => {
-        router.push(`/systems/${sys.slug}`);
-        setIsOpen(false);
-      },
-    })),
+      // Core Systems (All 6 from data/systems.ts)
+      ...systems.map((sys) => ({
+        id: `sys-${sys.slug}`,
+        title: sys.name,
+        subtitle: `${sys.tagline} • ${sys.stack.slice(0, 3).join(", ")}`,
+        category: "Systems" as const,
+        keywords: [
+          sys.name.toLowerCase(),
+          sys.slug.toLowerCase(),
+          sys.category.toLowerCase(),
+          sys.tagline.toLowerCase(),
+          sys.description.toLowerCase(),
+          ...sys.stack.map((s) => s.toLowerCase()),
+          sys.metrics.toLowerCase(),
+        ],
+        icon: Cpu,
+        badge: sys.category.toUpperCase(),
+        shortcut: currency === "INR" ? sys.priceInr : sys.priceUsd,
+        onSelect: () => {
+          router.push(`/systems/${sys.slug}`);
+          setIsOpen(false);
+        },
+      })),
 
-    // Utilities
-    {
-      id: "util-currency",
-      title: `Toggle Currency (Active: ${currency})`,
-      subtitle: `Switch between INR ₹ and USD $ globally`,
-      category: "Utilities",
-      icon: DollarSign,
-      shortcut: "Click to Switch",
-      onSelect: () => {
-        toggleCurrency();
-        setIsOpen(false);
+      // Core Navigation Routes
+      {
+        id: "nav-systems",
+        title: "Systems Catalog (/systems)",
+        subtitle: "Browse all 6 production-ready business software codebases with commercial IP rights.",
+        category: "Navigation",
+        keywords: ["systems", "catalog", "browse", "products", "software", "codebase"],
+        icon: Layers,
+        badge: "CATALOG",
+        shortcut: "GOTO /systems",
+        onSelect: () => {
+          router.push("/systems");
+          setIsOpen(false);
+        },
       },
-    },
-    {
-      id: "util-telemetry",
-      title: "Launch Live Telemetry Sandbox",
-      subtitle: "View real-time event node latency stream",
-      category: "Utilities",
-      icon: Terminal,
-      onSelect: () => {
-        router.push("/demos");
-        setIsOpen(false);
+      {
+        id: "nav-playground",
+        title: "Interactive Live Playground (/playground)",
+        subtitle: "Real-time telemetry streams, AI agent reasoning traces, and fintech ledger simulator.",
+        category: "Navigation",
+        keywords: ["playground", "sandbox", "telemetry", "ai agent", "fintech", "mock", "console", "terminal"],
+        icon: Terminal,
+        badge: "SANDBOX",
+        shortcut: "GOTO /playground",
+        onSelect: () => {
+          router.push("/playground");
+          setIsOpen(false);
+        },
       },
-    },
-    {
-      id: "util-whatsapp",
-      title: "Open WhatsApp Enterprise Advisory (+91 9771596801)",
-      subtitle: "Direct 1-on-1 architect lead consultation",
-      category: "Utilities",
-      icon: MessageCircle,
-      onSelect: () => {
-        window.open(
-          "https://wa.me/919771596801?text=Hello%2C%20I%20want%20to%20inquire%20about%20SUTRA%20NEXUS%20enterprise%20systems.",
-          "_blank"
-        );
-        setIsOpen(false);
+      {
+        id: "nav-developer",
+        title: "Architecture Blueprint & API Console (/developer)",
+        subtitle: "High-Level Design (HLD) flow diagrams, micro-specs, and cURL / TypeScript / Python snippets.",
+        category: "Navigation",
+        keywords: ["developer", "architecture", "blueprint", "api", "console", "hld", "curl", "tokens"],
+        icon: Code2,
+        badge: "DEV CONSOLE",
+        shortcut: "GOTO /developer",
+        onSelect: () => {
+          router.push("/developer");
+          setIsOpen(false);
+        },
       },
-    },
-  ];
+      {
+        id: "nav-compare",
+        title: "Systems Comparison Matrix & Benchmarks (/compare)",
+        subtitle: "Side-by-side architectural specs, P99 latencies, concurrency, and compliance comparison.",
+        category: "Navigation",
+        keywords: ["compare", "matrix", "benchmark", "latency", "throughput", "versus", "specs"],
+        icon: BarChart3,
+        badge: "BENCHMARK",
+        shortcut: "GOTO /compare",
+        onSelect: () => {
+          router.push("/compare");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-calculator",
+        title: "Engineering ROI & Savings Calculator (/calculator)",
+        subtitle: "Simulate in-house engineering team burn rate vs perpetual codebase acquisition savings.",
+        category: "Navigation",
+        keywords: ["calculator", "roi", "savings", "engineering", "burn rate", "cost", "investment"],
+        icon: Calculator,
+        badge: "ROI SIMULATOR",
+        shortcut: "GOTO /calculator",
+        onSelect: () => {
+          router.push("/calculator");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-operations",
+        title: "Operational Status & Node Health (/operations)",
+        subtitle: "Edge node latencies, database connection pool telemetry, and active incident status.",
+        category: "Navigation",
+        keywords: ["operations", "status", "health", "nodes", "uptime", "telemetry", "infrastructure"],
+        icon: Activity,
+        badge: "INFRA",
+        shortcut: "GOTO /operations",
+        onSelect: () => {
+          router.push("/operations");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-deploy-config",
+        title: "Deployment Config & Docker Blueprint (/deploy-config)",
+        subtitle: "Generate production docker-compose.yml, .env.production, and CI/CD workflow matrices.",
+        category: "Navigation",
+        keywords: ["deploy", "config", "docker", "compose", "env", "production", "kubernetes", "ci/cd"],
+        icon: Sliders,
+        badge: "CONFIG",
+        shortcut: "GOTO /deploy-config",
+        onSelect: () => {
+          router.push("/deploy-config");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-pricing",
+        title: "Commercial Licensing & SLA Tiers (/pricing)",
+        subtitle: "Perpetual source code ownership, enterprise SLA tiers, and custom customization retainer.",
+        category: "Navigation",
+        keywords: ["pricing", "license", "commercial", "sla", "tiers", "enterprise", "cost"],
+        icon: Zap,
+        badge: "LICENSING",
+        shortcut: "GOTO /pricing",
+        onSelect: () => {
+          router.push("/pricing");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-vault",
+        title: "Customer License Vault & Key Hub (/vault)",
+        subtitle: "Cryptographic SHA-256 license key generation, GitHub access tokens, and asset bundles.",
+        category: "Navigation",
+        keywords: ["vault", "license key", "github", "tokens", "sha-256", "customer", "assets"],
+        icon: Key,
+        badge: "SECURITY",
+        shortcut: "GOTO /vault",
+        onSelect: () => {
+          router.push("/vault");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-changelog",
+        title: "Platform Changelog & Security Stream (/changelog)",
+        subtitle: "Audit release notes, vulnerability mitigations, and framework dependency updates.",
+        category: "Navigation",
+        keywords: ["changelog", "release", "notes", "security", "updates", "v2.4.0", "patches"],
+        icon: GitCommit,
+        badge: "STREAM",
+        shortcut: "GOTO /changelog",
+        onSelect: () => {
+          router.push("/changelog");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-demos",
+        title: "Live Sandbox Demos (/demos)",
+        subtitle: "Explore interactive telemetry nodes and pre-rendered system sandbox interfaces.",
+        category: "Navigation",
+        keywords: ["demos", "sandbox", "live", "preview", "telemetry"],
+        icon: Terminal,
+        badge: "DEMOS",
+        shortcut: "GOTO /demos",
+        onSelect: () => {
+          router.push("/demos");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-verify",
+        title: "License & SLA Verification Portal (/verify)",
+        subtitle: "Verify authentic commercial IP entitlements and validate SHA-256 signatures.",
+        category: "Navigation",
+        keywords: ["verify", "license", "sla", "authenticity", "sha-256", "signature"],
+        icon: ShieldCheck,
+        badge: "VERIFY",
+        shortcut: "GOTO /verify",
+        onSelect: () => {
+          router.push("/verify");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-checkout",
+        title: "Checkout & License Acquisition (/checkout)",
+        subtitle: "Instant Razorpay/UPI checkout with automated GST invoice and repository dispatch.",
+        category: "Navigation",
+        keywords: ["checkout", "buy", "acquire", "razorpay", "upi", "gst", "invoice"],
+        icon: ShieldCheck,
+        badge: "CHECKOUT",
+        shortcut: "GOTO /checkout",
+        onSelect: () => {
+          router.push("/checkout");
+          setIsOpen(false);
+        },
+      },
+    ];
 
-  // Filter actions matching search query
-  const filteredActions = allActions.filter((act) => {
-    if (!searchQuery.trim()) return true;
-    const q = searchQuery.toLowerCase();
-    return (
-      act.title.toLowerCase().includes(q) ||
-      (act.subtitle && act.subtitle.toLowerCase().includes(q)) ||
-      act.category.toLowerCase().includes(q)
-    );
-  });
+    return actions;
+  }, [systems, currency, toggleCurrency, router]);
 
-  // Handle arrow key navigation inside palette
+  // 6. Fast fuzzy search scoring
+  const filteredActions = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return allActions;
+
+    const scored = allActions
+      .map((action) => {
+        let score = 0;
+        const titleLower = action.title.toLowerCase();
+        const subtitleLower = action.subtitle.toLowerCase();
+
+        // Exact / start matches
+        if (titleLower === q) score += 100;
+        else if (titleLower.startsWith(q)) score += 60;
+        else if (titleLower.includes(q)) score += 40;
+
+        // Subtitle match
+        if (subtitleLower.includes(q)) score += 20;
+
+        // Keywords match
+        for (const kw of action.keywords) {
+          if (kw === q) score += 50;
+          else if (kw.startsWith(q)) score += 30;
+          else if (kw.includes(q)) score += 15;
+        }
+
+        // Category match
+        if (action.category.toLowerCase().includes(q)) score += 10;
+
+        return { action, score };
+      })
+      .filter((item) => item.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map((item) => item.action);
+
+    return scored;
+  }, [allActions, searchQuery]);
+
+  // 7. Keyboard navigation within filtered list
   const handleKeyDownInInput = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown") {
       e.preventDefault();
@@ -386,16 +438,26 @@ export default function CommandPalette() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-start justify-center pt-16 sm:pt-24 px-4 overflow-y-auto">
+    <div
+      className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-md flex items-start justify-center pt-14 sm:pt-20 px-3 sm:px-4 overflow-hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Nexus Command Palette HUD"
+    >
       {/* Click Backdrop to close */}
-      <div className="fixed inset-0" onClick={() => setIsOpen(false)} />
+      <div
+        className="fixed inset-0 cursor-pointer"
+        onClick={() => setIsOpen(false)}
+        aria-hidden="true"
+      />
 
-      {/* Palette HUD Container */}
-      <div className="relative w-full max-w-2xl bg-[#0D111A] border-2 border-[#00F0FF] rounded-none shadow-[8px_8px_0px_0px_#00F0FF] overflow-hidden z-10 space-y-0 text-slate-100 animate-in fade-in zoom-in-95 duration-200">
-        {/* Top Scanline effect */}
+      {/* Sharp-edged Neo-Brutalist modal window */}
+      <div className="relative w-full max-w-2xl bg-[#0D111A] border-2 border-[#00F0FF] rounded-none shadow-[8px_8px_0px_0px_#07090E] overflow-hidden z-10 text-slate-100 flex flex-col max-h-[85vh] animate-in fade-in zoom-in-95 duration-150">
+        
+        {/* Top Cybernetic Scanline Accent Beam */}
         <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent blur-[1px] animate-scanline pointer-events-none" />
 
-        {/* Input Field */}
+        {/* Modal Header & Search Bar */}
         <div className="relative border-b-2 border-[#1A2234] flex items-center px-4 py-3.5 bg-[#07090E]">
           <Search className="w-5 h-5 text-[#00F0FF] shrink-0 mr-3 animate-pulse" />
           <input
@@ -407,19 +469,46 @@ export default function CommandPalette() {
               setSelectedIndex(0);
             }}
             onKeyDown={handleKeyDownInInput}
-            placeholder="Type a command or search systems (e.g. 'Verify', 'ERP', 'Currency')..."
-            className="w-full bg-transparent text-sm sm:text-base text-white placeholder-slate-500 font-mono focus:outline-none"
+            placeholder="Type a command, route, or system (e.g. 'telemetry', 'currency', 'compare', 'api')..."
+            className="w-full bg-transparent text-xs sm:text-sm text-white placeholder-slate-500 font-mono focus:outline-none tracking-wide uppercase"
           />
+
+          {searchQuery && (
+            <button
+              onClick={() => {
+                setSearchQuery("");
+                setSelectedIndex(0);
+                inputRef.current?.focus();
+              }}
+              className="p-1 rounded-none text-slate-400 hover:text-[#00F0FF] hover:bg-[#1A2234] border border-transparent hover:border-[#00F0FF] mr-1.5 transition-colors"
+              title="Clear search"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
+
           <button
             onClick={() => setIsOpen(false)}
-            className="p-1 rounded-none text-slate-400 hover:text-white hover:bg-[#1A2234] transition-colors ml-2 border border-transparent hover:border-[#00F0FF]"
+            className="px-2 py-1 rounded-none bg-[#0D111A] text-slate-400 hover:text-white hover:bg-[#1A2234] border border-[#1A2234] hover:border-[#00F0FF] transition-colors text-[10px] font-mono font-bold"
+            title="Close (Esc)"
           >
-            <X className="w-5 h-5 text-[#00F0FF]" />
+            ESC
           </button>
         </div>
 
-        {/* Action List */}
-        <div className="max-h-[380px] overflow-y-auto p-2 space-y-1 font-mono">
+        {/* Transient Action Notice (e.g., Copied Email / Switched Currency) */}
+        {copiedNotice && (
+          <div className="px-4 py-2 bg-[#00F0FF]/15 border-b-2 border-[#00F0FF] flex items-center justify-between text-xs font-mono text-[#00F0FF] animate-in fade-in duration-100">
+            <span className="flex items-center space-x-2 font-bold">
+              <Check className="w-4 h-4 text-[#00F0FF]" />
+              <span>{copiedNotice}</span>
+            </span>
+            <span className="text-[10px] uppercase tracking-wider text-slate-400">[DISPATCHED]</span>
+          </div>
+        )}
+
+        {/* Action List Section */}
+        <div className="overflow-y-auto p-2 space-y-1 font-mono flex-1 divide-y divide-[#1A2234]/40">
           {filteredActions.length > 0 ? (
             filteredActions.map((action, idx) => {
               const IconComp = action.icon;
@@ -427,24 +516,42 @@ export default function CommandPalette() {
               return (
                 <div
                   key={action.id}
+                  ref={(el) => {
+                    itemRefs.current[idx] = el;
+                  }}
                   onClick={action.onSelect}
                   onMouseEnter={() => setSelectedIndex(idx)}
                   className={`w-full text-left px-3.5 py-2.5 rounded-none transition-all flex items-center justify-between cursor-pointer border-2 ${
                     isSelected
                       ? "bg-[#00F0FF]/15 border-[#00F0FF] text-white shadow-[2px_2px_0px_0px_#00F0FF]"
-                      : "text-slate-300 hover:bg-[#1A2234]/60 border-transparent"
+                      : "text-slate-300 hover:bg-[#1A2234]/50 border-transparent"
                   }`}
                 >
                   <div className="flex items-center space-x-3 truncate mr-3">
-                    <div className={`p-2 rounded-none border-2 ${isSelected ? "bg-[#00F0FF] text-black border-[#00F0FF]" : "bg-[#07090E] text-slate-400 border-[#1A2234]"}`}>
+                    <div
+                      className={`p-2 rounded-none border-2 shrink-0 ${
+                        isSelected
+                          ? "bg-[#00F0FF] text-black border-[#00F0FF]"
+                          : "bg-[#07090E] text-slate-400 border-[#1A2234]"
+                      }`}
+                    >
                       <IconComp className="w-4 h-4" />
                     </div>
+
                     <div className="truncate">
                       <div className="text-xs font-bold text-white tracking-wide truncate flex items-center gap-2">
                         <span>{action.title}</span>
-                        {action.category === "Systems" && (
-                          <span className="text-[9px] px-1.5 py-0.5 rounded-none bg-[#07090E] text-[#8B5CF6] border-2 border-[#8B5CF6] font-bold">
-                            [SYSTEM]
+                        {action.badge && (
+                          <span
+                            className={`text-[9px] px-1.5 py-0.5 rounded-none border font-bold ${
+                              action.category === "Systems"
+                                ? "bg-[#07090E] text-[#8B5CF6] border-[#8B5CF6]"
+                                : action.category === "Actions"
+                                ? "bg-[#07090E] text-[#00F0FF] border-[#00F0FF]"
+                                : "bg-[#07090E] text-slate-400 border-[#1A2234]"
+                            }`}
+                          >
+                            [{action.badge}]
                           </span>
                         )}
                       </div>
@@ -458,42 +565,54 @@ export default function CommandPalette() {
 
                   <div className="flex items-center space-x-2 shrink-0 text-xs">
                     {action.shortcut && (
-                      <span className="px-2 py-0.5 rounded-none text-[10px] bg-[#07090E] text-[#00F0FF] border-2 border-[#00F0FF] font-mono font-bold shadow-[1px_1px_0px_0px_#00F0FF]">
+                      <span className="hidden sm:inline-block px-2 py-0.5 rounded-none text-[10px] bg-[#07090E] text-[#00F0FF] border border-[#1A2234] font-mono font-bold">
                         {action.shortcut}
                       </span>
                     )}
-                    <ArrowRight className={`w-4 h-4 transition-transform ${isSelected ? "text-[#00F0FF] translate-x-1" : "text-slate-600"}`} />
+                    <CornerDownLeft
+                      className={`w-3.5 h-3.5 transition-transform ${
+                        isSelected ? "text-[#00F0FF] translate-x-0.5" : "text-slate-600"
+                      }`}
+                    />
                   </div>
                 </div>
               );
             })
           ) : (
-            <div className="py-8 text-center text-xs text-slate-400 font-mono">
-              [NO MATCHING COMMANDS FOUND FOR &quot;{searchQuery}&quot;]
+            <div className="py-12 text-center text-xs text-slate-400 font-mono space-y-2">
+              <div className="text-[#00F0FF] font-bold">[NO COMMANDS MATCHED]</div>
+              <div>No results found for &quot;{searchQuery}&quot;. Try &apos;Systems&apos;, &apos;Currency&apos;, or &apos;Compare&apos;.</div>
             </div>
           )}
         </div>
 
-        {/* Footer Shortcut Legend */}
-        <div className="px-4 py-2.5 bg-[#07090E] border-t-2 border-[#1A2234] flex items-center justify-between text-[11px] text-slate-400 font-mono">
-          <div className="flex items-center space-x-4">
+        {/* Footer HUD Shortcut Legend */}
+        <div className="px-4 py-2.5 bg-[#07090E] border-t-2 border-[#1A2234] flex items-center justify-between text-[11px] text-slate-400 font-mono shrink-0">
+          <div className="flex items-center space-x-3 sm:space-x-4">
             <span className="flex items-center space-x-1">
-              <kbd className="px-1.5 py-0.5 rounded-none bg-[#0D111A] text-slate-200 border-2 border-[#1A2234] font-bold">↑↓</kbd>
-              <span>Navigate</span>
+              <kbd className="px-1.5 py-0.5 rounded-none bg-[#0D111A] text-slate-200 border border-[#1A2234] font-bold text-[10px]">
+                ↑↓
+              </kbd>
+              <span className="hidden sm:inline">Navigate</span>
             </span>
             <span className="flex items-center space-x-1">
-              <kbd className="px-1.5 py-0.5 rounded-none bg-[#0D111A] text-slate-200 border-2 border-[#1A2234] font-bold">↵</kbd>
-              <span>Select</span>
+              <kbd className="px-1.5 py-0.5 rounded-none bg-[#0D111A] text-slate-200 border border-[#1A2234] font-bold text-[10px]">
+                ↵
+              </kbd>
+              <span>Execute</span>
             </span>
             <span className="flex items-center space-x-1">
-              <kbd className="px-1.5 py-0.5 rounded-none bg-[#0D111A] text-slate-200 border-2 border-[#1A2234] font-bold">Esc</kbd>
+              <kbd className="px-1.5 py-0.5 rounded-none bg-[#0D111A] text-slate-200 border border-[#1A2234] font-bold text-[10px]">
+                ESC
+              </kbd>
               <span>Close</span>
             </span>
           </div>
 
-          <div className="hidden sm:flex items-center space-x-1 text-[#00F0FF] font-bold uppercase">
+          <div className="flex items-center space-x-1.5 text-[#00F0FF] font-bold uppercase text-[10px] tracking-wider">
             <Command className="w-3.5 h-3.5" />
-            <span>[NEXUS HUD COMMAND PALETTE]</span>
+            <span className="hidden sm:inline">[NEXUS.OS // COMMAND_PALETTE]</span>
+            <span className="sm:hidden">[NEXUS.OS]</span>
           </div>
         </div>
       </div>
