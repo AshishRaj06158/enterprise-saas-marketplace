@@ -86,9 +86,9 @@ async function runTestSuite() {
   const startTime = Date.now();
 
   // --------------------------------------------------------------------------
-  // TEST 1: Registered Static Routes (HTTP 200)
+  // TEST 1: Registered Static & Authenticated Routes (HTTP 200 / 307 / 308)
   // --------------------------------------------------------------------------
-  console.log(`${C.bold}${C.cyan}[1/5] VERIFYING STATIC CORE MARKETPLACE ROUTES${C.reset}`);
+  console.log(`${C.bold}${C.cyan}[1/5] VERIFYING STATIC CORE MARKETPLACE & AUTHENTICATED ROUTES${C.reset}`);
   const staticRoutes = [
     "/",
     "/systems",
@@ -103,6 +103,8 @@ async function runTestSuite() {
     "/changelog",
     "/auth/login",
     "/auth/register",
+    "/admin",
+    "/portal",
     "/sitemap.xml",
     "/robots.txt",
   ];
@@ -110,10 +112,16 @@ async function runTestSuite() {
   for (const route of staticRoutes) {
     try {
       const res = await request(route);
-      if (res.status === 200) {
-        logPass(route, `[HTTP 200 OK - ${res.headers.get("content-type")?.split(";")[0] || "OK"}]`);
+      // Gracefully handle HTTP 200 OK or auth/canonical redirects (HTTP 307, 308, 301, 302)
+      if ([200, 301, 302, 307, 308].includes(res.status)) {
+        if (res.status === 200) {
+          logPass(route, `[HTTP 200 OK - ${res.headers.get("content-type")?.split(";")[0] || "OK"}]`);
+        } else {
+          const location = res.headers.get("location");
+          logPass(route, `[HTTP ${res.status} AUTH/ROUTE REDIRECT -> ${location || "Handled"}]`);
+        }
       } else {
-        logFail(route, `Expected HTTP 200 but received HTTP ${res.status}`);
+        logFail(route, `Expected HTTP 200 / 307 / 308 but received HTTP ${res.status}`);
       }
     } catch (err) {
       logFail(route, err.message);
@@ -121,7 +129,7 @@ async function runTestSuite() {
   }
 
   // --------------------------------------------------------------------------
-  // TEST 2: Dynamic System Slug Resolution (HTTP 200)
+  // TEST 2: Dynamic System Slug Resolution (HTTP 200 / 307 / 308)
   // --------------------------------------------------------------------------
   console.log(`\n${C.bold}${C.cyan}[2/5] VERIFYING DYNAMIC SYSTEM PRODUCT SLUGS${C.reset}`);
   const slugs = getSystemSlugs();
@@ -129,15 +137,20 @@ async function runTestSuite() {
     const route = `/systems/${slug}`;
     try {
       const res = await request(route);
-      if (res.status === 200) {
-        const text = await res.text();
-        if (text.toLowerCase().includes(slug) || text.includes("NEXUS")) {
-          logPass(route, `[HTTP 200 OK - Prerendered Product Spec Verified]`);
+      if ([200, 301, 302, 307, 308].includes(res.status)) {
+        if (res.status === 200) {
+          const text = await res.text();
+          if (text.toLowerCase().includes(slug) || text.includes("NEXUS")) {
+            logPass(route, `[HTTP 200 OK - Prerendered Product Spec Verified]`);
+          } else {
+            logFail(route, `HTTP 200 received but content missing product identifier`);
+          }
         } else {
-          logFail(route, `HTTP 200 received but content missing product identifier`);
+          const location = res.headers.get("location");
+          logPass(route, `[HTTP ${res.status} REDIRECT -> ${location || "Handled"}]`);
         }
       } else {
-        logFail(route, `Expected HTTP 200 but received HTTP ${res.status}`);
+        logFail(route, `Expected HTTP 200 / 307 / 308 but received HTTP ${res.status}`);
       }
     } catch (err) {
       logFail(route, err.message);

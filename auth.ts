@@ -3,6 +3,11 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/db";
 
+// Safe build-time fallback for NextAuth during static prerendering and compilation
+if (!process.env.AUTH_SECRET && !process.env.NEXTAUTH_SECRET) {
+  process.env.AUTH_SECRET = "build-time-temporary-secret-key-nexus";
+}
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
@@ -124,5 +129,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   secret:
     process.env.AUTH_SECRET ||
     process.env.NEXTAUTH_SECRET ||
-    "nexus_enterprise_secret_cyber_neo_brutalism_key_2026_auth",
+    "build-time-temporary-secret-key-nexus",
 });
