@@ -11,11 +11,15 @@ import CommandPalette from '@/components/CommandPalette';
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-jakarta',
+  display: 'swap',
+  preload: true,
 });
 
 const mono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
+  display: 'swap',
+  preload: true,
 });
 
 export const metadata: Metadata = {
