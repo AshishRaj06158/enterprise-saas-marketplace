@@ -12,16 +12,22 @@ enum Role {
   CLIENT
 }
 
+enum LicenseStatus {
+  ACTIVE
+  REVOKED
+}
+
 model User {
-  id          String    @id @default(cuid())
+  id          String     @id @default(cuid())
   name        String?
-  email       String    @unique
+  email       String     @unique
   password    String
-  role        Role      @default(CLIENT)
+  role        Role       @default(CLIENT)
   companyName String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   licenses    License[]
+  auditLogs   AuditLog[]
 
   @@map("users")
 }
@@ -33,14 +39,16 @@ model System {
   tagline      String
   category     String
   overview     String
-  priceINR     String
-  priceUSD     String
+  priceINR     Int
+  priceUSD     Int
   architecture String
   p99Latency   String
   throughput   String
   uptime       String    @default("99.98%")
   techStack    String[]
   isLive       Boolean   @default(true)
+  features     Json?
+  apiEndpoints Json?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   licenses     License[]
@@ -49,17 +57,29 @@ model System {
 }
 
 model License {
-  id        String   @id @default(cuid())
-  key       String   @unique
+  id        String        @id @default(cuid())
+  key       String        @unique
   systemId  String
   userId    String?
   buildHash String
-  status    String   @default("ACTIVE")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  status    LicenseStatus @default(ACTIVE)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 
-  system    System   @relation(fields: [systemId], references: [id], onDelete: Cascade)
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  system    System        @relation(fields: [systemId], references: [id], onDelete: Cascade)
+  user      User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@map("licenses")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  userId    String?
+  ipAddress String?
+  timestamp DateTime @default(now())
+
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("audit_logs")
 }

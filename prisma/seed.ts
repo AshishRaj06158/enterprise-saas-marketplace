@@ -1,4 +1,4 @@
-import { PrismaClient, Role } from "@prisma/client";
+import { PrismaClient, Role, LicenseStatus } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { systemsData } from "../data/systems";
 
@@ -47,6 +47,14 @@ async function main() {
 
   // 3. Seed All 6 Core Systems from data/systems.ts
   for (const sys of systemsData) {
+    const priceINRInt = parseInt(sys.priceInr.replace(/\D/g, ""), 10) || 89999;
+    const priceUSDInt = parseInt(sys.priceUsd.replace(/\D/g, ""), 10) || 349;
+
+    const endpoints = [
+      { method: "GET", path: `/api/v1/${sys.slug}/telemetry`, description: "Real-time edge telemetry probe" },
+      { method: "POST", path: `/api/v1/${sys.slug}/sync`, description: "Synchronize high-frequency ledger events" },
+    ];
+
     const createdSystem = await prisma.system.upsert({
       where: { slug: sys.slug },
       update: {
@@ -54,13 +62,15 @@ async function main() {
         tagline: sys.tagline,
         category: sys.category,
         overview: sys.description,
-        priceINR: sys.priceInr,
-        priceUSD: sys.priceUsd,
+        priceINR: priceINRInt,
+        priceUSD: priceUSDInt,
         architecture: sys.runtime,
         p99Latency: sys.latency,
         throughput: sys.concurrency,
         uptime: "99.98%",
         techStack: sys.stack,
+        features: sys.features,
+        apiEndpoints: endpoints,
         isLive: true,
       },
       create: {
@@ -69,13 +79,15 @@ async function main() {
         tagline: sys.tagline,
         category: sys.category,
         overview: sys.description,
-        priceINR: sys.priceInr,
-        priceUSD: sys.priceUsd,
+        priceINR: priceINRInt,
+        priceUSD: priceUSDInt,
         architecture: sys.runtime,
         p99Latency: sys.latency,
         throughput: sys.concurrency,
         uptime: "99.98%",
         techStack: sys.stack,
+        features: sys.features,
+        apiEndpoints: endpoints,
         isLive: true,
       },
     });
@@ -92,17 +104,28 @@ async function main() {
       where: { key: "NX-ENT-8842-CYBER-2026" },
       update: {
         userId: clientUser.id,
+        status: LicenseStatus.ACTIVE,
       },
       create: {
         key: "NX-ENT-8842-CYBER-2026",
         buildHash: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        status: "ACTIVE",
+        status: LicenseStatus.ACTIVE,
         systemId: firstSystem.id,
         userId: clientUser.id,
       },
     });
     console.log(`✓ Seeded Verified License: ${license.key} -> ${clientUser.email}`);
   }
+
+  // 5. Seed Initial Audit Log
+  await prisma.auditLog.create({
+    data: {
+      action: "NODE_INITIALIZATION_SEEDED",
+      userId: adminUser.id,
+      ipAddress: "127.0.0.1",
+    },
+  });
+  console.log(`✓ Seeded Initial Root Audit Log Record`);
 
   console.log("\n[SEED_COMPLETED // ALL NODES SYNCHRONIZED]");
 }

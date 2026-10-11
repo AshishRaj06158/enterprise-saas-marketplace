@@ -22,8 +22,9 @@ import {
   Sliders,
   DollarSign,
   AlertTriangle,
+  Trash2,
 } from "lucide-react";
-import { toggleSystemLiveAction, upsertSystemAction, generateLicenseAction } from "./actions";
+import { toggleSystemLiveAction, upsertSystemAction, generateLicenseAction, deleteSystemAction } from "./actions";
 
 interface AdminControlClientProps {
   initialSystems: any[];
@@ -56,6 +57,20 @@ export default function AdminControlClient({
     const res = await toggleSystemLiveAction(id, nextStatus);
     if (res.success) {
       setFeedbackNotice(`SYSTEM [${id}] STATUS UPDATED TO ${nextStatus ? "LIVE" : "DRAFT"}`);
+      setTimeout(() => setFeedbackNotice(null), 3000);
+    }
+  };
+
+  // Delete System
+  const handleDelete = async (id: string, slug: string) => {
+    if (!window.confirm(`CONFIRM DELETION: Are you sure you want to permanently delete system [${slug}]?`)) {
+      return;
+    }
+
+    setSystems((prev) => prev.filter((s) => s.id !== id && s.slug !== slug));
+    const res = await deleteSystemAction(id);
+    if (res?.success) {
+      setFeedbackNotice(`SYSTEM [${slug}] PURGED FROM REGISTRY`);
       setTimeout(() => setFeedbackNotice(null), 3000);
     }
   };
@@ -117,13 +132,20 @@ export default function AdminControlClient({
           </p>
         </div>
 
-        <div className="flex items-center space-x-3 w-full md:w-auto">
+        <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
+          <Link
+            href="/admin/systems/new"
+            className="px-4 py-3 bg-[#0D111A] hover:bg-[#07090E] text-[#00F0FF] hover:text-white font-bold text-xs uppercase tracking-wider border-2 border-[#00F0FF] shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] flex items-center space-x-2 transition-all min-h-[44px]"
+          >
+            <Plus className="w-4 h-4 text-[#00F0FF]" />
+            <span>[DEPLOY SPEC (/admin/systems/new)]</span>
+          </Link>
           <button
             onClick={() => setIsDeployModalOpen(true)}
             className="px-4 py-3 bg-[#00F0FF] hover:bg-white text-black font-black text-xs uppercase tracking-wider border-2 border-[#00F0FF] shadow-[4px_4px_0px_0px_#07090E] active:translate-x-[2px] active:translate-y-[2px] flex items-center space-x-2 transition-all cursor-pointer min-h-[44px]"
           >
             <Plus className="w-4 h-4" />
-            <span>[DEPLOY NEW SYSTEM]</span>
+            <span>[FAST MODAL DEPLOY]</span>
           </button>
         </div>
       </div>
@@ -225,7 +247,13 @@ export default function AdminControlClient({
                       </span>
                     </td>
                     <td className="p-3.5 text-white font-bold whitespace-nowrap">
-                      {s.priceINR || s.priceInr} / {s.priceUSD || s.priceUsd}
+                      {typeof s.priceINR === "number"
+                        ? `₹${s.priceINR.toLocaleString("en-IN")}`
+                        : s.priceINR || s.priceInr}{" "}
+                      /{" "}
+                      {typeof s.priceUSD === "number"
+                        ? `$${s.priceUSD}`
+                        : s.priceUSD || s.priceUsd}
                     </td>
                     <td className="p-3.5 text-[#00F0FF] whitespace-nowrap">
                       {s.p99Latency || s.latency || "< 12ms"}
@@ -244,11 +272,19 @@ export default function AdminControlClient({
                           onClick={() => handleToggle(s.id, s.isLive)}
                           className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider border transition-all cursor-pointer ${
                             s.isLive
-                              ? "bg-red-950/20 text-[#EF4444] border-[#EF4444] hover:bg-[#EF4444] hover:text-black"
+                              ? "bg-yellow-950/20 text-yellow-400 border-yellow-400 hover:bg-yellow-400 hover:text-black"
                               : "bg-emerald-950/20 text-emerald-400 border-emerald-400 hover:bg-emerald-400 hover:text-black"
                           }`}
                         >
                           {s.isLive ? "DEACTIVATE" : "ACTIVATE"}
+                        </button>
+                        <button
+                          onClick={() => handleDelete(s.id, s.slug)}
+                          className="px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider border border-red-500/60 bg-[#07090E] text-red-400 hover:bg-[#EF4444] hover:text-white transition-all cursor-pointer flex items-center gap-1"
+                          title="Purge System from Database"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                          <span>DELETE</span>
                         </button>
                       </div>
                     </td>

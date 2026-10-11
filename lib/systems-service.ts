@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
 import { getAllSystems, getSystemBySlug, SystemProduct, systemsData } from "@/data/systems";
+import { LicenseStatus } from "@prisma/client";
 
 /**
  * Maps a Prisma System database record into the marketplace SystemProduct format,
@@ -7,6 +8,16 @@ import { getAllSystems, getSystemBySlug, SystemProduct, systemsData } from "@/da
  */
 function mapPrismaToSystemProduct(dbSys: any): SystemProduct {
   const staticMatch = systemsData.find((s) => s.slug === dbSys.slug);
+
+  const priceInrFormatted =
+    typeof dbSys.priceINR === "number"
+      ? `₹${dbSys.priceINR.toLocaleString("en-IN")}`
+      : dbSys.priceINR || staticMatch?.priceInr || "₹89,999";
+
+  const priceUsdFormatted =
+    typeof dbSys.priceUSD === "number"
+      ? `$${dbSys.priceUSD}`
+      : dbSys.priceUSD || staticMatch?.priceUsd || "$349";
 
   return {
     id: dbSys.id,
@@ -18,8 +29,8 @@ function mapPrismaToSystemProduct(dbSys: any): SystemProduct {
     description: dbSys.overview || staticMatch?.description || "",
     stack: Array.isArray(dbSys.techStack) ? dbSys.techStack : staticMatch?.stack || [],
     metrics: staticMatch?.metrics || `${dbSys.throughput || "50k ops/sec"} • ${dbSys.p99Latency || "< 15ms"}`,
-    priceInr: dbSys.priceINR || staticMatch?.priceInr || "₹89,999",
-    priceUsd: dbSys.priceUSD || staticMatch?.priceUsd || "$349",
+    priceInr: priceInrFormatted,
+    priceUsd: priceUsdFormatted,
     imageSrc: staticMatch?.imageSrc || "/slide-2-telemetry-matrix.png",
     imageAlt: staticMatch?.imageAlt || `${dbSys.title} Architecture Visual`,
     specs: staticMatch?.specs || [
@@ -27,12 +38,14 @@ function mapPrismaToSystemProduct(dbSys: any): SystemProduct {
       { label: "P99 Latency", value: dbSys.p99Latency || "< 12ms P99" },
       { label: "Database", value: "Supabase Postgres / Postgres RLS" },
     ],
-    features: staticMatch?.features || [
-      "Full TypeScript clean-room source code",
-      "Production-hardened database migrations",
-      "Native payment and webhook integration",
-      "Sub-15ms edge routing telemetry",
-    ],
+    features: Array.isArray(dbSys.features)
+      ? dbSys.features
+      : staticMatch?.features || [
+          "Full TypeScript clean-room source code",
+          "Production-hardened database migrations",
+          "Native payment and webhook integration",
+          "Sub-15ms edge routing telemetry",
+        ],
     runtime: dbSys.architecture || staticMatch?.runtime || "Vercel Edge / Node.js 20+",
     latency: dbSys.p99Latency || staticMatch?.latency || "< 12ms P99",
     concurrency: dbSys.throughput || staticMatch?.concurrency || "100,000 Ops/sec",
@@ -61,7 +74,6 @@ export async function getHybridSystems(): Promise<SystemProduct[]> {
     }
   } catch (error) {
     // Database connection failure or unseeded database: fall back to static registry
-    // console.warn("[HYBRID_DATA_FALLBACK]: PostgreSQL query failed, reading from data/systems.ts");
   }
 
   return getAllSystems();
@@ -111,13 +123,17 @@ export async function getAdminSystems() {
     tagline: s.tagline,
     category: s.category,
     overview: s.description,
-    priceINR: s.priceInr,
-    priceUSD: s.priceUsd,
+    priceINR: parseInt(s.priceInr.replace(/\D/g, ""), 10) || 89999,
+    priceUSD: parseInt(s.priceUsd.replace(/\D/g, ""), 10) || 349,
     architecture: s.runtime,
     p99Latency: s.latency,
     throughput: s.concurrency,
     uptime: "99.98%",
     techStack: s.stack,
+    features: s.features,
+    apiEndpoints: [
+      { method: "GET", path: `/api/v1/${s.slug}/telemetry`, description: "Telemetry probe" },
+    ],
     isLive: true,
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -140,6 +156,20 @@ export async function toggleSystemLive(id: string, isLive: boolean) {
 }
 
 /**
+ * Admin System Deletion
+ */
+export async function deleteDbSystem(id: string) {
+  try {
+    return await prisma.system.delete({
+      where: { id },
+    });
+  } catch (error) {
+    console.error("Failed to delete system:", error);
+    return null;
+  }
+}
+
+/**
  * Admin System Creator / Upsert
  */
 export async function upsertDbSystem(data: {
@@ -148,22 +178,50 @@ export async function upsertDbSystem(data: {
   tagline: string;
   category: string;
   overview: string;
-  priceINR: string;
-  priceUSD: string;
+  priceINR: number | string;
+  priceUSD: number | string;
   architecture: string;
   p99Latency: string;
   throughput: string;
   techStack: string[];
+  features?: any;
+  apiEndpoints?: any;
   isLive?: boolean;
 }) {
+  const priceINRInt =
+    typeof data.priceINR === "number"
+      ? data.priceINR
+      : parseInt(String(data.priceINR).replace(/\D/g, ""), 10) || 89999;
+
+  const priceUSDInt =
+    typeof data.priceUSD === "number"
+      ? data.priceUSD
+      : parseInt(String(data.priceUSD).replace(/\D/g, ""), 10) || 349;
+
+  const payload = {
+    slug: data.slug,
+    title: data.title,
+    tagline: data.tagline,
+    category: data.category,
+    overview: data.overview,
+    priceINR: priceINRInt,
+    priceUSD: priceUSDInt,
+    architecture: data.architecture,
+    p99Latency: data.p99Latency,
+    throughput: data.throughput,
+    techStack: data.techStack,
+    features: data.features || undefined,
+    apiEndpoints: data.apiEndpoints || undefined,
+    isLive: data.isLive ?? true,
+  };
+
   try {
     return await prisma.system.upsert({
       where: { slug: data.slug },
-      update: data,
+      update: payload,
       create: {
-        ...data,
+        ...payload,
         uptime: "99.98%",
-        isLive: data.isLive ?? true,
       },
     });
   } catch (error) {
@@ -205,7 +263,7 @@ export async function getUserLicenses(userId?: string, userEmail?: string) {
       id: "lic-demo-01",
       key: "NX-ENT-8842-CYBER-2026",
       buildHash: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      status: "ACTIVE",
+      status: LicenseStatus.ACTIVE,
       createdAt: new Date("2026-10-01T10:00:00Z"),
       system: {
         id: "telemetry-matrix",
@@ -213,15 +271,15 @@ export async function getUserLicenses(userId?: string, userEmail?: string) {
         title: "Nexus Telemetry Matrix",
         tagline: "High-Frequency Executive Observability Engine",
         category: "Dashboards",
-        priceINR: "₹89,999",
-        priceUSD: "$349",
+        priceINR: 89999,
+        priceUSD: 349,
       },
     },
     {
       id: "lic-demo-02",
       key: "NX-ENT-7719-QUANTUM-2026",
       buildHash: "9a2f7c11849adbb035c128feea77d012489ab98471628e4612847192837465ab",
-      status: "ACTIVE",
+      status: LicenseStatus.ACTIVE,
       createdAt: new Date("2026-10-05T14:30:00Z"),
       system: {
         id: "quantum-logistics-erp",
@@ -229,8 +287,8 @@ export async function getUserLicenses(userId?: string, userEmail?: string) {
         title: "Quantum Logistics ERP",
         tagline: "Fleet Telemetry & Cold-Chain Logistics Hub",
         category: "ERP",
-        priceINR: "₹1,24,999",
-        priceUSD: "$489",
+        priceINR: 124999,
+        priceUSD: 489,
       },
     },
   ];
@@ -247,7 +305,7 @@ export async function createLicenseRecord(data: {
   const randomHex = Math.random().toString(16).substring(2, 6).toUpperCase();
   const year = new Date().getFullYear();
   const systemPrefix = data.systemSlug.substring(0, 4).toUpperCase();
-  const licenseKey = `NX-${systemPrefix}-${randomHex}-CYBER-${year}`;
+  const licenseKey = `NX-ENT-${systemPrefix}-${randomHex}-${year}`;
 
   // Deterministic mock SHA-256 string for build hash
   const buildHash = Array.from({ length: 64 }, () =>
@@ -266,7 +324,7 @@ export async function createLicenseRecord(data: {
           buildHash,
           systemId: sys.id,
           userId: data.userId || null,
-          status: "ACTIVE",
+          status: LicenseStatus.ACTIVE,
         },
         include: {
           system: true,
@@ -281,7 +339,7 @@ export async function createLicenseRecord(data: {
     id: `lic-${Date.now()}`,
     key: licenseKey,
     buildHash,
-    status: "ACTIVE",
+    status: LicenseStatus.ACTIVE,
     systemId: data.systemSlug,
     createdAt: new Date(),
     system: {
@@ -290,4 +348,21 @@ export async function createLicenseRecord(data: {
       title: data.systemSlug.replace(/-/g, " ").toUpperCase(),
     },
   };
+}
+
+/**
+ * Audit Logging Helper
+ */
+export async function logAuditAction(action: string, userId?: string, ipAddress?: string) {
+  try {
+    return await prisma.auditLog.create({
+      data: {
+        action,
+        userId: userId || null,
+        ipAddress: ipAddress || "127.0.0.1",
+      },
+    });
+  } catch (err) {
+    return null;
+  }
 }

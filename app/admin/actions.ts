@@ -6,6 +6,8 @@ import {
   toggleSystemLive,
   upsertDbSystem,
   createLicenseRecord,
+  deleteDbSystem,
+  logAuditAction,
 } from "@/lib/systems-service";
 
 export async function toggleSystemLiveAction(id: string, isLive: boolean) {
@@ -15,6 +17,26 @@ export async function toggleSystemLiveAction(id: string, isLive: boolean) {
   }
 
   await toggleSystemLive(id, isLive);
+  await logAuditAction(
+    isLive ? `SYSTEM_ACTIVATED:${id}` : `SYSTEM_DEACTIVATED:${id}`,
+    (session.user as any).id
+  );
+
+  revalidatePath("/admin");
+  revalidatePath("/systems");
+  revalidatePath("/");
+  return { success: true };
+}
+
+export async function deleteSystemAction(id: string) {
+  const session = await auth();
+  if (!session?.user || (session.user as any).role !== "ADMIN") {
+    return { success: false, error: "UNAUTHORIZED: Admin clearance required" };
+  }
+
+  await deleteDbSystem(id);
+  await logAuditAction(`SYSTEM_DELETED:${id}`, (session.user as any).id);
+
   revalidatePath("/admin");
   revalidatePath("/systems");
   revalidatePath("/");
@@ -32,13 +54,28 @@ export async function upsertSystemAction(formData: FormData) {
   const tagline = String(formData.get("tagline") || "").trim();
   const category = String(formData.get("category") || "Dashboards").trim();
   const overview = String(formData.get("overview") || "").trim();
-  const priceINR = String(formData.get("priceINR") || "₹89,999").trim();
-  const priceUSD = String(formData.get("priceUSD") || "$349").trim();
+  const priceINR = String(formData.get("priceINR") || "89999").trim();
+  const priceUSD = String(formData.get("priceUSD") || "349").trim();
   const architecture = String(formData.get("architecture") || "Vercel Edge / Node.js").trim();
   const p99Latency = String(formData.get("p99Latency") || "< 12ms P99").trim();
   const throughput = String(formData.get("throughput") || "100,000 Ops/sec").trim();
+  
   const rawStack = String(formData.get("techStack") || "Next.js 15, TypeScript, Supabase");
   const techStack = rawStack.split(",").map((s) => s.trim()).filter(Boolean);
+
+  const rawFeatures = String(formData.get("features") || "");
+  const features = rawFeatures
+    ? rawFeatures.split("\n").map((f) => f.trim()).filter(Boolean)
+    : [
+        "Full clean-room TypeScript source code",
+        "Sub-15ms edge routing telemetry",
+        "Production database schema migrations",
+      ];
+
+  const apiEndpoints = [
+    { method: "GET", path: `/api/v1/${slug}/telemetry`, description: "Real-time edge telemetry probe" },
+    { method: "POST", path: `/api/v1/${slug}/sync`, description: "Synchronize high-frequency ledger events" },
+  ];
 
   if (!slug || !title) {
     return { success: false, error: "Slug and title are required" };
@@ -56,34 +93,55 @@ export async function upsertSystemAction(formData: FormData) {
     p99Latency,
     throughput,
     techStack,
+    features,
+    apiEndpoints,
     isLive: true,
   });
+
+  await logAuditAction(`SYSTEM_UPSERTED:${slug}`, (session.user as any).id);
 
   revalidatePath("/admin");
   revalidatePath("/systems");
   revalidatePath(`/systems/${slug}`);
   revalidatePath("/");
 
-  return { success: !!res, data: res };
+  return { success: true, system: res };
 }
 
-export async function generateLicenseAction(formData: FormData) {
+export async function generateLicenseAction(
+  input: FormData | string,
+  clientEmailArg?: string
+) {
   const session = await auth();
   if (!session?.user || (session.user as any).role !== "ADMIN") {
     return { success: false, error: "UNAUTHORIZED: Admin clearance required" };
   }
 
-  const systemSlug = String(formData.get("systemSlug") || "telemetry-matrix").trim();
-  const clientEmail = String(formData.get("clientEmail") || "client@enterprise.io").trim();
+  let systemSlug = "";
+  let clientEmail = clientEmailArg;
+
+  if (typeof input === "string") {
+    systemSlug = input;
+  } else if (input instanceof FormData) {
+    systemSlug = String(input.get("systemSlug") || "").trim();
+    clientEmail = String(input.get("clientEmail") || clientEmail || "").trim();
+  }
+
+  if (!systemSlug) {
+    return { success: false, error: "System slug is required" };
+  }
 
   const license = await createLicenseRecord({
     systemSlug,
     clientEmail,
   });
 
+  await logAuditAction(
+    `LICENSE_MINTED:${license.key}:SYSTEM:${systemSlug}`,
+    (session.user as any).id
+  );
+
   revalidatePath("/admin");
   revalidatePath("/portal");
-  revalidatePath("/verify");
-
   return { success: true, license };
 }

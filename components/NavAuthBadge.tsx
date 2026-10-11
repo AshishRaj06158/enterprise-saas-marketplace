@@ -30,20 +30,21 @@ export default function NavAuthBadge() {
   }
 
   const role = (session.user as any).role || "CLIENT";
-  const emailShort = session.user.email ? session.user.email.split("@")[0] : "user";
+  const userName =
+    session.user.name ||
+    (session.user.email ? session.user.email.split("@")[0].toUpperCase() : "USER");
 
   return (
     <div className="flex items-center gap-1.5 font-mono text-xs">
-      {/* User Info & Portal Link */}
+      {/* User Info Badge & Portal Link */}
       <Link
         href="/portal"
         className="px-2.5 py-1.5 bg-[#0D111A] border-2 border-[#00F0FF] text-slate-200 hover:text-white hover:bg-[#00F0FF]/10 shadow-[2px_2px_0px_#00F0FF] active:translate-x-[1px] active:translate-y-[1px] transition-all flex items-center gap-1.5 min-h-[36px]"
-        title={`Logged in as ${session.user.email} (${role})`}
+        title={`Authenticated: ${session.user.email} (${role})`}
       >
-        <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-        <span className="text-[#00F0FF] font-bold text-[11px]">[{emailShort}]</span>
-        <span className="px-1 py-0.2 bg-[#1A2234] text-[9px] text-slate-300 font-bold uppercase">
-          {role}
+        <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse shrink-0" />
+        <span className="text-[#00F0FF] font-bold text-[10px] tracking-wider uppercase">
+          [ID: {userName} // {role}]
         </span>
       </Link>
 
@@ -62,8 +63,8 @@ export default function NavAuthBadge() {
       {/* Sign Out Button */}
       <button
         onClick={() => signOut({ callbackUrl: "/" })}
-        className="p-1.5 bg-[#07090E] border-2 border-[#1A2234] text-slate-400 hover:text-[#EF4444] hover:border-[#EF4444] transition-all min-h-[36px] min-w-[36px] flex items-center justify-center"
-        title="Terminate Session"
+        className="p-1.5 bg-[#07090E] border-2 border-[#1A2234] text-slate-400 hover:text-[#EF4444] hover:border-[#EF4444] transition-all min-h-[36px] min-w-[36px] flex items-center justify-center cursor-pointer"
+        title="Sign Out Session"
         aria-label="Logout"
       >
         <LogOut className="w-3.5 h-3.5" />
