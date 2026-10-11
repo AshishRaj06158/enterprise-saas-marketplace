@@ -25,9 +25,30 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
+  const ogImageUrl = `/systems/${slug}/opengraph-image`;
+
   return {
     title: `${sys.name} | SUTRA / NEXUS`,
     description: sys.description,
+    openGraph: {
+      title: `${sys.name} | SUTRA / NEXUS`,
+      description: sys.description,
+      type: "website",
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${sys.name} — Architecture Specification`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${sys.name} | SUTRA / NEXUS`,
+      description: sys.description,
+      images: [ogImageUrl],
+    },
   };
 }
 
@@ -39,8 +60,36 @@ export default async function SystemDetailPage({ params }: { params: Promise<{ s
     notFound();
   }
 
+  // Format clean numeric price for schema.org
+  const numericPrice = sys.priceInr.replace(/[^\d]/g, "");
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": ["SoftwareApplication", "Product"],
+    name: sys.name,
+    description: sys.description,
+    applicationCategory: sys.category,
+    operatingSystem: "Cloud / Edge",
+    offers: {
+      "@type": "Offer",
+      price: numericPrice,
+      priceCurrency: "INR",
+      availability: "https://schema.org/InStock",
+      url: `https://nexus-systems.in/systems/${sys.slug}`,
+    },
+    brand: {
+      "@type": "Brand",
+      name: "SUTRA / NEXUS",
+    },
+  };
+
   return (
     <div className="pt-32 pb-24 min-h-screen bg-[#07090E] text-slate-100 relative overflow-hidden">
+      {/* Schema.org JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
         
         {/* Header Badge */}

@@ -6,9 +6,50 @@ import ContactSection from "@/components/ContactSection";
 import Link from "next/link";
 import { ArrowRight, Cpu, CheckCircle2 } from "lucide-react";
 
+const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://nexus-systems.in/#organization",
+      name: "Sutra Nexus Systems",
+      url: "https://nexus-systems.in",
+      logo: "https://nexus-systems.in/logo.png",
+      description:
+        "Enterprise-grade digital infrastructure and production-ready software marketplace.",
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "technical support",
+        email: "ops@nexus-systems.in",
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://nexus-systems.in/#website",
+      url: "https://nexus-systems.in",
+      name: "NEXUS Systems Marketplace",
+      description:
+        "Deploy audited, production-ready Next.js 15, Supabase, and TypeScript systems in minutes.",
+      publisher: {
+        "@id": "https://nexus-systems.in/#organization",
+      },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: "https://nexus-systems.in/systems?q={search_term_string}",
+        "query-input": "required name=search_term_string",
+      },
+    },
+  ],
+};
+
 export default function Home() {
   return (
     <>
+      {/* Schema.org JSON-LD Structured Data for Organization & WebSite */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
+      />
       {/* 1. Hero Section & Multi-Slide Carousel */}
       <HeroSlider />
 
