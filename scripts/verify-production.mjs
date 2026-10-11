@@ -101,6 +101,8 @@ async function runTestSuite() {
     "/operations",
     "/verify",
     "/changelog",
+    "/auth/login",
+    "/auth/register",
     "/sitemap.xml",
     "/robots.txt",
   ];
