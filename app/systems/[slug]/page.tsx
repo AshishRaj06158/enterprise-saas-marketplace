@@ -5,7 +5,8 @@ import { CheckCircle2, Cpu } from "lucide-react";
 import DynamicSystemPreview from "@/components/DynamicSystemPreview";
 import SystemDetailActions from "@/components/SystemDetailActions";
 import SystemDetailPrice from "@/components/SystemDetailPrice";
-import { getAllSystems, getSystemBySlug } from "@/data/systems";
+import { getAllSystems } from "@/data/systems";
+import { getHybridSystemBySlug } from "@/lib/systems-service";
 
 export function generateStaticParams() {
   const systems = getAllSystems();
@@ -16,7 +17,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const sys = getSystemBySlug(slug);
+  const sys = await getHybridSystemBySlug(slug);
   
   if (!sys) {
     return {
@@ -54,7 +55,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function SystemDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const sys = getSystemBySlug(slug);
+  const sys = await getHybridSystemBySlug(slug);
 
   if (!sys) {
     notFound();

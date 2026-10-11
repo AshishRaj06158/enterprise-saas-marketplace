@@ -314,13 +314,21 @@ Repository Access Granted:
 
             {/* Bottom Actions */}
             <div className="pt-4 border-t-2 border-[#1A2234] flex flex-col sm:flex-row items-center justify-between gap-4">
-              <Link
-                href="/vault"
-                className="w-full sm:w-auto px-5 py-3 rounded-none text-xs font-bold text-black bg-[#00F0FF] border-2 border-[#00F0FF] shadow-[4px_4px_0px_0px_#8B5CF6] hover:shadow-[5px_5px_0px_0px_#8B5CF6] active:translate-x-[2px] active:translate-y-[2px] flex items-center justify-center space-x-2 min-h-[44px] uppercase"
-              >
-                <ShieldCheck className="w-4 h-4" />
-                <span>ACCESS IN CUSTOMER VAULT ➔</span>
-              </Link>
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                <Link
+                  href="/portal"
+                  className="w-full sm:w-auto px-5 py-3 rounded-none text-xs font-bold text-black bg-[#00F0FF] border-2 border-[#00F0FF] shadow-[4px_4px_0px_0px_#8B5CF6] hover:shadow-[5px_5px_0px_0px_#8B5CF6] active:translate-x-[2px] active:translate-y-[2px] flex items-center justify-center space-x-2 min-h-[44px] uppercase"
+                >
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>OPEN IN CLIENT PORTAL ➔</span>
+                </Link>
+                <Link
+                  href="/vault"
+                  className="w-full sm:w-auto px-4 py-3 rounded-none text-xs font-bold text-slate-300 bg-[#07090E] border-2 border-[#1A2234] hover:border-[#00F0FF] flex items-center justify-center space-x-1.5 min-h-[44px] uppercase"
+                >
+                  <span>OFFLINE VAULT</span>
+                </Link>
+              </div>
 
               <div className="flex items-center space-x-3 w-full sm:w-auto justify-end">
                 <Link

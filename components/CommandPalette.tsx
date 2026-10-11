@@ -376,6 +376,62 @@ export default function CommandPalette() {
           setIsOpen(false);
         },
       },
+      {
+        id: "nav-portal",
+        title: "Client Portal & Source Code Vault (/portal)",
+        subtitle: "Access licensed source distributions, SHA-256 build checksums, and Docker pull commands.",
+        category: "Navigation",
+        keywords: ["portal", "client", "license", "source code", "download", "artifacts", "sha-256", "docker"],
+        icon: Key,
+        badge: "CLIENT VAULT",
+        shortcut: "GOTO /portal",
+        onSelect: () => {
+          router.push("/portal");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-admin",
+        title: "Enterprise Admin Control Matrix (/admin)",
+        subtitle: "Manage live systems, deploy new architecture models, and mint commercial licenses.",
+        category: "Navigation",
+        keywords: ["admin", "control room", "matrix", "manage", "deploy", "systems", "licenses", "audit"],
+        icon: Cpu,
+        badge: "ADMIN CLEARANCE",
+        shortcut: "GOTO /admin",
+        onSelect: () => {
+          router.push("/admin");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-auth-login",
+        title: "Security Clearance // Login Gateway (/auth/login)",
+        subtitle: "Authenticate with credentials or load instant demo admin/client profiles.",
+        category: "Navigation",
+        keywords: ["login", "auth", "authenticate", "clearance", "session", "sign in", "admin", "client"],
+        icon: Terminal,
+        badge: "AUTHENTICATE",
+        shortcut: "GOTO /auth/login",
+        onSelect: () => {
+          router.push("/auth/login");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-auth-register",
+        title: "Client Node Registration (/auth/register)",
+        subtitle: "Register new enterprise client identity for commercial licensing and artifact downloads.",
+        category: "Navigation",
+        keywords: ["register", "sign up", "client", "node", "new account", "join"],
+        icon: ShieldCheck,
+        badge: "REGISTER",
+        shortcut: "GOTO /auth/register",
+        onSelect: () => {
+          router.push("/auth/register");
+          setIsOpen(false);
+        },
+      },
     ];
 
     return actions;

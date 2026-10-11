@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAllSystems } from "@/data/systems";
+import { getHybridSystems } from "@/lib/systems-service";
 import SystemsCatalogGrid from "@/components/SystemsCatalogGrid";
 
 export const metadata = {
@@ -7,8 +7,8 @@ export const metadata = {
   description: "Browse audited production-ready enterprise software systems: Telemetry Matrix, BuildAxis AI ERP, DealFlow Autonomous CRM, and Project Omega v2.4.",
 };
 
-export default function SystemsPage() {
-  const catalogSystems = getAllSystems();
+export default async function SystemsPage() {
+  const catalogSystems = await getHybridSystems();
 
   return (
     <div className="pt-32 pb-24 min-h-screen bg-[#07090E] relative overflow-hidden">

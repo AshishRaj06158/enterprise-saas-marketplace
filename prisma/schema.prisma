@@ -1,0 +1,65 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  CLIENT
+}
+
+model User {
+  id          String    @id @default(cuid())
+  name        String?
+  email       String    @unique
+  password    String
+  role        Role      @default(CLIENT)
+  companyName String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  licenses    License[]
+
+  @@map("users")
+}
+
+model System {
+  id           String    @id @default(cuid())
+  slug         String    @unique
+  title        String
+  tagline      String
+  category     String
+  overview     String
+  priceINR     String
+  priceUSD     String
+  architecture String
+  p99Latency   String
+  throughput   String
+  uptime       String    @default("99.98%")
+  techStack    String[]
+  isLive       Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  licenses     License[]
+
+  @@map("systems")
+}
+
+model License {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  systemId  String
+  userId    String?
+  buildHash String
+  status    String   @default("ACTIVE")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  system    System   @relation(fields: [systemId], references: [id], onDelete: Cascade)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("licenses")
+}

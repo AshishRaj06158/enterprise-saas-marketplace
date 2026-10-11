@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import MatrixBackground from '@/components/MatrixBackground';
 import { CurrencyProvider } from '@/context/CurrencyContext';
 import CommandPalette from '@/components/CommandPalette';
+import AuthSessionProvider from '@/components/AuthSessionProvider';
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -69,14 +70,16 @@ export default function RootLayout({
         suppressHydrationWarning
         className="bg-[#07090E] text-slate-200 antialiased font-sans selection:bg-[#00F0FF]/20 selection:text-[#00F0FF] min-h-screen flex flex-col justify-between relative"
       >
-        <CurrencyProvider>
-          <MatrixBackground />
-          <Header />
-          <main className="flex-grow">{children}</main>
+        <AuthSessionProvider>
+          <CurrencyProvider>
+            <MatrixBackground />
+            <Header />
+            <main className="flex-grow">{children}</main>
 
-          <Footer />
-          <CommandPalette />
-        </CurrencyProvider>
+            <Footer />
+            <CommandPalette />
+          </CurrencyProvider>
+        </AuthSessionProvider>
       </body>
     </html>
   );

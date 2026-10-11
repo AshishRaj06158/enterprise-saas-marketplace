@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import NavCurrencyToggle from "./NavCurrencyToggle";
 import NavCommandPaletteTrigger from "./NavCommandPaletteTrigger";
+import NavAuthBadge from "./NavAuthBadge";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -115,6 +116,7 @@ export default function Header() {
           <div className="hidden md:flex items-center space-x-2.5">
             <NavCommandPaletteTrigger />
             <NavCurrencyToggle />
+            <NavAuthBadge />
             <Link
               href="/playground"
               className="px-3 py-1.5 rounded-none text-xs font-bold font-mono-tabular text-[#00F0FF] bg-[#07090E] border-2 border-[#00F0FF] shadow-[3px_3px_0px_0px_#00F0FF] hover:bg-[#00F0FF]/10 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#00F0FF] transition-all hidden xl:flex items-center space-x-1.5 min-h-[44px]"
@@ -152,7 +154,10 @@ export default function Header() {
         <div className="lg:hidden bg-[#0D111A] border-b-2 border-x-2 border-[#1A2234] px-4 pt-4 pb-6 mt-3 space-y-4 shadow-[0_6px_0px_0px_#1A2234]">
           <div className="flex items-center justify-between pb-3 border-b border-[#1A2234] gap-2">
             <NavCommandPaletteTrigger />
-            <NavCurrencyToggle />
+            <div className="flex items-center gap-2">
+              <NavCurrencyToggle />
+              <NavAuthBadge />
+            </div>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-mono-tabular text-xs">
             {allNavLinks.map((link) => (
