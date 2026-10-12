@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { createLead } from '@/lib/leads-feedback-service';
 
 // In-memory rate limiting map (IP -> timestamp) with automatic stale pruning
 const rateLimitMap = new Map<string, number>();
@@ -88,11 +89,20 @@ export async function POST(req: Request) {
     // Log valid lead
     console.log('Valid lead received:', leadData);
 
-    // =========================================================================
-    // TODO: Supabase Insertion (Uncomment & configure if using Supabase)
-    // =========================================================================
-    // const { data, error } = await supabase.from('leads').insert([leadData]);
-    // if (error) throw error;
+    // Save lead into Prisma database (or fallback memory buffer)
+    try {
+      await createLead({
+        name: fullName.trim(),
+        email: email.trim().toLowerCase(),
+        phone: body.phone || null,
+        company: company?.trim() || null,
+        productName: body.productName || body.systemRequested || 'General Marketplace Advisory',
+        budget: body.budget || null,
+        message: reqText.trim(),
+      });
+    } catch (dbErr) {
+      console.warn('[CONTACT API LEAD PERSISTENCE WARNING]:', dbErr);
+    }
 
     // =========================================================================
     // TODO: Resend Email Notification (Uncomment & configure if using Resend)
