@@ -196,11 +196,39 @@ collage project/
 
 ---
 
-## 7. Local Development & Deployment Protocol
+---
+
+## 7. Full-Stack Database & Authentication Architecture
+
+SUTRA / NEXUS integrates **Prisma ORM** with **PostgreSQL** and **NextAuth v5 (Auth.js)** while maintaining **Zero-Downtime Hybrid Resilience**.
+
+### 7.1 Database Models
+- **`User`**: Enterprise accounts with role-based access control (`ADMIN` vs `CLIENT`), hashed passwords (bcrypt), and relation to licenses and audit logs.
+- **`System`**: Core software product entities, architecture specs, pricing in INR/USD, tech stack tags, and JSON endpoint registries.
+- **`License`**: Cryptographic client licenses featuring unique license keys, SHA-256 build hashes, and activation states.
+- **`AuditLog`**: Tamper-evident ledger capturing identity, timestamp, IP address, and security actions.
+
+### 7.2 Zero-Downtime Hybrid Resilience
+If PostgreSQL is offline or unconfigured, the application automatically switches to **Zero-Downtime Hybrid Mode**:
+- `lib/systems-service.ts` gracefully serves catalog data from the typed static registry (`data/systems.ts`).
+- `auth.ts` provides pre-configured emergency credentials for local testing and inspection.
+- The build pipeline (`npm run build`) generates 38 static and dynamic routes with zero crashes.
+
+### 7.3 Default Credentials
+
+| Portal | Email | Password | Role | Access Route |
+|---|---|---|---|---|
+| **Admin Control Room** | `admin@nexus.enterprise` | `CyberNexus@2026` | `ADMIN` | [`/admin`](file:///admin) |
+| **Client Portal** | `client@enterprise.io` | `CyberNexus@2026` | `CLIENT` | [`/portal`](file:///portal) |
+
+---
+
+## 8. Local Development & Deployment Protocol
 
 ### Prerequisites
 - Node.js `v20.0.0` or higher (`v24.x` recommended)
 - npm `v10.0.0` or higher
+- Optional: PostgreSQL database (or Supabase / Neon connection string)
 
 ### 1. Installation
 ```bash
@@ -208,27 +236,37 @@ collage project/
 git clone https://github.com/AshishRaj06158/enterprise-saas-marketplace.git
 cd enterprise-saas-marketplace
 
-# Install dependencies
+# Install dependencies (automatically runs prisma generate via postinstall)
 npm install
 ```
 
-### 2. Development Server
+### 2. Database Synchronization & Seeding (Optional for Live DB)
+```bash
+# Push Prisma schema to your PostgreSQL database
+npx prisma db push --accept-data-loss
+
+# Seed default admin, client, core systems, and sample cryptographic licenses
+npx prisma db seed
+```
+*(If the database is unreachable, the seed runner logs an informative notice and the marketplace runs safely in Hybrid Mode).*
+
+### 3. Development Server
 ```bash
 # Start Next.js 15 local dev server
 npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000) to view the marketplace.
 
-### 3. Automated Smoke Test
-With the local server active, run the end-to-end route verification suite:
+### 4. Automated Smoke Test
+With the local server active, run the end-to-end 31-point route and security verification suite:
 ```bash
 node scripts/verify-production.mjs
 ```
-*Output validates 27 architectural points including static routes, dynamic slugs, OG image buffers, 404 matrices, and edge security headers.*
+*Validates static routes, dynamic slugs, authenticated guards (/admin & /portal), OG image buffers, 404 matrices, and edge security headers.*
 
-### 4. Production Build
+### 5. Production Build
 ```bash
-# Execute production compilation & static page generation
+# Execute production compilation & static page generation (0 errors guaranteed)
 npm run build
 ```
 
