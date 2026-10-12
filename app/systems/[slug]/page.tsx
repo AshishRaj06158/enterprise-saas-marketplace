@@ -76,7 +76,7 @@ export default async function SystemDetailPage({ params }: { params: Promise<{ s
       price: numericPrice,
       priceCurrency: "INR",
       availability: "https://schema.org/InStock",
-      url: `https://nexus-systems.in/systems/${sys.slug}`,
+      url: `https://nexuslab.vercel.app/systems/${sys.slug}`,
     },
     brand: {
       "@type": "Brand",

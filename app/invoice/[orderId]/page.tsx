@@ -313,7 +313,7 @@ function InvoiceContent() {
                 <div><span className="text-slate-500 print:text-slate-600">State Code:</span> 07 (Delhi, India)</div>
                 <div><span className="text-slate-500 print:text-slate-600">SAC Code:</span> 998313 (IT Software Licensing)</div>
                 <div><span className="text-slate-500 print:text-slate-600">Address:</span> Plot 42, Cyber City, Phase III, Gurugram / New Delhi - 110037</div>
-                <div><span className="text-slate-500 print:text-slate-600">Email:</span> billing@nexus-systems.in</div>
+                <div><span className="text-slate-500 print:text-slate-600">Email:</span> billing@nexuslab.vercel.app</div>
               </div>
             </div>
 

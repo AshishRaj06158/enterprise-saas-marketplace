@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { getAllSystems } from "@/data/systems";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nexus-systems.in";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nexuslab.vercel.app";
   const now = new Date();
 
   // Core static marketplace routes

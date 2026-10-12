@@ -150,7 +150,7 @@ function buildNeoBrutalistEmailTemplate(data: InquiryData): string {
     <tr>
       <td style="padding: 20px 24px; background-color: #07090E; border-top: 2px solid #1A2234; text-align: center;">
         <p style="margin: 0; font-size: 11px; color: #64748B; font-family: monospace;">
-          NEXUS ENTERPRISE SAAS MARKETPLACE • AUTOMATED ADVISORY ENGINE<br>
+          NEXUS ENTERPRISE SAAS MARKETPLACE (<a href="https://nexuslab.vercel.app" style="color: #00F0FF; text-decoration: none;">https://nexuslab.vercel.app</a>) • AUTOMATED ADVISORY ENGINE<br>
           Target SLA Dispatch Response Window: &lt; 15 Minutes
         </p>
       </td>
@@ -213,6 +213,7 @@ export async function sendInquiryNotificationEmail(
     `• System Selected: ${systemOfInterest || "Enterprise SaaS"}\n` +
     `• Budget: ${budget}\n` +
     `• Message: ${message || "Ready for SLA Dispatch"}\n` +
+    `• Portal: https://nexuslab.vercel.app\n` +
     `• Timestamp: ${timestamp}\n\n` +
     `Direct WhatsApp SLA Link: https://wa.me/919771596801`;
 

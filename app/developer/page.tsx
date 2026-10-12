@@ -343,7 +343,7 @@ export default function DeveloperConsolePage() {
     lang: CodeLanguage,
     sys: SystemProduct
   ): string => {
-    const baseUrl = "https://api.nexus-systems.in";
+    const baseUrl = "https://nexuslab.vercel.app/api";
     const apiKeyHeader = "Authorization: Bearer nx_live_98a142f82026e6e4d261e7dd4348f1";
 
     if (endpoint === "auth") {

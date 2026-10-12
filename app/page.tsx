@@ -11,31 +11,31 @@ const homeJsonLd = {
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://nexus-systems.in/#organization",
+      "@id": "https://nexuslab.vercel.app/#organization",
       name: "Sutra Nexus Systems",
-      url: "https://nexus-systems.in",
-      logo: "https://nexus-systems.in/logo.png",
+      url: "https://nexuslab.vercel.app",
+      logo: "https://nexuslab.vercel.app/logo.png",
       description:
         "Enterprise-grade digital infrastructure and production-ready software marketplace.",
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "technical support",
-        email: "ops@nexus-systems.in",
+        email: "ops@nexuslab.vercel.app",
       },
     },
     {
       "@type": "WebSite",
-      "@id": "https://nexus-systems.in/#website",
-      url: "https://nexus-systems.in",
+      "@id": "https://nexuslab.vercel.app/#website",
+      url: "https://nexuslab.vercel.app",
       name: "NEXUS Systems Marketplace",
       description:
         "Deploy audited, production-ready Next.js 15, Supabase, and TypeScript systems in minutes.",
       publisher: {
-        "@id": "https://nexus-systems.in/#organization",
+        "@id": "https://nexuslab.vercel.app/#organization",
       },
       potentialAction: {
         "@type": "SearchAction",
-        target: "https://nexus-systems.in/systems?q={search_term_string}",
+        target: "https://nexuslab.vercel.app/systems?q={search_term_string}",
         "query-input": "required name=search_term_string",
       },
     },

@@ -94,7 +94,7 @@ CAPITAL SAVINGS & ACCELERATION IMPACT:
 
 ====================================================
 Verified by SUTRA / NEXUS Architecture Engine
-https://nexus-systems.in/calculator
+https://nexuslab.vercel.app/calculator
 ====================================================`;
 
     const blob = new Blob([reportText], { type: "text/plain" });

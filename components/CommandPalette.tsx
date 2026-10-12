@@ -135,7 +135,7 @@ export default function CommandPalette() {
       },
       {
         id: "act-copy-email",
-        title: "Copy Support Email (contact@nexus-systems.in)",
+        title: "Copy Support Email (contact@nexuslab.vercel.app)",
         subtitle: "1-Click copy to clipboard for architectural inquiries and enterprise SLAs.",
         category: "Actions",
         keywords: ["email", "support", "contact", "copy", "architect", "help", "inquiry"],
@@ -143,11 +143,11 @@ export default function CommandPalette() {
         badge: "SUPPORT",
         shortcut: "COPY",
         onSelect: () => {
-          const email = "contact@nexus-systems.in";
+          const email = "contact@nexuslab.vercel.app";
           if (navigator.clipboard) {
             navigator.clipboard.writeText(email);
           }
-          setCopiedNotice("[COPIED: contact@nexus-systems.in]");
+          setCopiedNotice("[COPIED: contact@nexuslab.vercel.app]");
           setTimeout(() => {
             setIsOpen(false);
           }, 900);

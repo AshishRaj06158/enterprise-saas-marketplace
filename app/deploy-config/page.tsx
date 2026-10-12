@@ -200,7 +200,7 @@ ${dbProvider === "postgresql" ? `  postgres-db:
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      - "--certificatesresolvers.myresolver.acme.email=architect@nexus-systems.in"
+      - "--certificatesresolvers.myresolver.acme.email=architect@nexuslab.vercel.app"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
       - "80:80"
@@ -320,10 +320,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - ${sysSlug}.${envMode}.nexus-systems.in
+        - ${sysSlug}.${envMode}.nexuslab.vercel.app
       secretName: ${sysSlug}-tls-cert
   rules:
-    - host: ${sysSlug}.${envMode}.nexus-systems.in
+    - host: ${sysSlug}.${envMode}.nexuslab.vercel.app
       http:
         paths:
           - path: /
@@ -468,7 +468,7 @@ spec:
 # ==============================================================================
 
 NODE_ENV=${envMode}
-NEXT_PUBLIC_SITE_URL=https://${sysSlug}.${envMode === "production" ? "" : envMode + "."}nexus-systems.in
+NEXT_PUBLIC_SITE_URL=https://nexuslab.vercel.app
 NEXT_PUBLIC_SYSTEM_SLUG=${sysSlug}
 
 ${dbNotes}
@@ -493,14 +493,14 @@ OWASP_FIREWALL_ENABLED=${enableOwasp ? "true" : "false"}
 CSRF_HONEYPOT_SALT="salt_${selectedSystem.id}_${envMode}_2026"
 RATE_LIMIT_WINDOW_MS=60000
 RATE_LIMIT_MAX_REQUESTS=${envMode === "production" ? "120" : "600"}
-STRICT_CORS_ORIGINS="https://${sysSlug}.nexus-systems.in"
+STRICT_CORS_ORIGINS="https://nexuslab.vercel.app"
 
 # DISPATCH TELEMETRY & ESCALATION WEBHOOKS
 ${enableMonitoring ? `PROMETHEUS_METRICS_ENABLED=true
 PROMETHEUS_METRICS_PATH="/api/metrics"
 GRAFANA_TELEMETRY_PORT=3001
 ` : "# TELEMETRY_DISABLED=true\n"}WHATSAPP_TARGET_PHONE="+919771596801"
-SUPPORT_ESCALATION_EMAIL="architect@nexus-systems.in"
+SUPPORT_ESCALATION_EMAIL="architect@nexuslab.vercel.app"
 `;
     }
 

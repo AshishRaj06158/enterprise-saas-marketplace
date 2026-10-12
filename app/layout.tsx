@@ -24,7 +24,7 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://nexus-systems.in'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://nexuslab.vercel.app'),
   title: {
     default: 'NEXUS Systems — Production-Ready Business Software & ERP Marketplace',
     template: '%s | NEXUS Systems',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'NEXUS Systems — Enterprise Digital Infrastructure Marketplace',
     description: 'Pre-built CRMs, operational ERPs, and telemetry dashboards ready for production deployment.',
-    url: 'https://nexus-systems.in',
+    url: 'https://nexuslab.vercel.app',
     siteName: 'NEXUS Systems',
     images: [
       {
