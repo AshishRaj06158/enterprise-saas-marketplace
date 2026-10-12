@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
-import { LeadStatus } from "@prisma/client";
+
+export type LeadStatus = "NEW" | "CONTACTED" | "CLOSED";
 
 export interface LeadRecord {
   id: string;
@@ -162,10 +163,10 @@ export async function createLead(data: {
         email: data.email,
         phone: data.phone || null,
         company: data.company || null,
-        productName: data.productName,
+        productName: data.productName || "General System Inquiry",
         budget: data.budget || null,
         message: data.message,
-        status: LeadStatus.NEW,
+        status: "NEW",
       },
     });
 
@@ -175,10 +176,10 @@ export async function createLead(data: {
       email: created.email,
       phone: created.phone,
       company: created.company,
-      productName: created.productName,
+      productName: created.productName || "General System Inquiry",
       budget: created.budget,
       message: created.message,
-      status: created.status as "NEW" | "CONTACTED" | "CLOSED",
+      status: (created.status as "NEW" | "CONTACTED" | "CLOSED") || "NEW",
       createdAt: created.createdAt,
       updatedAt: created.updatedAt,
     };
@@ -194,7 +195,7 @@ export async function createLead(data: {
       email: data.email,
       phone: data.phone || null,
       company: data.company || null,
-      productName: data.productName,
+      productName: data.productName || "General System Inquiry",
       budget: data.budget || null,
       message: data.message,
       status: "NEW",
@@ -212,7 +213,7 @@ export async function createLead(data: {
 export async function getAllLeads(statusFilter?: string): Promise<LeadRecord[]> {
   try {
     const leads = await prisma.lead.findMany({
-      where: statusFilter && statusFilter !== "ALL" ? { status: statusFilter as LeadStatus } : undefined,
+      where: statusFilter && statusFilter !== "ALL" ? { status: statusFilter } : undefined,
       orderBy: { createdAt: "desc" },
     });
 
@@ -223,10 +224,10 @@ export async function getAllLeads(statusFilter?: string): Promise<LeadRecord[]> 
         email: l.email,
         phone: l.phone,
         company: l.company,
-        productName: l.productName,
+        productName: l.productName || "General System Inquiry",
         budget: l.budget,
         message: l.message,
-        status: l.status as "NEW" | "CONTACTED" | "CLOSED",
+        status: (l.status as "NEW" | "CONTACTED" | "CLOSED") || "NEW",
         createdAt: l.createdAt,
         updatedAt: l.updatedAt,
       }));
@@ -252,7 +253,7 @@ export async function updateLeadStatus(
   try {
     const updated = await prisma.lead.update({
       where: { id: leadId },
-      data: { status: newStatus as LeadStatus },
+      data: { status: newStatus },
     });
 
     return {
@@ -263,10 +264,10 @@ export async function updateLeadStatus(
         email: updated.email,
         phone: updated.phone,
         company: updated.company,
-        productName: updated.productName,
+        productName: updated.productName || "General System Inquiry",
         budget: updated.budget,
         message: updated.message,
-        status: updated.status as "NEW" | "CONTACTED" | "CLOSED",
+        status: (updated.status as "NEW" | "CONTACTED" | "CLOSED") || "NEW",
         createdAt: updated.createdAt,
       },
     };
