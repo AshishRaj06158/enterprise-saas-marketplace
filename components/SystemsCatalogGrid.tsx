@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Terminal, SearchX, RotateCcw } from "lucide-react";
+import { ArrowRight, CheckCircle2, Terminal, SearchX, RotateCcw, MessageSquare } from "lucide-react";
 import { SystemProduct } from "@/data/systems";
 import TelemetryModal from "@/components/TelemetryModal";
 import SystemFilterBar from "@/components/SystemFilterBar";
@@ -185,7 +185,16 @@ export default function SystemsCatalogGrid({ systems }: SystemsCatalogGridProps)
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-2.5 w-full sm:w-auto">
+                  <div className="flex items-center space-x-2 w-full sm:w-auto">
+                    <Link
+                      href={"/#contact?product=" + encodeURIComponent(sys.name)}
+                      className="px-2.5 py-2.5 rounded-none text-xs font-bold font-mono-tabular text-amber-400 bg-[#07090E] border-2 border-amber-400/80 shadow-[2px_2px_0px_0px_#f59e0b] hover:bg-amber-400/10 active:translate-x-[1px] active:translate-y-[1px] transition-all flex items-center space-x-1 cursor-pointer min-h-[44px] uppercase"
+                      title="Direct Architectural Advisory Inquiry"
+                    >
+                      <MessageSquare className="w-3.5 h-3.5" />
+                      <span className="hidden xl:inline">INQUIRE</span>
+                    </Link>
+
                     <Link
                       href={"/playground?system=" + sys.slug}
                       className="px-3.5 py-2.5 rounded-none text-xs font-bold font-mono-tabular text-[#00F0FF] bg-[#07090E] border-2 border-[#00F0FF] shadow-[2px_2px_0px_0px_#00F0FF] hover:bg-[#00F0FF]/10 active:translate-x-[1px] active:translate-y-[1px] transition-all flex items-center space-x-1.5 cursor-pointer min-h-[44px] uppercase"

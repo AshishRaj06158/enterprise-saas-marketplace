@@ -27,7 +27,9 @@ import {
   RotateCcw,
   Check,
   Copy,
-  CornerDownLeft
+  CornerDownLeft,
+  Users,
+  Shield,
 } from "lucide-react";
 import { useCurrency } from "@/context/CurrencyContext";
 import { getAllSystems } from "@/data/systems";
@@ -345,6 +347,48 @@ export default function CommandPalette() {
         shortcut: "GOTO /demos",
         onSelect: () => {
           router.push("/demos");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-admin",
+        title: "Admin Command Matrix & System Registry (/admin)",
+        subtitle: "Root administrator console: live codebases management, license minting, and audit telemetry.",
+        category: "Navigation",
+        keywords: ["admin", "root", "control room", "matrix", "licenses", "mint", "registry", "manage"],
+        icon: Shield,
+        badge: "ADMIN",
+        shortcut: "GOTO /admin",
+        onSelect: () => {
+          router.push("/admin");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-admin-leads",
+        title: "Admin Leads Dashboard & Dispatch (/admin/leads)",
+        subtitle: "Customer inquiry telemetry, 1-click WhatsApp dispatch, status toggles, and visitor feedback feed.",
+        category: "Navigation",
+        keywords: ["leads", "inquiries", "admin leads", "whatsapp", "feedback", "clients", "dispatch"],
+        icon: Users,
+        badge: "ADMIN LEADS",
+        shortcut: "GOTO /admin/leads",
+        onSelect: () => {
+          router.push("/admin/leads");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "nav-admin-analytics",
+        title: "Admin Product Analytics & Demand Matrix (/admin/analytics)",
+        subtitle: "Product-wise inquiry volumes, top requested SaaS badges, demand charts, and sentiment rating.",
+        category: "Navigation",
+        keywords: ["analytics", "product analytics", "demand", "breakdown", "top product", "charts", "volume"],
+        icon: BarChart3,
+        badge: "ANALYTICS",
+        shortcut: "GOTO /admin/analytics",
+        onSelect: () => {
+          router.push("/admin/analytics");
           setIsOpen(false);
         },
       },

@@ -21,6 +21,7 @@ interface Slide {
   visualType: "omega" | "telemetry" | "crm" | "erp";
   imageSrc: string;
   imageAlt: string;
+  productName: string;
 }
 
 const slides: Slide[] = [
@@ -39,6 +40,7 @@ const slides: Slide[] = [
     visualType: "omega",
     imageSrc: "/slide-1-hero-tablet.png",
     imageAlt: "SYSTEM v2.4 Zero-Config Platform Showcase",
+    productName: "Nexus Autonomous Agent Orchestrator",
   },
   {
     id: "telemetry",
@@ -55,6 +57,7 @@ const slides: Slide[] = [
     visualType: "telemetry",
     imageSrc: "/slide-2-telemetry-matrix.png",
     imageAlt: "Telemetry Matrix - ₹14.2 Cr GMV and 12ms Latency Dashboard",
+    productName: "Nexus Telemetry Matrix",
   },
   {
     id: "crm",
@@ -71,6 +74,7 @@ const slides: Slide[] = [
     visualType: "crm",
     imageSrc: "/slide-3-deal-pipeline.png",
     imageAlt: "Deal Progression Workflow - 4.8x Deal Velocity Pipeline",
+    productName: "Autonomous CRM & Revenue Engine",
   },
   {
     id: "erp",
@@ -87,6 +91,7 @@ const slides: Slide[] = [
     visualType: "erp",
     imageSrc: "/slide-4-erp-operations.png",
     imageAlt: "Operations & Logistics ERP - Thermal Warehouse & GST Compliance",
+    productName: "Quantum Logistics & Fleet ERP",
   },
 ];
 
@@ -198,7 +203,7 @@ export default function HeroSlider() {
                   </Link>
 
                   <Link
-                    href="/#contact"
+                    href={`/#contact?product=${encodeURIComponent(active.productName)}`}
                     className="px-7 py-4 rounded-none bg-[#0D111A] border-2 border-[#1A2234] text-white font-bold text-xs uppercase hover:border-[#00F0FF] hover:text-[#00F0FF] shadow-[4px_4px_0px_0px_#1A2234] hover:shadow-[4px_4px_0px_0px_#00F0FF] active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center space-x-2 min-h-[44px]"
                   >
                     <span>REQUEST STAGING SLA</span>

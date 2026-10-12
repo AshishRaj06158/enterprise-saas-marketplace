@@ -7,7 +7,7 @@ import { Send, ShieldCheck, AlertCircle, MessageSquareText, CheckSquare, Square 
 function ContactFormInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const systemParam = searchParams.get("system") || "";
+  const systemParam = searchParams.get("system") || searchParams.get("product") || "";
 
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -16,6 +16,7 @@ function ContactFormInner() {
   const [formData, setFormData] = useState({
     fullName: "",
     workEmail: "",
+    phone: "",
     company: "",
     systemRequested: systemParam || "Nexus Autonomous Agent Orchestrator",
     budget: "₹1,49,000 (Enterprise Suite)",
@@ -24,13 +25,14 @@ function ContactFormInner() {
   });
 
   useEffect(() => {
-    if (systemParam) {
+    const p = searchParams.get("system") || searchParams.get("product") || "";
+    if (p) {
       setFormData((prev) => ({
         ...prev,
-        systemRequested: systemParam
+        systemRequested: p
       }));
     }
-  }, [systemParam]);
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,9 +45,11 @@ function ContactFormInner() {
         fullName: formData.fullName,
         email: formData.workEmail,
         workEmail: formData.workEmail,
+        phone: formData.phone,
         company: formData.company,
         systemOfInterest: formData.systemRequested,
         systemRequested: formData.systemRequested,
+        productName: formData.systemRequested,
         budget: formData.budget,
         message: formData.requirements,
         requirements: formData.requirements,
@@ -150,6 +154,17 @@ function ContactFormInner() {
             className="w-full bg-[#07090E] border-2 border-[#1A2234] rounded-none px-4 py-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-[#00F0FF] transition-colors font-mono shadow-[2px_2px_0px_0px_#1A2234]"
             value={formData.workEmail}
             onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
+          />
+        </div>
+
+        <div>
+          <label className="block text-xs font-mono text-slate-400 mb-2 uppercase">[PHONE / WHATSAPP NUMBER]</label>
+          <input
+            type="tel"
+            placeholder="+91 9876543210"
+            className="w-full bg-[#07090E] border-2 border-[#1A2234] rounded-none px-4 py-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-[#00F0FF] transition-colors font-mono shadow-[2px_2px_0px_0px_#1A2234]"
+            value={formData.phone}
+            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           />
         </div>
 

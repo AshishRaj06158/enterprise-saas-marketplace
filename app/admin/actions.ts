@@ -9,6 +9,7 @@ import {
   deleteDbSystem,
   logAuditAction,
 } from "@/lib/systems-service";
+import { updateLeadStatus } from "@/lib/leads-feedback-service";
 
 export async function toggleSystemLiveAction(id: string, isLive: boolean) {
   const session = await auth();
@@ -145,3 +146,29 @@ export async function generateLicenseAction(
   revalidatePath("/portal");
   return { success: true, license };
 }
+
+export async function updateLeadStatusAction(
+  leadId: string,
+  newStatus: "NEW" | "CONTACTED" | "CLOSED"
+) {
+  const session = await auth();
+  if (!session?.user || (session.user as any).role !== "ADMIN") {
+    return { success: false, error: "UNAUTHORIZED: Admin clearance required" };
+  }
+
+  const result = await updateLeadStatus(leadId, newStatus);
+  if (!result.success) {
+    return { success: false, error: result.error || "Failed to update lead status" };
+  }
+
+  await logAuditAction(
+    `LEAD_STATUS_UPDATED:${leadId}:${newStatus}`,
+    (session.user as any).id
+  );
+
+  revalidatePath("/admin/leads");
+  revalidatePath("/admin/analytics");
+  revalidatePath("/admin");
+  return { success: true, lead: result.lead };
+}
+

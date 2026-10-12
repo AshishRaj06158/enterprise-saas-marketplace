@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Terminal, ArrowRight, ExternalLink } from "lucide-react";
+import { Terminal, ArrowRight, ExternalLink, MessageSquare } from "lucide-react";
 import { SystemProduct } from "@/data/systems";
 import TelemetryModal from "@/components/TelemetryModal";
 
@@ -16,6 +16,15 @@ export default function SystemDetailActions({ sys }: SystemDetailActionsProps) {
   return (
     <>
       <div className="flex flex-wrap items-center gap-3 font-mono-tabular">
+        <Link
+          href={`/#contact?product=${encodeURIComponent(sys.name)}`}
+          className="px-4 py-3 rounded-none text-xs font-bold text-amber-400 bg-[#07090E] border-2 border-amber-400/80 shadow-[3px_3px_0px_0px_#f59e0b] hover:bg-amber-400/10 active:translate-x-[2px] active:translate-y-[2px] transition-all flex items-center space-x-1.5 min-h-[44px] uppercase"
+          title="Direct Architectural Advisory Inquiry"
+        >
+          <MessageSquare className="w-3.5 h-3.5 text-amber-400" />
+          <span>[INQUIRE ADVISORY]</span>
+        </Link>
+
         <Link
           href={`/playground?system=${sys.slug}`}
           className="px-4 py-3 rounded-none text-xs font-bold text-[#00F0FF] bg-[#07090E] border-2 border-[#00F0FF] shadow-[3px_3px_0px_0px_#00F0FF] hover:bg-[#00F0FF]/10 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#00F0FF] transition-all flex items-center space-x-2 cursor-pointer min-h-[44px] uppercase"

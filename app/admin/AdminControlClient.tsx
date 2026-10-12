@@ -23,6 +23,8 @@ import {
   DollarSign,
   AlertTriangle,
   Trash2,
+  Users,
+  BarChart3,
 } from "lucide-react";
 import { toggleSystemLiveAction, upsertSystemAction, generateLicenseAction, deleteSystemAction } from "./actions";
 
@@ -195,6 +197,22 @@ export default function AdminControlClient({
           <Activity className="w-3.5 h-3.5" />
           <span>[AUDIT_TELEMETRY_LOGS]</span>
         </button>
+
+        <Link
+          href="/admin/leads"
+          className="px-4 py-2.5 text-xs font-bold uppercase tracking-wider border-2 bg-[#0D111A] text-[#00F0FF] border-[#00F0FF]/60 hover:border-[#00F0FF] hover:bg-[#00F0FF]/10 shadow-[3px_3px_0px_0px_#00F0FF]/30 transition-all flex items-center space-x-2 min-h-[42px]"
+        >
+          <Users className="w-3.5 h-3.5 text-[#00F0FF]" />
+          <span>[LEADS_DASHBOARD (/admin/leads)]</span>
+        </Link>
+
+        <Link
+          href="/admin/analytics"
+          className="px-4 py-2.5 text-xs font-bold uppercase tracking-wider border-2 bg-[#0D111A] text-[#8B5CF6] border-[#8B5CF6]/60 hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 shadow-[3px_3px_0px_0px_#8B5CF6]/30 transition-all flex items-center space-x-2 min-h-[42px]"
+        >
+          <BarChart3 className="w-3.5 h-3.5 text-[#8B5CF6]" />
+          <span>[PRODUCT_ANALYTICS (/admin/analytics)]</span>
+        </Link>
       </div>
 
       {/* TAB 1: Systems Management Table */}

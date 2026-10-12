@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { sendInquiryNotificationEmail, InquiryData } from '@/lib/email-service';
+import { createLead } from '@/lib/leads-feedback-service';
 import { prisma } from '@/lib/db';
 
 export async function POST(req: Request) {
@@ -22,8 +23,9 @@ export async function POST(req: Request) {
     // Support both canonical and legacy field names
     const name = (body.name || body.fullName || '').trim();
     const email = (body.email || body.workEmail || '').trim().toLowerCase();
+    const phone = (body.phone || body.phoneOrWhatsApp || body.whatsapp || '').trim() || null;
     const company = (body.company || '').trim() || 'Not Specified';
-    const systemOfInterest = (body.systemOfInterest || body.systemRequested || '').trim() || 'General Architecture';
+    const systemOfInterest = (body.productName || body.systemOfInterest || body.systemRequested || '').trim() || 'General Architecture';
     const budget = (body.budget || '').trim() || 'Commercial Tier';
     const message = (body.message || body.requirements || '').trim();
     const timestamp = body.timestamp || new Date().toISOString();
@@ -57,7 +59,23 @@ export async function POST(req: Request) {
       timestamp,
     };
 
-    // 1. Persist the record in Database (AuditLog) if DB is reachable
+    // 1. Create Lead Record in Database via leads-feedback-service
+    let savedLead = null;
+    try {
+      savedLead = await createLead({
+        name,
+        email,
+        phone,
+        company,
+        productName: systemOfInterest,
+        budget,
+        message,
+      });
+    } catch (leadErr) {
+      console.warn('[INQUIRY LEAD PERSISTENCE WARNING]:', leadErr);
+    }
+
+    // 2. Persist audit log record in Database
     try {
       const clientIp = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || '127.0.0.1';
       await prisma.auditLog.create({
@@ -67,14 +85,17 @@ export async function POST(req: Request) {
         },
       });
     } catch (dbErr) {
-      console.warn('[INQUIRY DB PERSISTENCE NOTICE]: Database unavailable or offline, continuing in-memory:', (dbErr as Error).message);
+      console.warn('[INQUIRY AUDIT LOG WARNING]: Database unavailable:', (dbErr as Error).message);
     }
 
     // Explicit runtime logging for server telemetry
-    console.log('[ENTERPRISE LEAD SUBMITTED]:', inquiryData);
+    console.log('[ENTERPRISE LEAD SUBMITTED & LOGGED]:', {
+      leadId: savedLead?.id,
+      ...inquiryData,
+      phone,
+    });
 
-    // 2. Immediately invoke automated email notification (Gmail SMTP / Nodemailer)
-    // Non-blocking and wrapped in safe try-catch so it never blocks UI success
+    // 3. Automated Dual-Channel Email Dispatch (Gmail SMTP / Nodemailer)
     try {
       await sendInquiryNotificationEmail(inquiryData);
     } catch (dispatchErr) {
@@ -85,6 +106,7 @@ export async function POST(req: Request) {
       {
         ok: true,
         message: 'Inquiry received and logged successfully.',
+        leadId: savedLead?.id,
         timestamp,
       },
       { status: 200 }

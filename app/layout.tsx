@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import MatrixBackground from '@/components/MatrixBackground';
 import { CurrencyProvider } from '@/context/CurrencyContext';
 import CommandPalette from '@/components/CommandPalette';
+import FeedbackWidget from '@/components/FeedbackWidget';
 import AuthSessionProvider from '@/components/AuthSessionProvider';
 
 const jakarta = Plus_Jakarta_Sans({
@@ -78,6 +79,7 @@ export default function RootLayout({
 
             <Footer />
             <CommandPalette />
+            <FeedbackWidget />
           </CurrencyProvider>
         </AuthSessionProvider>
       </body>

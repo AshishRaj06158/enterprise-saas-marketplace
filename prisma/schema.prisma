@@ -17,6 +17,12 @@ enum LicenseStatus {
   REVOKED
 }
 
+enum LeadStatus {
+  NEW
+  CONTACTED
+  CLOSED
+}
+
 model User {
   id          String     @id @default(cuid())
   name        String?
@@ -82,4 +88,31 @@ model AuditLog {
   user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@map("audit_logs")
+}
+
+model Lead {
+  id          String     @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  company     String?
+  productName String
+  budget      String?
+  message     String
+  status      LeadStatus @default(NEW)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("leads")
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  rating    Int
+  category  String   @default("General")
+  comment   String
+  userEmail String?
+  createdAt DateTime @default(now())
+
+  @@map("feedbacks")
 }
