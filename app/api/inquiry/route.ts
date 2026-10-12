@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+import { sendInquiryNotificationEmail, InquiryData } from '@/lib/email-service';
+import { prisma } from '@/lib/db';
 
 export async function POST(req: Request) {
   try {
@@ -10,63 +12,81 @@ export async function POST(req: Request) {
       );
     }
 
-    const { fullName, workEmail, company, systemRequested, requirements, budget, website_hp } = body;
+    const { website_hp } = body;
 
     // Honeypot validation: bot hidden field protection
     if (website_hp && typeof website_hp === 'string' && website_hp.trim() !== '') {
       return NextResponse.json({ ok: true, message: 'Inquiry processed.' }, { status: 200 });
     }
 
-    if (!fullName?.trim() || !workEmail?.trim() || !requirements?.trim()) {
+    // Support both canonical and legacy field names
+    const name = (body.name || body.fullName || '').trim();
+    const email = (body.email || body.workEmail || '').trim().toLowerCase();
+    const company = (body.company || '').trim() || 'Not Specified';
+    const systemOfInterest = (body.systemOfInterest || body.systemRequested || '').trim() || 'General Architecture';
+    const budget = (body.budget || '').trim() || 'Commercial Tier';
+    const message = (body.message || body.requirements || '').trim();
+    const timestamp = body.timestamp || new Date().toISOString();
+
+    if (!name || !email || !message) {
       return NextResponse.json(
-        { ok: false, error: 'Required fields missing: Full Name, Work Email, and Requirements are required.' },
+        {
+          ok: false,
+          error: 'Required fields missing: Full Name, Work Email, and Requirements/Message are required.',
+        },
         { status: 400 }
       );
     }
 
     // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(workEmail.trim())) {
+    if (!emailRegex.test(email)) {
       return NextResponse.json(
         { ok: false, error: 'Please enter a valid work email address.' },
         { status: 400 }
       );
     }
 
-    // Log the inquiry explicitly for Vercel Runtime Logs
-    console.log('[ENTERPRISE LEAD SUBMITTED]:', {
-      fullName: fullName.trim(),
-      workEmail: workEmail.trim().toLowerCase(),
-      company: company?.trim() || 'N/A',
-      systemRequested: systemRequested?.trim() || 'N/A',
-      budget: budget?.trim() || 'N/A',
-      requirements: requirements.trim(),
-      timestamp: new Date().toISOString()
-    });
+    const inquiryData: InquiryData = {
+      name,
+      email,
+      company,
+      systemOfInterest,
+      budget,
+      message,
+      timestamp,
+    };
 
-    // Optional Resend Email Dispatch if RESEND_API_KEY is configured
-    if (process.env.RESEND_API_KEY) {
-      try {
-        await fetch('https://api.resend.com/emails', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-          },
-          body: JSON.stringify({
-            from: 'NEXUS.OS Leads <onboarding@resend.dev>',
-            to: ['ashishraj06158@gmail.com'],
-            subject: `🚀 New Enterprise Inquiry from ${fullName.trim()}`,
-            text: `Enterprise Lead Details:\n\nClient: ${fullName.trim()}\nEmail: ${workEmail.trim()}\nCompany: ${company || 'N/A'}\nSystem Requested: ${systemRequested || 'N/A'}\nBudget: ${budget || 'N/A'}\nRequirements:\n${requirements.trim()}`,
-          }),
-        });
-      } catch (emailErr) {
-        console.error('[RESEND DISPATCH ERROR]:', emailErr);
-      }
+    // 1. Persist the record in Database (AuditLog) if DB is reachable
+    try {
+      const clientIp = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || '127.0.0.1';
+      await prisma.auditLog.create({
+        data: {
+          action: `INQUIRY_SUBMISSION: ${systemOfInterest} [${name} <${email}>]`,
+          ipAddress: clientIp,
+        },
+      });
+    } catch (dbErr) {
+      console.warn('[INQUIRY DB PERSISTENCE NOTICE]: Database unavailable or offline, continuing in-memory:', (dbErr as Error).message);
+    }
+
+    // Explicit runtime logging for server telemetry
+    console.log('[ENTERPRISE LEAD SUBMITTED]:', inquiryData);
+
+    // 2. Immediately invoke automated email notification (Gmail SMTP / Nodemailer)
+    // Non-blocking and wrapped in safe try-catch so it never blocks UI success
+    try {
+      await sendInquiryNotificationEmail(inquiryData);
+    } catch (dispatchErr) {
+      console.warn('[AUTOMATED EMAIL DISPATCH HANDLER WARNING]:', dispatchErr);
     }
 
     return NextResponse.json(
-      { ok: true, message: 'Inquiry received and logged successfully.' },
+      {
+        ok: true,
+        message: 'Inquiry received and logged successfully.',
+        timestamp,
+      },
       { status: 200 }
     );
   } catch (error) {

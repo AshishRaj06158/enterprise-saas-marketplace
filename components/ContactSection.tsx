@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Send, ShieldCheck, AlertCircle, MessageSquareText } from "lucide-react";
+import { Send, ShieldCheck, AlertCircle, MessageSquareText, CheckSquare, Square } from "lucide-react";
 
 function ContactFormInner() {
   const router = useRouter();
@@ -11,6 +11,8 @@ function ContactFormInner() {
 
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [autoLaunchWhatsApp, setAutoLaunchWhatsApp] = useState(true);
+
   const [formData, setFormData] = useState({
     fullName: "",
     workEmail: "",
@@ -36,36 +38,66 @@ function ContactFormInner() {
     setErrorMsg("");
 
     try {
-      // 1. Submit lead to API endpoint
+      const payload = {
+        name: formData.fullName,
+        fullName: formData.fullName,
+        email: formData.workEmail,
+        workEmail: formData.workEmail,
+        company: formData.company,
+        systemOfInterest: formData.systemRequested,
+        systemRequested: formData.systemRequested,
+        budget: formData.budget,
+        message: formData.requirements,
+        requirements: formData.requirements,
+        website_hp: formData.website_hp,
+        timestamp: new Date().toISOString()
+      };
+
+      // 1. Submit lead to Backend API endpoint (triggers automated Gmail dispatch via Nodemailer)
       const res = await fetch("/api/inquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
 
       const data = await res.json().catch(() => ({}));
 
       if (res.ok && data.ok !== false) {
-        // 2. Construct structured WhatsApp lead message
-        const waMessage = `🚀 *New Enterprise Inquiry - NEXUS.OS*
-• *Client*: ${formData.fullName}
-• *Company*: ${formData.company || "N/A"}
-• *Email*: ${formData.workEmail}
-• *System*: ${formData.systemRequested || "Custom Architecture"}
-• *Budget*: ${formData.budget || "Commercial Tier"}
-• *Scope*: ${formData.requirements}`;
+        // 2. Construct Dynamic Pre-Filled WhatsApp CTA URL with target phone 919771596801
+        const messagePayload = encodeURIComponent(
+          `*⚡ SUTRA / NEXUS ENTERPRISE INQUIRY*\n\n` +
+          `• *Lead Name:* ${formData.fullName || 'Enterprise Client'}\n` +
+          `• *Email:* ${formData.workEmail || 'N/A'}\n` +
+          `• *Company:* ${formData.company || 'N/A'}\n` +
+          `• *System:* ${formData.systemRequested || 'Enterprise SaaS'}\n` +
+          `• *Message:* ${formData.requirements || 'Ready for SLA Dispatch'}`
+        );
+        const targetWhatsAppUrl = `https://wa.me/919771596801?text=${messagePayload}`;
 
-        const waUrl = `https://wa.me/919771596801?text=${encodeURIComponent(waMessage)}`;
-
-        // 3. Automatically attempt opening WhatsApp in a new tab
-        try {
-          window.open(waUrl, "_blank", "noopener,noreferrer");
-        } catch (e) {
-          console.error("Window open blocked:", e);
+        // 3. Auto-launch WhatsApp chat in new tab if enabled
+        if (autoLaunchWhatsApp) {
+          try {
+            window.open(targetWhatsAppUrl, "_blank", "noopener,noreferrer");
+          } catch (e) {
+            console.error("Window open blocked:", e);
+          }
         }
 
-        // 4. Navigate to thank-you page with WhatsApp link context
-        router.push(`/thank-you?wa=${encodeURIComponent(waUrl)}`);
+        // 4. Navigate to thank-you confirmation page with dynamic query parameters
+        const queryParams = new URLSearchParams({
+          name: formData.fullName,
+          email: formData.workEmail,
+          company: formData.company || "",
+          systemOfInterest: formData.systemRequested,
+          system: formData.systemRequested,
+          budget: formData.budget,
+          message: formData.requirements,
+          note: formData.requirements,
+          auto: autoLaunchWhatsApp ? "1" : "0",
+          wa: targetWhatsAppUrl
+        });
+
+        router.push(`/thank-you?${queryParams.toString()}`);
       } else {
         setErrorMsg(data.error || "Submission failed. Please check your details and try again.");
       }
@@ -185,6 +217,28 @@ function ContactFormInner() {
         />
       </div>
 
+      {/* Auto-launch WhatsApp Switch/Checkbox */}
+      <div className="p-3.5 bg-[#07090E] border-2 border-[#1A2234] hover:border-[#10B981] transition-colors shadow-[2px_2px_0px_0px_#1A2234]">
+        <label
+          onClick={() => setAutoLaunchWhatsApp(!autoLaunchWhatsApp)}
+          className="flex items-center gap-3 cursor-pointer select-none"
+        >
+          {autoLaunchWhatsApp ? (
+            <CheckSquare className="w-4 h-4 text-[#10B981] shrink-0" />
+          ) : (
+            <Square className="w-4 h-4 text-slate-500 shrink-0" />
+          )}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 text-xs font-mono">
+            <span className={autoLaunchWhatsApp ? "text-emerald-400 font-bold" : "text-slate-400"}>
+              [✓] Auto-launch WhatsApp chat on submit
+            </span>
+            <span className="text-[11px] text-slate-500 font-normal">
+              (Direct SLA channel: +91 9771596801)
+            </span>
+          </div>
+        </label>
+      </div>
+
       {errorMsg && (
         <div className="p-3.5 rounded-none bg-red-950/60 border-2 border-red-500 text-xs text-red-300 flex items-center gap-2 font-mono shadow-[2px_2px_0px_0px_#EF4444]">
           <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
@@ -198,11 +252,11 @@ function ContactFormInner() {
         className="w-full py-4 rounded-none bg-[#00F0FF] text-black font-mono font-bold text-xs uppercase flex items-center justify-center gap-2 transition-all border-2 border-black shadow-[4px_4px_0px_0px_#00F0FF] hover:bg-[#00F0FF]/90 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#00F0FF] disabled:opacity-50 cursor-pointer min-h-[48px]"
       >
         {loading ? (
-          "[TRANSMITTING INQUIRY PACKET...]"
+          "[TRANSMITTING INQUIRY PACKET & TRIGGERING DISPATCH...]"
         ) : (
           <>
             <Send className="w-4 h-4" />
-            <span>[SUBMIT DEPLOYMENT REQUEST &amp; LAUNCH WHATSAPP DISPATCH]</span>
+            <span>[SUBMIT DEPLOYMENT REQUEST &amp; LAUNCH DUAL NOTIFICATION]</span>
           </>
         )}
       </button>
